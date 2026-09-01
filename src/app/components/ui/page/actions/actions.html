@@ -1,0 +1,24 @@
+<div class="flex">
+  @if (hasPrimaryActions()) {
+    <div>
+      @for (action of primaryActions(); track $index) {
+        @if (action.to) {
+            <a [routerLink]="action.to">{{ action.label }}</a>
+        } @else {
+          <button>{{ action.label }}</button>
+        }
+      }
+    </div>
+  }
+  @if (hasSecondaryActions()) {
+    <div>
+      @for (action of secondaryActions(); track $index) {
+        @if (action.to) {
+            <a [routerLink]="action.to">{{ action.label }}</a>
+        } @else {
+          <button>{{ action.label }}</button>
+        }
+      }
+    </div>
+  }
+</div>

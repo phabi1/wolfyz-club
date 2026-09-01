@@ -1,0 +1,14 @@
+<ng-template #dialogTpl>
+  <h1 mat-dialog-title>New Payment</h1>
+  <div mat-dialog-content>
+    <formly-form [form]="form" [model]="model" [fields]="fields"> </formly-form>
+  </div>
+  <div mat-dialog-actions>
+    @if (processing()) {
+        <div><mat-progress-spinner mode="indeterminate" diameter="40"></mat-progress-spinner></div>
+    } @else {
+      <button mat-button mat-dialog-close>Cancel</button>
+      <button mat-button [disabled]="!canSave()" (click)="onSave()">Save</button>
+    }
+  </div>
+</ng-template>

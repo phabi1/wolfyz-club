@@ -1,0 +1,16 @@
+<ng-template #dialogTpl>
+  <h1 mat-dialog-title>Payment Details</h1>
+  <div mat-dialog-content>
+    @if (loading()) {
+      <p>Loading payment details...</p>
+    }
+    @if (item(); as details) {
+      <p>Here are the details of the payment.</p>
+      <p>Payment ID: {{ details.id }}</p>
+      <p>Amount: {{ details.amount }}</p>
+    }
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button mat-dialog-close>Close</button>
+  </div>
+</ng-template>

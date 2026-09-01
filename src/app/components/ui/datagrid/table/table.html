@@ -1,0 +1,25 @@
+<table mat-table [dataSource]="rows()">
+  @for (column of columns(); track column.name) {
+    <ng-container [matColumnDef]="column.name">
+      <th mat-header-cell *matHeaderCellDef>{{ column.header }}</th>
+      <td mat-cell *matCellDef="let row">{{ row[column.data] }}</td>
+    </ng-container>
+  }
+
+  <ng-container matColumnDef="actions">
+    <th mat-header-cell *matHeaderCellDef>Actions</th>
+    <td mat-cell *matCellDef="let row">
+      <app-ui-datagrid-table-cell-actions
+        [row]="row"
+        [actions]="actions()"
+      ></app-ui-datagrid-table-cell-actions>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns()"></tr>
+  <tr
+    mat-row
+    *matRowDef="let row; columns: displayedColumns()"
+    (click)="onRowClick($event, row)"
+  ></tr>
+</table>

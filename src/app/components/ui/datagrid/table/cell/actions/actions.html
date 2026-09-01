@@ -1,0 +1,10 @@
+<button mat-icon-button [mat-menu-trigger-for]="menu">
+  <mat-icon>more_vert</mat-icon>
+</button>
+<mat-menu #menu="matMenu">
+  @for (action of actions(); track $index) {
+    <button mat-menu-item (click)="onClick($event, action)">
+      {{ action.label }}
+    </button>
+  }
+</mat-menu>

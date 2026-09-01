@@ -1,0 +1,12 @@
+{
+    "api": {
+        "endpoint": "http://api-wolfzy.docker.localhost"
+    },
+    "auth": {
+        "issuer": "https://auth-wolfzy.docker.localhost",
+        "clientId": "club",
+        "responseType": "code",
+        "scope": "profile email",
+        "redirectUri": "http://localhost:4200"
+    }
+}

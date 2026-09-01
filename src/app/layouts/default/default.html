@@ -1,0 +1,9 @@
+<mat-sidenav-container class="h-full">
+  <mat-sidenav opened mode="side">
+    <div class="h-10 flex items-center text-2xl font-bold border-b">
+      <div>Roller Les Loups</div>
+    </div>
+    <ng-container *ngComponentOutlet="sidebar()"></ng-container>
+  </mat-sidenav>
+  <router-outlet></router-outlet>
+</mat-sidenav-container>

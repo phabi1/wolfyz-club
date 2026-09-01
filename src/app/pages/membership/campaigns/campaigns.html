@@ -1,0 +1,5 @@
+<app-ui-page title="Campaigns">
+  @for (item of items(); track $index) {
+    <a [routerLink]="['/membership/campaign', item.id]">{{ item.title }}</a>
+  }
+</app-ui-page>

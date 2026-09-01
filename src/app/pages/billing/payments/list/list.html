@@ -1,0 +1,8 @@
+<app-ui-page title="Payments" subtitle="List all payments" [actions]="actions">
+  <app-ui-datagrid
+    [columns]="columns()"
+    [rows]="rows()"
+    [rowActions]="rowActions()"
+  ></app-ui-datagrid>
+</app-ui-page>
+<router-outlet></router-outlet>

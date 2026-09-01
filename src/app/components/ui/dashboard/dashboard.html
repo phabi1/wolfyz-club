@@ -1,0 +1,10 @@
+<gridster [options]="options">
+  @for (item of widgets(); track $index) {
+    <gridster-item [item]="item">
+      <app-ui-dashboard-widget-outlet
+        [type]="item.type"
+        [settings]="item.settings"
+      ></app-ui-dashboard-widget-outlet>
+    </gridster-item>
+  }
+</gridster>
