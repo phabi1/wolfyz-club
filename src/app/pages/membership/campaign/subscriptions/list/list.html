@@ -4,5 +4,14 @@
     [rows]="store.items()"
     [total]="store.total()"
     [rowActions]="rowActions"
+    [currentPage]="store.page()"
+    [search]="store.search()"
+    (searchChange)="onSearchChange($event)"
+    (paginationChange)="
+      onPaginationChange({
+        page: $event.page,
+        size: $event.size,
+      })
+    "
   ></app-ui-datagrid>
 </app-ui-page>

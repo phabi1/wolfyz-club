@@ -1,0 +1,37 @@
+<div class="amount-field" role="group" [attr.aria-label]="props.label || 'Amount'">
+  <mat-form-field appearance="outline" class="amount-units">
+    <mat-label>{{ props.label || 'Montant' }}</mat-label>
+    <input
+      matInput
+      type="text"
+      inputmode="numeric"
+      [value]="unitsValue"
+      [required]="!!props.required"
+      [disabled]="isDisabled"
+      (input)="onUnitsInput($any($event.target).value)"
+      aria-label="Unites"
+    />
+    <span matTextSuffix>€</span>
+  </mat-form-field>
+
+  <div class="amount-separator" aria-hidden="true">,</div>
+
+  <mat-form-field appearance="outline" class="amount-cents">
+    <mat-label>Centimes</mat-label>
+    <input
+      matInput
+      type="text"
+      inputmode="numeric"
+      maxlength="2"
+      [value]="centsValue"
+      [required]="!!props.required"
+      [disabled]="isDisabled"
+      (input)="onCentsInput($any($event.target).value)"
+      aria-label="Centimes"
+    />
+  </mat-form-field>
+</div>
+
+@if (showError) {
+  <formly-validation-message [field]="field"></formly-validation-message>
+}

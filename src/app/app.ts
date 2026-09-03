@@ -1,7 +1,6 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { OAuthService } from 'angular-oauth2-oidc';
-import { ConfigService } from './services/config.service';
+import { AuthService } from './services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -9,29 +8,15 @@ import { ConfigService } from './services/config.service';
   templateUrl: './app.html',
   styleUrls: ['./app.css'],
 })
-export class App {
-  private oauthService = inject(OAuthService);
-  private configService = inject(ConfigService);
+export class App implements OnInit {
+  private authService = inject(AuthService);
   protected readonly title = signal('club');
 
-  constructor() {
-    // this.oauthService.configure({
-    //   issuer: this.configService.get('auth.issuer'),
-    //   responseType: 'code',
-    //   clientId: this.configService.get('auth.clientId'),
-    //   scope: this.configService.get('auth.scope'),
-    //   redirectUri: this.configService.get('auth.redirectUri'),
-    //   showDebugInformation: true,
-    //   timeoutFactor: 0.01,
-    // });
-    // this.oauthService.events.subscribe((event) => {
-    //   console.log(event);
-    // });
-    // this.oauthService.loadDiscoveryDocumentAndLogin();
-
-  }
-
   ngOnInit() {
+    // Initialize authentication status from OAuth2 token
+    this.authService.authenticate();
+
+    // Hide splash screen
     const splashscreen = document.getElementById('splashscreen');
     if (splashscreen) {
       setTimeout(() => {

@@ -22,6 +22,6 @@ import { provideDashboardWidgets } from '../../components/ui/dashboard/widget-re
 export class RootDashboard {
   widgets = signal<Widget[]>([
     { cols: 2, rows: 1, y: 0, x: 0, type: 'welcome', settings: {} },
-    { cols: 2, rows: 2, y: 0, x: 2, type: 'current-campaign', settings: {} },
+    { cols: 2, rows: 1, y: 0, x: 2, type: 'current-campaign', settings: {} },
   ]);
 }

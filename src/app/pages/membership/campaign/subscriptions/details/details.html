@@ -3,6 +3,24 @@
     <p>Loading...</p>
   }
   @if (store.item(); as item) {
-    <app-membership-subscription-details-info [item]="item"></app-membership-subscription-details-info>
+    <div class="flex flex-col gap-4">
+    <app-membership-subscription-details-overview-section
+      [item]="item"
+      [contactsCount]="item.contacts.length"
+      [sessionsCount]="item.sessions?.length || 0"
+    ></app-membership-subscription-details-overview-section>
+    <app-membership-subscription-details-member-section
+      [item]="item"
+    ></app-membership-subscription-details-member-section>
+    <app-membership-subscription-details-sessions-section
+      [lessons]="store.lessons()"
+      [sessions]="item.sessions || []"
+      (sessionsChange)="onSessionsChange($event)"
+    ></app-membership-subscription-details-sessions-section>
+    <app-membership-subscription-details-contacts-section
+      [contacts]="item.contacts || []"
+      (contactsChange)="onContactsChange($event)"
+    ></app-membership-subscription-details-contacts-section>
+    </div>
   }
 </app-ui-page>

@@ -24,4 +24,18 @@ export class CampaignService {
   public item(id: string): Observable<Campaign> {
     return this.httpClient.get<Campaign>(`${this.endpoint}/${id}`);
   }
+
+  public update(campaignId: number, campaign: Partial<Campaign>): Observable<Campaign> {
+    return this.httpClient.put<Campaign>(`${this.endpoint}/${campaignId}`, campaign);
+  }
+
+  public updateSettings(
+    campaignId: number,
+    settings: Record<string, unknown>,
+  ): Observable<{ success: boolean }> {
+    return this.httpClient.put<{ success: boolean }>(
+      `${this.endpoint}/${campaignId}/settings`,
+      settings,
+    );
+  }
 }

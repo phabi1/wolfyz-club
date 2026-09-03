@@ -1,0 +1,27 @@
+.amount-field {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto 8rem;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.amount-units,
+.amount-cents {
+  width: 100%;
+}
+
+.amount-separator {
+  color: #475569;
+  font-size: 1.125rem;
+  font-weight: 700;
+}
+
+@media (max-width: 640px) {
+  .amount-field {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .amount-separator {
+    display: none;
+  }
+}

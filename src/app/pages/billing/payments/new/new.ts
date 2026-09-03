@@ -42,7 +42,7 @@ export class New implements AfterViewInit {
   fields: FormlyFieldConfig[] = [
     {
       key: 'amount',
-      type: 'input',
+      type: 'amount',
       props: {
         label: 'Amount',
         required: true,

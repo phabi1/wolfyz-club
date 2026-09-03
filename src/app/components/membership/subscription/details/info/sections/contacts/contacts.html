@@ -1,0 +1,50 @@
+<app-ui-collection
+  [title]="'Contacts'"
+  [emptyMessage]="'Aucun contact associe a cette souscription.'"
+  [addLabel]="'Ajouter un contact'"
+  [items]="contacts()"
+  [itemTpl]="contactItemTpl"
+  (addItem)="onAddItem()"
+  (itemClick)="onItemClick($event)"
+></app-ui-collection>
+
+<ng-template #contactItemTpl let-contact>
+  <header class="mb-3 flex items-start justify-between gap-3">
+    <h4 class="m-0 text-sm font-bold text-slate-900">
+      {{ fullName(contact.firstname, contact.lastname) }}
+    </h4>
+    <span class="chip">#{{ contact.id }}</span>
+  </header>
+  <dl class="grid grid-cols-1 gap-y-3 md:grid-cols-2 md:gap-x-4">
+    <div class="md:col-span-2">
+      <dt class="m-0 text-xs uppercase tracking-[0.04em] text-slate-500">Email</dt>
+      <dd class="mt-1 text-[0.95rem] font-medium text-slate-900 wrap-break-word">
+        {{ contactEmail(contact) }}
+      </dd>
+    </div>
+    <div>
+      <dt class="m-0 text-xs uppercase tracking-[0.04em] text-slate-500">Telephone</dt>
+      <dd class="mt-1 text-[0.95rem] font-medium text-slate-900">
+        {{ contactPhone(contact) }}
+      </dd>
+    </div>
+  </dl>
+</ng-template>
+
+<ng-template #formTpl>
+  <h1 mat-dialog-title>{{ formMode === 'add' ? 'Ajouter un contact' : 'Modifier le contact' }}</h1>
+  <div mat-dialog-content>
+    <formly-form [form]="form" [fields]="fields" [model]="model"></formly-form>
+  </div>
+  <div mat-dialog-actions>
+    @if (formMode === 'edit') {
+      <button type="button" mat-button class="action-btn-danger" (click)="onDelete()">
+        Supprimer
+      </button>
+    }
+    <button type="button" mat-button mat-dialog-close>Annuler</button>
+    <button type="button" mat-button cdkFocusInitial [disabled]="form.invalid" (click)="onSubmit()">
+      {{ formMode === 'add' ? 'Ajouter' : 'Modifier' }}
+    </button>
+  </div>
+</ng-template>

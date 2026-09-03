@@ -8,15 +8,32 @@
 		<button
 			type="button"
 			class="rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-sm font-semibold text-slate-700 transition-colors hover:border-slate-400 hover:bg-slate-50"
-		>
-			Précédent
+		(click)="onFirstPage()">
+			Premier
 		</button>
-		<span class="rounded-lg border border-slate-300 bg-slate-100 px-3 py-1.5 text-sm font-semibold text-slate-700">1</span>
 		<button
 			type="button"
 			class="rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-sm font-semibold text-slate-700 transition-colors hover:border-slate-400 hover:bg-slate-50"
+			(click)="onPreviousPage()"
+		>
+			Précédent
+		</button>
+		@for (page of pages(); track page) {
+			<button type="button" class="rounded-lg border border-slate-300 bg-slate-100 px-3 py-1.5 text-sm font-semibold text-slate-700" (click)="onPage(page)">{{ page }}</button>
+		}
+		<button
+			type="button"
+			class="rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-sm font-semibold text-slate-700 transition-colors hover:border-slate-400 hover:bg-slate-50"
+			(click)="onNextPage()"
 		>
 			Suivant
+		</button>
+		<button
+			type="button"
+			class="rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-sm font-semibold text-slate-700 transition-colors hover:border-slate-400 hover:bg-slate-50"
+			(click)="onLastPage()"
+		>
+			Dernier
 		</button>
 	</div>
 </div>

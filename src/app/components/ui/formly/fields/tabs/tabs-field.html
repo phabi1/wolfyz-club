@@ -1,0 +1,16 @@
+@if (tabs.length) {
+  <mat-tab-group
+    [selectedIndex]="activeTab()"
+    (selectedIndexChange)="selectTab($event)"
+    dynamicHeight
+    class="formly-tabs"
+  >
+    @for (tab of tabs; track $index) {
+      <mat-tab [label]="labelAt($index)">
+        <div class="mt-3 rounded-xl border border-slate-200 bg-slate-50 p-4">
+          <formly-field [field]="tab"></formly-field>
+        </div>
+      </mat-tab>
+    }
+  </mat-tab-group>
+}

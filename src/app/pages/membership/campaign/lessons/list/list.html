@@ -1,1 +1,17 @@
-<p>list works!</p>
+<app-ui-page title="Lessons" [actions]="actions">
+	<app-ui-datagrid
+		[columns]="store.columns()"
+		[rows]="store.items()"
+		[total]="store.total()"
+		[rowActions]="rowActions"
+		[currentPage]="store.page()"
+		[search]="store.search()"
+		(searchChange)="onSearchChange($event)"
+		(paginationChange)="
+			onPaginationChange({
+				page: $event.page,
+				size: $event.size,
+			})
+		"
+	></app-ui-datagrid>
+</app-ui-page>

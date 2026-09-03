@@ -1,0 +1,67 @@
+<div class="space-y-3">
+  <div class="flex items-center justify-between">
+    <p class="text-sm font-semibold text-slate-800">Payment methods</p>
+    <button
+      type="button"
+      (click)="addPaymentMethod()"
+      class="rounded-lg border border-slate-300 bg-white px-3 py-1 text-xs font-semibold text-slate-700 transition-colors hover:border-slate-400 hover:text-slate-900"
+    >
+      Add method
+    </button>
+  </div>
+
+  @if (!items.length) {
+    <p class="rounded-lg border border-slate-200 bg-slate-50 p-3 text-xs text-slate-500">
+      No payment method configured.
+    </p>
+  }
+
+  @for (method of items; track $index) {
+    <div class="space-y-3 rounded-xl border border-slate-200 bg-white p-3">
+      <div class="grid gap-3 md:grid-cols-3">
+        <label class="block">
+          <span class="mb-1 block text-xs font-medium text-slate-600">ID</span>
+          <input
+            type="text"
+            [value]="method.id"
+            (input)="setId($index, $any($event.target).value)"
+            class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900"
+          />
+        </label>
+
+        <label class="block">
+          <span class="mb-1 block text-xs font-medium text-slate-600">Title</span>
+          <input
+            type="text"
+            [value]="method.title"
+            (input)="setTitle($index, $any($event.target).value)"
+            class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900"
+          />
+        </label>
+
+        <label class="block">
+          <span class="mb-1 block text-xs font-medium text-slate-600">Type</span>
+          <select
+            [value]="method.type"
+            (change)="setType($index, $any($event.target).value)"
+            class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900"
+          >
+            @for (option of availableTypes; track option.value) {
+              <option [value]="option.value">{{ option.label }}</option>
+            }
+          </select>
+        </label>
+      </div>
+
+      <div class="flex justify-end">
+        <button
+          type="button"
+          (click)="removePaymentMethod($index)"
+          class="rounded-lg border border-red-200 bg-red-50 px-3 py-1 text-xs font-semibold text-red-700 transition-colors hover:border-red-300"
+        >
+          Remove
+        </button>
+      </div>
+    </div>
+  }
+</div>

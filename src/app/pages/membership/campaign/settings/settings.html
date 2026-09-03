@@ -1,1 +1,59 @@
-<p>settings works!</p>
+<app-ui-page
+	[title]="'Campaign settings'"
+	[subtitle]="'Edit each campaign setting in dedicated fields.'"
+	[actions]="actions()"
+>
+	@if (store.loading()) {
+		<div class="rounded-xl border border-slate-200 bg-white p-4 text-sm text-slate-600 shadow-sm">
+			Loading campaign...
+		</div>
+	} @else {
+		@if (store.errorMessage(); as errorMessage) {
+			<div class="rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700">
+				{{ errorMessage }}
+			</div>
+		}
+
+		@if (store.successMessage(); as successMessage) {
+			<div class="rounded-lg border border-emerald-200 bg-emerald-50 px-3 py-2 text-sm text-emerald-700">
+				{{ successMessage }}
+			</div>
+		}
+
+		@if (store.campaign(); as campaign) {
+			<section class="paper" aria-labelledby="campaign-settings-details-title">
+				<h2 id="campaign-settings-details-title" class="text-lg font-semibold text-slate-900">Campaign details</h2>
+				<dl class="mt-4 grid gap-3 text-sm text-slate-700 md:grid-cols-3">
+					<div class="rounded-xl border border-slate-200 bg-slate-50 p-3">
+						<dt class="text-xs uppercase tracking-wide text-slate-500">ID</dt>
+						<dd class="mt-1 text-base font-semibold text-slate-900">{{ campaign.id }}</dd>
+					</div>
+					<div class="rounded-xl border border-slate-200 bg-slate-50 p-3">
+						<dt class="text-xs uppercase tracking-wide text-slate-500">Title</dt>
+						<dd class="mt-1 text-base font-semibold text-slate-900">{{ campaign.title }}</dd>
+					</div>
+					<div class="rounded-xl border border-slate-200 bg-slate-50 p-3">
+						<dt class="text-xs uppercase tracking-wide text-slate-500">Registration window</dt>
+						<dd class="mt-1 text-base font-semibold text-slate-900">
+							{{ formatDate(campaign.registration_start) }} -
+							{{ formatDate(campaign.registration_end) }}
+						</dd>
+					</div>
+				</dl>
+			</section>
+
+			<form
+				[formGroup]="form"
+				(ngSubmit)="onSubmit()"
+				class="paper"
+			>
+				@if (!store.fields().length) {
+					<p class="mb-3 rounded-lg border border-amber-200 bg-amber-50 px-3 py-2 text-sm text-amber-700">
+						No setting key found on this campaign.
+					</p>
+				}
+				<formly-form [form]="form" [fields]="store.fields()" [model]="store.model()"></formly-form>
+			</form>
+		}
+	}
+</app-ui-page>

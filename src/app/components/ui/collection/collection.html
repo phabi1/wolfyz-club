@@ -1,0 +1,28 @@
+<section class="paper" [attr.aria-labelledby]="sectionId()">
+  <div class="mb-4 flex items-center justify-between gap-3">
+    <h3 class="m-0 text-base font-bold tracking-[0.01em] text-slate-900">
+      {{ title() }}
+    </h3>
+    <div class="flex items-center gap-2">
+      <span class="text-xs text-slate-600">{{ count() }} total</span>
+      <button type="button" class="action-btn" (click)="addItem.emit()">{{ addLabel() }}</button>
+    </div>
+  </div>
+
+  @if (items().length > 0) {
+    <div class="grid grid-cols-1 gap-3 lg:grid-cols-2">
+      @for (item of items(); track $index; let i = $index) {
+        <article class="detail-card" (click)="itemClick.emit({index: i})">
+          <ng-container
+            *ngTemplateOutlet="
+              itemTpl();
+              context: { $implicit: item, index: i }
+            "
+          ></ng-container>
+        </article>
+      }
+    </div>
+  } @else {
+    <p class="empty-state m-0">{{ emptyMessage() }}</p>
+  }
+</section>

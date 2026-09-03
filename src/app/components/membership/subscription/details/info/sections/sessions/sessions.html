@@ -1,0 +1,43 @@
+<app-ui-collection
+  [title]="'Sessions'"
+  [emptyMessage]="'Aucune session liee a cette souscription.'"
+  [addLabel]="'Ajouter une session'"
+  [items]="sessions()"
+  [itemTpl]="sessionItemTpl"
+  (addItem)="onAddItem()"
+  (itemClick)="onItemClick($event)"
+></app-ui-collection>
+
+<ng-template #sessionItemTpl let-session let-editing="editing">
+  <header class="mb-3 flex items-start justify-between gap-3">
+    <div>
+      <h4 class="m-0 text-sm font-bold text-slate-900">{{ sessionTitle(session) }}</h4>
+      <h5 class="text-sm font-medium text-slate-500">{{ sessionSubtitle(session) }}</h5>
+    </div>
+    <span class="chip">#{{ session.id }}</span>
+  </header>
+
+  <dl class="grid grid-cols-1 gap-y-3 md:grid-cols-2 md:gap-x-4">
+    <div>
+      <dt class="m-0 text-xs uppercase tracking-[0.04em] text-slate-500">ID cours</dt>
+
+      <dd class="mt-1 text-[0.95rem] font-medium text-slate-900">{{ session.lesson_id }}</dd>
+    </div>
+    <div>
+      <dt class="m-0 text-xs uppercase tracking-[0.04em] text-slate-500">ID souscription</dt>
+
+      <dd class="mt-1 text-[0.95rem] font-medium text-slate-900">{{ session.subscription_id }}</dd>
+    </div>
+  </dl>
+</ng-template>
+
+<ng-template #formTpl>
+  <h1 mat-dialog-title>Ajouter une session</h1>
+  <div mat-dialog-content>
+    <formly-form [form]="form" [fields]="fields()" [model]="model"></formly-form>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button mat-dialog-close>Annuler</button>
+    <button mat-button [mat-dialog-close]="model" cdkFocusInitial>Ajouter</button>
+  </div>
+</ng-template>

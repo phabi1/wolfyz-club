@@ -3,10 +3,11 @@ import { MatTableModule } from '@angular/material/table';
 import type { DatagridColumn } from '../column';
 import type { DatagridAction } from '../action';
 import { Actions } from "./cell/actions/actions";
+import { CellOutlet } from './cell-outlet/cell-outlet';
 
 @Component({
   selector: 'app-ui-datagrid-table',
-  imports: [MatTableModule, Actions],
+  imports: [MatTableModule, Actions, CellOutlet],
   templateUrl: './table.html',
   styleUrls: ['./table.css'],
 })

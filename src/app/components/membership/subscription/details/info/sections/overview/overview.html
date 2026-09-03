@@ -1,0 +1,33 @@
+<section class="paper accent-card" aria-labelledby="subscription-overview-title">
+  <div class="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
+    <div>
+      <p class="m-0 text-xs uppercase tracking-widest text-slate-500">Inscription</p>
+      <h2 id="subscription-overview-title" class="mt-1 text-xl font-bold text-slate-900">
+        {{ fullName(item().member.firstname, item().member.lastname) }}
+      </h2>
+      <p class="mt-1 text-sm text-slate-600">Detail de la souscription #{{ item().id }}</p>
+    </div>
+
+    <div class="flex flex-wrap items-center gap-2">
+      <span class="chip">Campagne #{{ item().campaign_id }}</span>
+      <span class="chip chip-primary">{{ item().license_type || 'Licence non renseignee' }}</span>
+    </div>
+  </div>
+
+  <dl class="mt-6 grid grid-cols-1 gap-x-5 gap-y-4 md:grid-cols-2 xl:grid-cols-3">
+    <div>
+      <dt class="m-0 text-xs uppercase tracking-[0.04em] text-slate-500">Date de souscription</dt>
+      <dd class="mt-1 text-[0.95rem] font-medium text-slate-900">
+        {{ formatTimestamp(item().subscribed_at) }}
+      </dd>
+    </div>
+    <div>
+      <dt class="m-0 text-xs uppercase tracking-[0.04em] text-slate-500">Sessions</dt>
+      <dd class="mt-1 text-[0.95rem] font-medium text-slate-900">{{ sessionsCount() }}</dd>
+    </div>
+    <div>
+      <dt class="m-0 text-xs uppercase tracking-[0.04em] text-slate-500">Contacts</dt>
+      <dd class="mt-1 text-[0.95rem] font-medium text-slate-900">{{ contactsCount() }}</dd>
+    </div>
+  </dl>
+</section>

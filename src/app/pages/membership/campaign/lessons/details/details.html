@@ -1,0 +1,69 @@
+<app-ui-page [title]="'Lesson details'">
+  @if (store.loading()) {
+    <p>Loading...</p>
+  }
+
+  @if (store.error(); as error) {
+    <p class="mb-3 rounded-lg border border-red-200 bg-red-50 px-2.5 py-2 text-[0.8rem] text-red-700">
+      {{ error?.message || error }}
+    </p>
+  }
+
+  @if (store.item(); as item) {
+    <div class="flex flex-col gap-4">
+      <section class="paper accent-card" aria-labelledby="lesson-overview-title">
+        <div class="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
+          <div>
+            <p class="m-0 text-xs uppercase tracking-widest text-slate-500">Cours</p>
+            <h2 id="lesson-overview-title" class="mt-1 text-xl font-bold text-slate-900">
+              {{ item.title || 'Cours sans titre' }}
+            </h2>
+            <p class="mt-1 text-sm text-slate-600">Detail du cours #{{ item.id }}</p>
+          </div>
+
+          <div class="flex flex-wrap items-center gap-2">
+            <span class="chip">Campagne #{{ item.campaign_id || 'N/A' }}</span>
+            <span class="chip chip-primary">{{ formatDay(item.day) }}</span>
+          </div>
+        </div>
+
+        <dl class="mt-6 grid grid-cols-1 gap-x-5 gap-y-4 md:grid-cols-2 xl:grid-cols-3">
+          <div>
+            <dt class="m-0 text-xs uppercase tracking-[0.04em] text-slate-500">Horaire</dt>
+            <dd class="mt-1 text-[0.95rem] font-medium text-slate-900">
+              {{ formatTime(item.lesson_start) }} - {{ formatTime(item.lesson_end) }}
+            </dd>
+          </div>
+          <div>
+            <dt class="m-0 text-xs uppercase tracking-[0.04em] text-slate-500">Participants</dt>
+            <dd class="mt-1 text-[0.95rem] font-medium text-slate-900">
+              {{ participantsLabel(item.participant_nb, item.participant_max) }}
+            </dd>
+          </div>
+          <div>
+            <dt class="m-0 text-xs uppercase tracking-[0.04em] text-slate-500">Tranche d'age</dt>
+            <dd class="mt-1 text-[0.95rem] font-medium text-slate-900">
+              {{ item.age_min ?? 'N/A' }} - {{ item.age_max ?? 'N/A' }}
+            </dd>
+          </div>
+        </dl>
+      </section>
+
+      <section class="paper" aria-labelledby="lesson-meta-title">
+        <h3 id="lesson-meta-title" class="m-0 text-base font-bold tracking-[0.01em] text-slate-900">
+          Metadonnees
+        </h3>
+        <dl class="mt-4 grid grid-cols-1 gap-x-5 gap-y-4 md:grid-cols-2">
+          <div>
+            <dt class="m-0 text-xs uppercase tracking-[0.04em] text-slate-500">ID cours</dt>
+            <dd class="mt-1 text-[0.95rem] font-medium text-slate-900">#{{ item.id }}</dd>
+          </div>
+          <div>
+            <dt class="m-0 text-xs uppercase tracking-[0.04em] text-slate-500">Jour numerique</dt>
+            <dd class="mt-1 text-[0.95rem] font-medium text-slate-900">{{ item.day }}</dd>
+          </div>
+        </dl>
+      </section>
+    </div>
+  }
+</app-ui-page>

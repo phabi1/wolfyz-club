@@ -29,12 +29,9 @@ export class AuthService {
     public login() {
         this.statusSubject.next('authenticated');
         this.isLoggedInSubject.next(true);
-        localStorage.setItem('isLoggedIn', 'true');
     }
 
     public logout() {
         this.statusSubject.next('none');
-        this.isLoggedInSubject.next(false);
-        localStorage.setItem('isLoggedIn', 'false');
     }
 }

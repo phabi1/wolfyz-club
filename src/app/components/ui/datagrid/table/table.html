@@ -2,7 +2,9 @@
   @for (column of columns(); track column.name) {
     <ng-container [matColumnDef]="column.name">
       <th mat-header-cell *matHeaderCellDef class="datagrid-header-cell">{{ column.header }}</th>
-      <td mat-cell *matCellDef="let row" class="datagrid-cell">{{ row[column.data || column.name] }}</td>
+      <td mat-cell *matCellDef="let row" class="datagrid-cell">
+        <app-ui-datagrid-table-cell-outlet [row]="row" [column]="column"></app-ui-datagrid-table-cell-outlet>
+      </td>
     </ng-container>
   }
 

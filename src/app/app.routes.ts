@@ -63,6 +63,13 @@ export const routes: Routes = [
                 loadComponent: () =>
                   import('./pages/membership/campaign/lessons/list/list').then((m) => m.List),
               },
+              {
+                path: ':lessonId',
+                loadComponent: () =>
+                  import('./pages/membership/campaign/lessons/details/details').then(
+                    (m) => m.Details,
+                  ),
+              },
             ],
           },
           {
@@ -72,6 +79,18 @@ export const routes: Routes = [
                 path: '',
                 loadComponent: () =>
                   import('./pages/membership/campaign/periods/list/list').then((m) => m.List),
+              },
+              {
+                path: 'new',
+                loadComponent: () =>
+                  import('./pages/membership/campaign/periods/new/new').then((m) => m.New),
+              },
+              {
+                path: ':periodId',
+                loadComponent: () =>
+                  import('./pages/membership/campaign/periods/details/details').then(
+                    (m) => m.Details,
+                  ),
               },
             ],
           },

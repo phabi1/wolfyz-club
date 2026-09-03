@@ -1,0 +1,32 @@
+.chip {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 9999px;
+  border: 1px solid #cbd5e1;
+  background: #ffffff;
+  padding: 0.2rem 0.65rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.field-input {
+  width: 100%;
+  border-radius: 0.65rem;
+  border: 1px solid #cbd5e1;
+  background: #ffffff;
+  padding: 0.5rem 0.65rem;
+  font-size: 0.92rem;
+  color: #0f172a;
+}
+
+.field-input:focus {
+  outline: 2px solid #93c5fd;
+  outline-offset: 1px;
+}
+
+.action-btn-danger {
+  border-color: #fecaca;
+  background: #fef2f2;
+  color: #991b1b;
+}

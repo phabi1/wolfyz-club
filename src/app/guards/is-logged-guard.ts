@@ -6,6 +6,7 @@ import { AuthService } from '../services/auth.service';
 export const isLoggedGuard: CanActivateFn = (route, state) => {
   const authService = inject(AuthService);
   const router = inject(Router);
+  
   return authService.status$.pipe(
     tap((status) => {
       if (status === 'none') {
@@ -21,7 +22,10 @@ export const isLoggedGuard: CanActivateFn = (route, state) => {
           if (isLoggedIn) {
             return true;
           } else {
-            return router.createUrlTree(['/signin']);
+            // Redirect to OAuth2 login instead of signin page
+            authService.login();
+            router.createUrlTree(['/signin'])
+            return false;
           }
         }),
       ),

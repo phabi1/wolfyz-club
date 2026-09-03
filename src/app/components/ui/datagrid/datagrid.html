@@ -1,5 +1,5 @@
 <div class="flex flex-col gap-4">
-  <app-ui-datagrid-filters></app-ui-datagrid-filters>
+  <app-ui-datagrid-filters [search]="search()" (searchChange)="onSearchChange($event)"></app-ui-datagrid-filters>
 
   <app-ui-datagrid-bulk-actions
     [count]="rows().length"
@@ -18,5 +18,7 @@
   <app-ui-datagrid-pagination
     [count]="rows().length"
     [total]="total()"
+    [currentPage]="currentPage()"
+    (pagignationChange)="onPaginationChange($event)"
   ></app-ui-datagrid-pagination>
 </div>

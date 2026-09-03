@@ -1,0 +1,12 @@
+.avatar {
+  display: grid;
+  height: 2.75rem;
+  width: 2.75rem;
+  place-items: center;
+  border-radius: 9999px;
+  background: radial-gradient(circle at 30% 30%, #0ea5e9 0%, #2563eb 75%);
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: #f8fafc;
+}

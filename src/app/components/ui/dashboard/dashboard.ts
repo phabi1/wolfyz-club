@@ -23,7 +23,9 @@ export class Dashboard {
 
   ngOnInit() {
     this.options = {
-      gridType: 'fit',
+      gridType: 'scrollVertical',
+      maxItemCols: 12,
+      fixedRowHeight: 100,
       margin: 14,
       outerMargin: true,
       outerMarginTop: 8,

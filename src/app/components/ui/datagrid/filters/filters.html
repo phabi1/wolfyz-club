@@ -6,6 +6,8 @@
 			<input
 				id="datagrid-search"
 				type="search"
+				[value]="search()"
+				(input)="onValueChange($event.target.value)"
 				placeholder="Rechercher dans le tableau"
 				class="w-full rounded-xl border border-slate-300 bg-white px-3 py-2 text-sm text-slate-800 shadow-sm outline-none transition focus:border-sky-400 focus:ring-2 focus:ring-sky-100"
 			/>

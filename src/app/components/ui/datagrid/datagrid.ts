@@ -17,10 +17,22 @@ export class Datagrid {
   rows = input.required<unknown[]>();
   total = input.required<number>();
   rowActions = input<DatagridAction<any>[]>([]);
+  currentPage = input<number>(1);
+  search = input('');
 
   rowClick = output<{row: any}>();
+  paginationChange = output<{page: number, size: number}>();
+  searchChange = output<string>();
 
   onRowClick(event: {row: any}) {
     this.rowClick.emit({row: event.row});
+  }
+
+  onSearchChange(event: string) {
+    this.searchChange.emit(event);
+  }
+  
+  onPaginationChange(event: {page: number, size: number}) {
+    this.paginationChange.emit({page: event.page, size: event.size});
   }
 }

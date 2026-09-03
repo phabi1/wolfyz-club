@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, input, output, signal } from '@angular/core';
 
 @Component({
   selector: 'app-ui-datagrid-filters',
@@ -6,4 +6,12 @@ import { Component } from '@angular/core';
   templateUrl: './filters.html',
   styleUrl: './filters.css',
 })
-export class Filters {}
+export class Filters {
+  search = input('');
+
+  searchChange = output<string>();
+
+  onValueChange(value: string) {
+    this.searchChange.emit(value);
+  }
+}

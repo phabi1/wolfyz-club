@@ -1,0 +1,69 @@
+<app-ui-page [title]="'Period details'">
+  @if (store.loading()) {
+    <p>Loading...</p>
+  }
+
+  @if (store.error(); as error) {
+    <p class="mb-3 rounded-lg border border-red-200 bg-red-50 px-2.5 py-2 text-[0.8rem] text-red-700">
+      {{ error?.message || error }}
+    </p>
+  }
+
+  @if (store.item(); as item) {
+    <div class="flex flex-col gap-4">
+      <section class="paper accent-card" aria-labelledby="period-overview-title">
+        <div class="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
+          <div>
+            <p class="m-0 text-xs uppercase tracking-widest text-slate-500">Periode</p>
+            <h2 id="period-overview-title" class="mt-1 text-xl font-bold text-slate-900">
+              {{ item.title || 'Periode sans titre' }}
+            </h2>
+            <p class="mt-1 text-sm text-slate-600">Detail de la periode #{{ item.id }}</p>
+          </div>
+
+          <div class="flex flex-wrap items-center gap-2">
+            <span class="chip">Campagne #{{ item.campaign_id }}</span>
+            <span class="chip chip-primary">{{ periodDays(item.start_date, item.end_date) }} jours</span>
+          </div>
+        </div>
+
+        <dl class="mt-6 grid grid-cols-1 gap-x-5 gap-y-4 md:grid-cols-2 xl:grid-cols-3">
+          <div>
+            <dt class="m-0 text-xs uppercase tracking-[0.04em] text-slate-500">Date de debut</dt>
+            <dd class="mt-1 text-[0.95rem] font-medium text-slate-900">
+              {{ formatDate(item.start_date) }}
+            </dd>
+          </div>
+          <div>
+            <dt class="m-0 text-xs uppercase tracking-[0.04em] text-slate-500">Date de fin</dt>
+            <dd class="mt-1 text-[0.95rem] font-medium text-slate-900">
+              {{ formatDate(item.end_date) }}
+            </dd>
+          </div>
+          <div>
+            <dt class="m-0 text-xs uppercase tracking-[0.04em] text-slate-500">Duree</dt>
+            <dd class="mt-1 text-[0.95rem] font-medium text-slate-900">
+              {{ periodDays(item.start_date, item.end_date) }} jours
+            </dd>
+          </div>
+        </dl>
+      </section>
+
+      <section class="paper" aria-labelledby="period-meta-title">
+        <h3 id="period-meta-title" class="m-0 text-base font-bold tracking-[0.01em] text-slate-900">
+          Metadonnees
+        </h3>
+        <dl class="mt-4 grid grid-cols-1 gap-x-5 gap-y-4 md:grid-cols-2">
+          <div>
+            <dt class="m-0 text-xs uppercase tracking-[0.04em] text-slate-500">ID periode</dt>
+            <dd class="mt-1 text-[0.95rem] font-medium text-slate-900">#{{ item.id }}</dd>
+          </div>
+          <div>
+            <dt class="m-0 text-xs uppercase tracking-[0.04em] text-slate-500">ID campagne</dt>
+            <dd class="mt-1 text-[0.95rem] font-medium text-slate-900">#{{ item.campaign_id }}</dd>
+          </div>
+        </dl>
+      </section>
+    </div>
+  }
+</app-ui-page>
