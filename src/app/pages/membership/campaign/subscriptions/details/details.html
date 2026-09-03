@@ -1,0 +1,8 @@
+<app-ui-page [title]="'Subscription details'">
+  @if (store.loading()) {
+    <p>Loading...</p>
+  }
+  @if (store.item(); as item) {
+    <app-membership-subscription-details-info [item]="item"></app-membership-subscription-details-info>
+  }
+</app-ui-page>

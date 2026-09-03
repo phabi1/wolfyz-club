@@ -1,12 +1,30 @@
 import { inject } from '@angular/core';
-import { CanActivateFn } from '@angular/router';
-import { OAuthService } from 'angular-oauth2-oidc';
+import { CanActivateFn, Router } from '@angular/router';
+import { filter, first, map, switchMap, tap } from 'rxjs';
+import { AuthService } from '../services/auth.service';
 
 export const isLoggedGuard: CanActivateFn = (route, state) => {
-  const oauthService = inject(OAuthService);
-return true;
-  if (oauthService.hasValidIdToken() && oauthService.hasValidAccessToken()) {
-    return true;
-  }
-  return false;
+  const authService = inject(AuthService);
+  const router = inject(Router);
+  return authService.status$.pipe(
+    tap((status) => {
+      if (status === 'none') {
+        authService.authenticate();
+      }
+    }),
+    filter((status) => status === 'authenticated'),
+    first(),
+    switchMap(() =>
+      authService.isLoggedIn$.pipe(
+        first(),
+        map((isLoggedIn) => {
+          if (isLoggedIn) {
+            return true;
+          } else {
+            return router.createUrlTree(['/signin']);
+          }
+        }),
+      ),
+    ),
+  );
 };

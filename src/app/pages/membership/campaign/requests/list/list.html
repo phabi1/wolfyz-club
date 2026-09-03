@@ -1,0 +1,8 @@
+<app-ui-page title="Requests">
+  <app-ui-datagrid
+    [columns]="store.columns()"
+    [rows]="store.items()"
+    [total]="store.total()"
+    [rowActions]="rowActions"
+  ></app-ui-datagrid>
+</app-ui-page>

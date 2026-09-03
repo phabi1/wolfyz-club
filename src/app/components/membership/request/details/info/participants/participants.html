@@ -1,0 +1,168 @@
+<section class="paper" aria-labelledby="request-participants-title">
+  <div class="mb-4 flex items-center justify-between gap-3">
+    <h2 id="request-participants-title" class="m-0 text-base font-bold tracking-[0.01em] text-slate-900">
+      Participants
+    </h2>
+    <span class="text-xs text-slate-600">{{ participants().length }} total</span>
+  </div>
+
+  <details
+    *ngFor="let participant of participants(); index as i"
+    class="group mb-2 overflow-hidden rounded-2xl border border-slate-200 bg-slate-50 last:mb-0"
+    [attr.aria-label]="'Participant ' + (i + 1)"
+  >
+    <summary
+      class="flex cursor-pointer list-none items-center justify-between gap-3 p-4 hover:bg-slate-100 [&::-webkit-details-marker]:hidden"
+    >
+      <div class="min-w-0">
+        <h3 class="m-0 text-base font-bold text-slate-900">
+          {{ participant.firstname }} {{ participant.lastname }}
+        </h3>
+        <p class="mt-1 text-[0.82rem] text-slate-500">
+          {{ participant.birthdate | date: 'dd/MM/yyyy' }} •
+          {{ participant.lesson_id || 'Cours non renseigne' }}
+        </p>
+      </div>
+
+      <div class="hidden items-center gap-2 md:flex">
+        <span class="rounded-full bg-slate-200 px-2 py-0.5 text-xs text-slate-700">
+          {{ participant.lesson_id || 'Cours non renseigne' }}
+        </span>
+        <ng-container *ngIf="participant.member?.status === 'loading'; else memberStatusTpl">
+          <app-ui-ghosting-line [width]="'4.5rem'" [height]="'0.65rem'"></app-ui-ghosting-line>
+        </ng-container>
+        <ng-template #memberStatusTpl>
+          <span class="rounded-full bg-white px-2 py-0.5 text-xs text-slate-700 ring-1 ring-slate-200">
+            {{ participant.member?.status || 'Inconnu' }}
+          </span>
+        </ng-template>
+      </div>
+
+      <span class="whitespace-nowrap text-xs font-semibold text-slate-700" aria-hidden="true">
+        <span class="group-open:hidden">Voir details</span>
+        <span class="hidden group-open:inline">Masquer details</span>
+      </span>
+    </summary>
+
+    <div class="border-t border-slate-200 px-4 pb-4">
+      <div class="mt-4 grid grid-cols-1 gap-3 lg:grid-cols-3">
+        <div class="rounded-xl border border-slate-200 bg-white p-3">
+          <h4 class="mb-2 text-sm font-bold text-slate-700">Profil</h4>
+          <dl class="m-0 flex flex-col gap-3">
+            <div>
+              <dt class="m-0 text-xs uppercase tracking-[0.04em] text-slate-500">Date de naissance</dt>
+              <dd class="mt-1 text-[0.95rem] font-medium text-slate-900">
+                {{ participant.birthdate | date: 'dd/MM/yyyy' }}
+              </dd>
+            </div>
+            <div>
+              <dt class="m-0 text-xs uppercase tracking-[0.04em] text-slate-500">Cours</dt>
+              <dd class="mt-1 text-[0.95rem] font-medium text-slate-900">
+                {{ participant.lesson_id || 'Non renseigne' }}
+              </dd>
+            </div>
+            <div>
+              <dt class="m-0 text-xs uppercase tracking-[0.04em] text-slate-500">Type de licence</dt>
+              <dd class="mt-1 text-[0.95rem] font-medium text-slate-900">
+                {{ participant.license_type || 'Non renseigne' }}
+              </dd>
+            </div>
+          </dl>
+        </div>
+
+        <div class="rounded-xl border border-slate-200 bg-white p-3">
+          <h4 class="mb-2 text-sm font-bold text-slate-700">Adresse</h4>
+          <dl class="m-0 flex flex-col gap-3">
+            <div>
+              <dt class="m-0 text-xs uppercase tracking-[0.04em] text-slate-500">Ligne 1</dt>
+              <dd class="mt-1 text-[0.95rem] font-medium text-slate-900">
+                {{ participant.address.line1 || 'Non renseigne' }}
+              </dd>
+            </div>
+            <div>
+              <dt class="m-0 text-xs uppercase tracking-[0.04em] text-slate-500">Ligne 2</dt>
+              <dd class="mt-1 text-[0.95rem] font-medium text-slate-900">
+                {{ participant.address.line2 || '-' }}
+              </dd>
+            </div>
+            <div>
+              <dt class="m-0 text-xs uppercase tracking-[0.04em] text-slate-500">Ville</dt>
+              <dd class="mt-1 text-[0.95rem] font-medium text-slate-900">
+                {{ participant.address.city || 'Non renseigne' }}
+              </dd>
+            </div>
+            <div>
+              <dt class="m-0 text-xs uppercase tracking-[0.04em] text-slate-500">Code postal</dt>
+              <dd class="mt-1 text-[0.95rem] font-medium text-slate-900">
+                {{ participant.address.postal_code || 'Non renseigne' }}
+              </dd>
+            </div>
+            <div>
+              <dt class="m-0 text-xs uppercase tracking-[0.04em] text-slate-500">Pays</dt>
+              <dd class="mt-1 text-[0.95rem] font-medium text-slate-900">
+                {{ participant.address.country || 'Non renseigne' }}
+              </dd>
+            </div>
+          </dl>
+        </div>
+
+        <div class="rounded-xl border border-slate-200 bg-white p-3">
+          <h4 class="mb-2 text-sm font-bold text-slate-700">Documents et validations</h4>
+          <dl class="m-0 flex flex-col gap-3">
+            <div>
+              <dt class="m-0 text-xs uppercase tracking-[0.04em] text-slate-500">Questionnaire sante</dt>
+              <dd class="mt-1 text-[0.95rem] font-medium text-slate-900">
+                {{ participant.health_questionnaire || 'Non renseigne' }}
+              </dd>
+            </div>
+            <div>
+              <dt class="m-0 text-xs uppercase tracking-[0.04em] text-slate-500">Certificat medical</dt>
+              <dd class="mt-1 text-[0.95rem] font-medium text-slate-900">
+                {{ participant.medical_certificate || 'Non renseigne' }}
+              </dd>
+            </div>
+            <div>
+              <dt class="m-0 text-xs uppercase tracking-[0.04em] text-slate-500">Photo identite</dt>
+              <dd class="mt-1 text-[0.95rem] font-medium text-slate-900">
+                {{ participant.identity_photo || 'Non renseigne' }}
+              </dd>
+            </div>
+            <div>
+              <dt class="m-0 text-xs uppercase tracking-[0.04em] text-slate-500">Autorisation de sortie</dt>
+              <dd class="mt-1 text-[0.95rem] font-medium text-slate-900">
+                <app-ui-yes-no [value]="participant.agree_exit"></app-ui-yes-no>
+              </dd>
+            </div>
+            <div>
+              <dt class="m-0 text-xs uppercase tracking-[0.04em] text-slate-500">Droit a l'image</dt>
+              <dd class="mt-1 text-[0.95rem] font-medium text-slate-900">
+                <app-ui-yes-no [value]="participant.agree_photo"></app-ui-yes-no>
+              </dd>
+            </div>
+          </dl>
+        </div>
+      </div>
+
+      <div class="mt-4">
+        <h4 class="mb-2 text-sm font-bold text-slate-700">Contacts du participant</h4>
+        <ng-container *ngIf="participant.contacts && participant.contacts.length > 0; else emptyContactsTpl">
+          <div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
+            <article
+              *ngFor="let contact of participant.contacts"
+              class="rounded-xl border border-slate-200 bg-white p-3"
+            >
+              <h5 class="mb-1 text-sm font-bold text-slate-900">
+                {{ contact.firstname }} {{ contact.lastname }}
+              </h5>
+              <p class="my-0.5 text-sm text-slate-600">{{ contact.email || 'Non renseigne' }}</p>
+              <p class="my-0.5 text-sm text-slate-600">{{ contact.phone || 'Non renseigne' }}</p>
+            </article>
+          </div>
+        </ng-container>
+        <ng-template #emptyContactsTpl>
+          <p class="m-0 text-sm text-slate-500">Aucun contact renseigne.</p>
+        </ng-template>
+      </div>
+    </div>
+  </details>
+</section>

@@ -1,0 +1,26 @@
+:host {
+	display: block;
+	height: 100%;
+}
+
+.lesson-list {
+	scrollbar-width: thin;
+	scrollbar-color: #94a3b8 transparent;
+}
+
+.lesson-list::-webkit-scrollbar {
+	width: 8px;
+}
+
+.lesson-list::-webkit-scrollbar-thumb {
+	background: #cbd5e1;
+	border-radius: 999px;
+}
+
+:host ::ng-deep .lesson-progress .mdc-linear-progress__bar-inner {
+	border-color: #0284c7;
+}
+
+:host ::ng-deep .lesson-progress .mdc-linear-progress__buffer {
+	background-color: #dbeafe;
+}

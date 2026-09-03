@@ -1,0 +1,73 @@
+<div class="paper">
+  <h3 class="mb-3 text-[0.98rem] font-bold text-slate-900">Historique des statuts</h3>
+
+  @if (empty()) {
+    <p class="m-0 text-[0.85rem] text-slate-500">Aucun changement de statut pour le moment.</p>
+  } @else {
+    <div class="flex flex-col gap-2.5">
+      @for (item of items(); track $index) {
+        <article class="rounded-xl border border-slate-200 bg-slate-50 p-3">
+          @switch (item.status) {
+            @case ('pending') {
+              <div>
+                <div class="text-[0.9rem] font-bold text-slate-900">En attente</div>
+                <div class="mt-1 text-xs text-slate-500">
+                  Demande creee par {{ item.changed_by?.display_name || 'Inconnu' }}
+                </div>
+              </div>
+            }
+            @case ('approved') {
+              <div>
+                <div class="text-[0.9rem] font-bold text-slate-900">Approuvee</div>
+                <div class="mt-1 text-xs text-slate-500">
+                  Demande approuvee par {{ item.changed_by?.display_name || 'Inconnu' }}
+                </div>
+              </div>
+            }
+            @case ('rejected') {
+              <div>
+                <div class="text-[0.9rem] font-bold text-slate-900">Rejetee</div>
+                <div class="mt-1 text-[0.82rem] text-slate-700">
+                  {{ item.reason || item.params?.reason || 'Sans raison renseignee' }}
+                </div>
+                <div class="mt-1 text-xs text-slate-500">
+                  Demande rejetee par {{ item.changed_by?.display_name || 'Inconnu' }}
+                </div>
+              </div>
+            }
+            @case ('canceled') {
+              <div>
+                <div class="text-[0.9rem] font-bold text-slate-900">Annulee</div>
+                <div class="mt-1 text-xs text-slate-500">
+                  Demande annulee par {{ item.changed_by?.display_name || 'Inconnu' }}
+                </div>
+              </div>
+            }
+            @case ('paid') {
+              <div>
+                <div class="text-[0.9rem] font-bold text-slate-900">Payee</div>
+                <div class="mt-1 text-xs text-slate-500">
+                  Demande marquee payee par {{ item.changed_by?.display_name || 'Inconnu' }}
+                </div>
+              </div>
+            }
+            @case ('archived') {
+              <div>
+                <div class="text-[0.9rem] font-bold text-slate-900">Archivee</div>
+                <div class="mt-1 text-xs text-slate-500">
+                  Demande archivee par {{ item.changed_by?.display_name || 'Inconnu' }}
+                </div>
+              </div>
+            }
+            @default {
+              <div>
+                <div class="text-[0.9rem] font-bold text-slate-900">Action inconnue</div>
+                <div class="mt-1 text-xs text-slate-500">{{ item.action || 'Non precisee' }}</div>
+              </div>
+            }
+          }
+        </article>
+      }
+    </div>
+  }
+</div>

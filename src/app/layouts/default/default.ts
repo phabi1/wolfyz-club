@@ -1,5 +1,5 @@
 import { NgComponentOutlet } from '@angular/common';
-import { Component, effect, inject, signal, Type } from '@angular/core';
+import { ChangeDetectionStrategy, Component, effect, inject, signal, Type } from '@angular/core';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { distinctUntilChanged, filter, map, startWith } from 'rxjs';
@@ -9,16 +9,17 @@ import { distinctUntilChanged, filter, map, startWith } from 'rxjs';
   imports: [RouterOutlet, MatSidenavModule, NgComponentOutlet],
   templateUrl: './default.html',
   styleUrls: ['./default.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DefaultLayout {
   private router = inject(Router);
 
-  private sidebars: Record<string, () => Promise<Type<Component>>> = {
+  private sidebars: Record<string, () => Promise<Type<any>>> = {
     'default': () => import('../../components/layouts/sidebars/default/default').then(m => m.Default),
     'membership-campaign': () => import('../../components/layouts/sidebars/campaign/campaign').then(m => m.Campaign)
   }
 
-  sidebar = signal<Type<Component> | null>(null);
+  sidebar = signal<Type<any> | null>(null);
 
   constructor() {
     effect(() => {

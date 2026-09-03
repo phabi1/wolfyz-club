@@ -1,0 +1,33 @@
+<div class="paper">
+  <div class="mb-4">
+    @if (calculating()) {
+      <div class="flex justify-between">
+        <app-ui-ghosting-line></app-ui-ghosting-line>
+        <app-ui-ghosting-line></app-ui-ghosting-line>
+      </div>
+    } @else {
+      @for (brekdown of pay().pricing_breakdown; track $index) {
+        <div class="flex justify-between">
+          <span>{{ brekdown.name }}</span>
+          <span class="font-bold">{{ brekdown.amount | amount }}</span>
+        </div>
+      }
+    }
+  </div>
+  @if (!calculating()) {
+    <div class="flex justify-between items-center mb-4">
+      <mat-form-field>
+        <input matInput type="number" placeholder="Enter amount" [value]="value()" (input)="onValueChange($event.target.value)" />
+      </mat-form-field>
+      <button type="button" mat-button (click)="applyDiscount()">Apply</button>
+    </div>
+  }
+  <div class="flex justify-between">
+    <span>Total à payer</span>
+    @if (calculating()) {
+      <app-ui-ghosting-line></app-ui-ghosting-line>
+    } @else {
+      <span class="font-bold">{{ totalAmount() | amount }}</span>
+    }
+  </div>
+</div>

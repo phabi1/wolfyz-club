@@ -1,8 +1,22 @@
-<app-ui-datagrid-filters></app-ui-datagrid-filters>
-<app-ui-datagrid-bulk-actions></app-ui-datagrid-bulk-actions>
-<app-ui-datagrid-table
-  [columns]="columns()"
-  [rows]="rows()"
-  [actions]="rowActions()"
-></app-ui-datagrid-table>
-<app-ui-datagrid-pagination></app-ui-datagrid-pagination>
+<div class="flex flex-col gap-4">
+  <app-ui-datagrid-filters></app-ui-datagrid-filters>
+
+  <app-ui-datagrid-bulk-actions
+    [count]="rows().length"
+    [total]="total()"
+  ></app-ui-datagrid-bulk-actions>
+
+  <div class="datagrid-table-wrap">
+    <app-ui-datagrid-table
+      [columns]="columns()"
+      [rows]="rows()"
+      [actions]="rowActions()"
+      (rowClick)="onRowClick($event)"
+    ></app-ui-datagrid-table>
+  </div>
+
+  <app-ui-datagrid-pagination
+    [count]="rows().length"
+    [total]="total()"
+  ></app-ui-datagrid-pagination>
+</div>

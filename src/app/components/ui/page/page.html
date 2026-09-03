@@ -1,4 +1,12 @@
-<div>
-  <app-ui-page-header [title]="title()" [subtitle]="subtitle()" [actions]="actions()"></app-ui-page-header>
-  <ng-content></ng-content>
-</div>
+<section class="mx-auto w-full max-w-7xl space-y-6 p-4 md:p-6 lg:p-8">
+  <div class="mb-4">
+    <app-ui-page-header
+    [title]="title()"
+    [subtitle]="subtitle()"
+    [actions]="actions()"
+  ></app-ui-page-header>
+  </div>
+  <div class="space-y-4">
+    <ng-content></ng-content>
+  </div>
+</section>

@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
+import { TotalWidget } from '../../../../ui/dashboard/widgets/total-widget/total-widget';
 
 @Component({
   selector: 'app-total-subscriptions',
-  imports: [],
+  imports: [TotalWidget],
   templateUrl: './total-subscriptions.html',
-  styleUrl: './total-subscriptions.css',
+  styleUrls: ['./total-subscriptions.css'],
 })
 export class TotalSubscriptions {}

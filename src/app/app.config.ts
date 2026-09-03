@@ -1,6 +1,7 @@
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { provideHttpClient, withInterceptors, withInterceptorsFromDi } from '@angular/common/http';
+import { tokenInterceptor } from './interceptors/token.interceptor';
 import { ApplicationConfig, isDevMode, provideBrowserGlobalErrorListeners } from '@angular/core';
-import { provideRouter } from '@angular/router';
+import { provideRouter, withRouterConfig } from '@angular/router';
 import { provideServiceWorker } from '@angular/service-worker';
 import { provideOAuthClient } from 'angular-oauth2-oidc';
 import { routes } from './app.routes';
@@ -13,14 +14,14 @@ export function setup(config: any): ApplicationConfig {
     providers: [
       provideBrowserGlobalErrorListeners(),
       provideConfig(config),
-      provideHttpClient(withInterceptorsFromDi()),
+      provideHttpClient(withInterceptors([tokenInterceptor])),
       provideOAuthClient({
         resourceServer: {
           allowedUrls: [window.location.origin],
           sendAccessToken: true,
         },
       }),
-      provideRouter(routes),
+      provideRouter(routes, withRouterConfig({ paramsInheritanceStrategy: 'always' })),
       provideServiceWorker('ngsw-worker.js', {
         enabled: !isDevMode(),
         registrationStrategy: 'registerWhenStable:30000',

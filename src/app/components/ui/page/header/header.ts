@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { Actions } from '../actions/actions';
 import type { PageAction } from '../action';
 
@@ -7,6 +7,7 @@ import type { PageAction } from '../action';
   imports: [Actions],
   templateUrl: './header.html',
   styleUrls: ['./header.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Header {
   title = input('');

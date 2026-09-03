@@ -1,0 +1,22 @@
+<app-ui-page [title]="'Request details'">
+  @if (store.error(); as error) {
+    <p class="mb-3 rounded-lg border border-red-200 bg-red-50 px-2.5 py-2 text-[0.8rem] text-red-700">
+      {{ error?.message || error }}
+    </p>
+  }
+  @else if (store.loading()) {
+    <p>Loading...</p>
+  }
+  @else if (store.item(); as item) {
+    <div class="request-layout">
+      <div class="request-layout-main">
+        <app-membership-request-details [item]="item"></app-membership-request-details>
+    </div>
+    <aside class="request-layout-side" aria-label="Actions et historique">
+        <app-membership-request-details-status-switcher></app-membership-request-details-status-switcher>
+        <app-membership-request-details-request-pay [pay]="store.pay()" [calculating]="store.calculating()" (discountChange)="onDiscountChange($event)"></app-membership-request-details-request-pay>
+        <app-membership-request-details-status-history [history]="store.history()"></app-membership-request-details-status-history>
+      </aside>
+    </div>
+  }
+</app-ui-page>

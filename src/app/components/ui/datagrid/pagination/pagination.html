@@ -1,1 +1,22 @@
-<p>pagination works!</p>
+<div class="flex flex-col gap-3 p-4 md:flex-row md:items-center md:justify-between md:px-5">
+	<p class="text-sm text-slate-600">
+		Affichage de <span class="font-semibold text-slate-800">{{ count() }}</span>
+		sur <span class="font-semibold text-slate-800">{{ total() > 0 ? total() : count() }}</span> lignes
+	</p>
+
+	<div class="flex items-center gap-2">
+		<button
+			type="button"
+			class="rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-sm font-semibold text-slate-700 transition-colors hover:border-slate-400 hover:bg-slate-50"
+		>
+			Précédent
+		</button>
+		<span class="rounded-lg border border-slate-300 bg-slate-100 px-3 py-1.5 text-sm font-semibold text-slate-700">1</span>
+		<button
+			type="button"
+			class="rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-sm font-semibold text-slate-700 transition-colors hover:border-slate-400 hover:bg-slate-50"
+		>
+			Suivant
+		</button>
+	</div>
+</div>

@@ -1,10 +1,63 @@
-<ul>
-  <li><a routerLink="">Dashboard</a></li>
-  <li><a routerLink="/billing/payments">Members</a></li>
-  <li><a routerLink="/event">Periods</a></li>
-  <li><a routerLink="/membership">Lessons</a></li>
-  <li><a routerLink="/membership">Requests</a></li>
-  <li><a routerLink="/membership">Settings</a></li>
-</ul>
+<div class="space-y-6">
+  <div>
+    <p class="mb-2 px-3 text-xs font-semibold uppercase tracking-[0.16em] text-sky-300">Campaign</p>
+    <ul class="space-y-1">
+      <li>
+        <a
+          [routerLink]="['/membership/campaign', campaignId()]"
+          routerLinkActive="bg-sky-500/20 text-sky-200"
+          [routerLinkActiveOptions]="{ exact: true }"
+          class="block rounded-xl px-3 py-2 text-sm font-semibold text-slate-300 transition-colors hover:bg-white/10 hover:text-white"
+          >Dashboard</a
+        >
+      </li>
+      <li>
+        <a
+          [routerLink]="['/membership/campaign', campaignId(), 'subscriptions']"
+          routerLinkActive="bg-sky-500/20 text-sky-200"
+          class="block rounded-xl px-3 py-2 text-sm font-semibold text-slate-300 transition-colors hover:bg-white/10 hover:text-white"
+          >Members</a
+        >
+      </li>
+      <li>
+        <a
+          [routerLink]="['/membership/campaign', campaignId(), 'periods']"
+          routerLinkActive="bg-sky-500/20 text-sky-200"
+          class="block rounded-xl px-3 py-2 text-sm font-semibold text-slate-300 transition-colors hover:bg-white/10 hover:text-white"
+          >Periods</a
+        >
+      </li>
+      <li>
+        <a
+          [routerLink]="['/membership/campaign', campaignId(), 'lessons']"
+          routerLinkActive="bg-sky-500/20 text-sky-200"
+          class="block rounded-xl px-3 py-2 text-sm font-semibold text-slate-300 transition-colors hover:bg-white/10 hover:text-white"
+          >Lessons</a
+        >
+      </li>
+      <li>
+        <a
+          [routerLink]="['/membership/campaign', campaignId(), 'requests']"
+          routerLinkActive="bg-sky-500/20 text-sky-200"
+          class="block rounded-xl px-3 py-2 text-sm font-semibold text-slate-300 transition-colors hover:bg-white/10 hover:text-white"
+          >Requests</a
+        >
+      </li>
+      <li>
+        <a
+          [routerLink]="['/membership/campaign', campaignId(), 'settings']"
+          routerLinkActive="bg-sky-500/20 text-sky-200"
+          class="block rounded-xl px-3 py-2 text-sm font-semibold text-slate-300 transition-colors hover:bg-white/10 hover:text-white"
+          >Settings</a
+        >
+      </li>
+    </ul>
+  </div>
 
-<a routerLink="/membership/campaigns">Back to Campaigns</a>
+  <a
+    routerLink="/membership/campaigns"
+    class="inline-flex w-full items-center justify-center rounded-xl border border-slate-700 bg-slate-900 px-3 py-2 text-sm font-semibold text-slate-200 transition-colors hover:border-slate-500 hover:bg-slate-800 hover:text-white"
+  >
+    Back to Campaigns
+  </a>
+</div>

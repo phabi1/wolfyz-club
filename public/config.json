@@ -1,6 +1,7 @@
 {
     "api": {
-        "endpoint": "http://api-wolfzy.docker.localhost"
+        "endpoint": "http://api-wolfzy.docker.localhost",
+        "apiKey": "secret"
     },
     "auth": {
         "issuer": "https://auth-wolfzy.docker.localhost",

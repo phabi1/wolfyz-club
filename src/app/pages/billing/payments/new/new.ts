@@ -33,8 +33,8 @@ export class New implements AfterViewInit {
   form = new FormGroup({});
   model = {
     amount: 0,
-    date: new Date(),
-    method: '',
+    payed_at: new Date(),
+    payment_method: '',
     payer_firstname: '',
     payer_lastname: '',
     payer_email: '',
@@ -49,18 +49,18 @@ export class New implements AfterViewInit {
       },
     },
     {
-      key: 'date',
+      key: 'payed_at',
       type: 'input',
       props: {
-        label: 'Date',
+        label: 'Payed At',
         required: true,
       },
     },
     {
-      key: 'method',
+      key: 'payment_method',
       type: 'select',
       props: {
-        label: 'Method',
+        label: 'Payment Method',
         required: true,
         options: [
           { label: 'Credit Card', value: 'credit_card' },
@@ -123,8 +123,8 @@ export class New implements AfterViewInit {
       this.paymentService
         .create({
           amount: this.model.amount,
-          date: this.model.date,
-          method: this.model.method,
+          payed_at: this.model.payed_at,
+          payment_method: this.model.payment_method,
           payer_firstname: this.model.payer_firstname,
           payer_lastname: this.model.payer_lastname,
           payer_email: this.model.payer_email,

@@ -1,0 +1,23 @@
+.request-layout {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) 21rem;
+	gap: 1rem;
+	align-items: start;
+}
+
+.request-layout-main {
+	min-width: 0;
+}
+
+.request-layout-side {
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+	min-width: 0;
+}
+
+@media (max-width: 1080px) {
+	.request-layout {
+		grid-template-columns: minmax(0, 1fr);
+	}
+}

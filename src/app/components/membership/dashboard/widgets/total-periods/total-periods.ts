@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
+import { TotalWidget } from '../../../../ui/dashboard/widgets/total-widget/total-widget';
 
 @Component({
   selector: 'app-total-periods',
-  imports: [],
+  imports: [TotalWidget],
   templateUrl: './total-periods.html',
-  styleUrl: './total-periods.css',
+  styleUrls: ['./total-periods.css'],
 })
 export class TotalPeriods {}

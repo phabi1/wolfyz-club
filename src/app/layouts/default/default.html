@@ -1,9 +1,17 @@
-<mat-sidenav-container class="h-full">
-  <mat-sidenav opened mode="side">
-    <div class="h-10 flex items-center text-2xl font-bold border-b">
-      <div>Roller Les Loups</div>
+<mat-sidenav-container class="h-full bg-transparent">
+  <mat-sidenav
+    opened
+    mode="side"
+    class="app-shell-sidenav w-72 border-r border-slate-800/80 bg-slate-950 px-4 py-5 text-slate-100 shadow-2xl"
+  >
+    <div class="mb-6 rounded-2xl border border-slate-800 bg-slate-900/80 p-4 shadow-lg ring-1 ring-white/5">
+      <p class="text-xs font-semibold uppercase tracking-[0.18em] text-sky-300">Club</p>
+      <div class="mt-1 text-2xl font-extrabold tracking-tight text-white">Roller Les Loups</div>
+      <p class="mt-2 text-sm text-slate-300">Gestion sportive, membres et campagnes.</p>
     </div>
     <ng-container *ngComponentOutlet="sidebar()"></ng-container>
   </mat-sidenav>
-  <router-outlet></router-outlet>
+  <div class="h-full overflow-auto bg-transparent">
+    <router-outlet></router-outlet>
+  </div>
 </mat-sidenav-container>

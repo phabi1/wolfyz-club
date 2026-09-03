@@ -1,0 +1,44 @@
+:host {
+	display: block;
+}
+
+:host ::ng-deep .datagrid-table {
+	width: 100%;
+	min-width: 44rem;
+	background: transparent;
+}
+
+:host ::ng-deep .datagrid-header-row {
+	height: 3rem;
+	background: rgb(248 250 252 / 0.8);
+}
+
+:host ::ng-deep .datagrid-header-cell {
+	border-bottom: 1px solid rgb(226 232 240);
+	color: #475569;
+	font-size: 0.72rem;
+	font-weight: 800;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+}
+
+:host ::ng-deep .datagrid-cell {
+	border-bottom: 1px solid rgb(226 232 240 / 0.8);
+	color: #0f172a;
+	font-size: 0.88rem;
+}
+
+:host ::ng-deep .datagrid-row {
+	cursor: pointer;
+	transition: background-color 160ms ease;
+}
+
+:host ::ng-deep .datagrid-row:hover {
+	background: rgb(241 245 249 / 0.7);
+}
+
+:host ::ng-deep .datagrid-header-actions,
+:host ::ng-deep .datagrid-cell-actions {
+	width: 4rem;
+	text-align: right;
+}

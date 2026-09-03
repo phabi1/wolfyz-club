@@ -50,11 +50,73 @@ export const routes: Routes = [
                 (m) => m.CampaignDashboard,
               ),
           },
+          {
+            path: 'settings',
+            loadComponent: () =>
+              import('./pages/membership/campaign/settings/settings').then((m) => m.Settings),
+          },
+          {
+            path: 'lessons',
+            children: [
+              {
+                path: '',
+                loadComponent: () =>
+                  import('./pages/membership/campaign/lessons/list/list').then((m) => m.List),
+              },
+            ],
+          },
+          {
+            path: 'periods',
+            children: [
+              {
+                path: '',
+                loadComponent: () =>
+                  import('./pages/membership/campaign/periods/list/list').then((m) => m.List),
+              },
+            ],
+          },
+          {
+            path: 'subscriptions',
+            children: [
+              {
+                path: '',
+                loadComponent: () =>
+                  import('./pages/membership/campaign/subscriptions/list/list').then((m) => m.List),
+              },
+              {
+                path: ':subscriptionId',
+                loadComponent: () =>
+                  import('./pages/membership/campaign/subscriptions/details/details').then(
+                    (m) => m.Details,
+                  ),
+              },
+            ],
+          },
+          {
+            path: 'requests',
+            children: [
+              {
+                path: '',
+                loadComponent: () =>
+                  import('./pages/membership/campaign/requests/list/list').then((m) => m.List),
+              },
+              {
+                path: ':requestId',
+                loadComponent: () =>
+                  import('./pages/membership/campaign/requests/details/details').then(
+                    (m) => m.Details,
+                  ),
+              },
+            ],
+          },
         ],
       },
     ],
   },
-
+  {
+    path: 'signin',
+    loadComponent: () => import('./pages/auth/signin/signin').then((m) => m.Signin),
+  },
   {
     path: '**',
     pathMatch: 'full',

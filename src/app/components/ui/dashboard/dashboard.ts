@@ -23,6 +23,15 @@ export class Dashboard {
 
   ngOnInit() {
     this.options = {
+      gridType: 'fit',
+      margin: 14,
+      outerMargin: true,
+      outerMarginTop: 8,
+      outerMarginRight: 8,
+      outerMarginBottom: 8,
+      outerMarginLeft: 8,
+      mobileBreakpoint: 920,
+      useTransformPositioning: true,
       itemChangeCallback: Dashboard.itemChange,
       itemResizeCallback: Dashboard.itemResize,
     };

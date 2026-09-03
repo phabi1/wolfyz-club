@@ -1,6 +1,35 @@
-<ul>
-      <li><a routerLink="">Dashboard</a></li>
-      <li><a routerLink="/billing/payments">Billing</a></li>
-      <li><a routerLink="/event">Events</a></li>
-      <li><a routerLink="/membership">Memberships</a></li>
-    </ul>
+<ul class="space-y-1">
+  <li>
+    <a
+      routerLink=""
+      routerLinkActive="bg-sky-500/20 text-sky-200"
+      [routerLinkActiveOptions]="{ exact: true }"
+      class="block rounded-xl px-3 py-2 text-sm font-semibold text-slate-300 transition-colors hover:bg-white/10 hover:text-white"
+      >Dashboard</a
+    >
+  </li>
+  <li>
+    <a
+      routerLink="/billing/payments"
+      routerLinkActive="bg-sky-500/20 text-sky-200"
+      class="block rounded-xl px-3 py-2 text-sm font-semibold text-slate-300 transition-colors hover:bg-white/10 hover:text-white"
+      >Billing</a
+    >
+  </li>
+  <li>
+    <a
+      routerLink="/event"
+      routerLinkActive="bg-sky-500/20 text-sky-200"
+      class="block rounded-xl px-3 py-2 text-sm font-semibold text-slate-300 transition-colors hover:bg-white/10 hover:text-white"
+      >Events</a
+    >
+  </li>
+  <li>
+    <a
+      routerLink="/membership"
+      routerLinkActive="bg-sky-500/20 text-sky-200"
+      class="block rounded-xl px-3 py-2 text-sm font-semibold text-slate-300 transition-colors hover:bg-white/10 hover:text-white"
+      >Memberships</a
+    >
+  </li>
+</ul>

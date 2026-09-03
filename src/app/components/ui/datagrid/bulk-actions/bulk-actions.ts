@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
 
 @Component({
   selector: 'app-ui-datagrid-bulk-actions',
@@ -6,4 +6,7 @@ import { Component } from '@angular/core';
   templateUrl: './bulk-actions.html',
   styleUrls: ['./bulk-actions.css'],
 })
-export class BulkActions {}
+export class BulkActions {
+  count = input<number>(0);
+  total = input<number>(0);
+}

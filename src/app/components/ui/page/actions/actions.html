@@ -1,22 +1,43 @@
-<div class="flex">
-  @if (hasPrimaryActions()) {
-    <div>
-      @for (action of primaryActions(); track $index) {
+<div class="flex flex-wrap items-center gap-2 md:gap-3">
+  @if (hasSecondaryActions()) {
+    <div class="flex flex-wrap items-center gap-2">
+      @for (action of secondaryActions(); track $index) {
         @if (action.to) {
-            <a [routerLink]="action.to">{{ action.label }}</a>
+          <a
+            [routerLink]="action.to"
+            class="inline-flex items-center rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-700 transition-colors hover:border-slate-400 hover:text-slate-900"
+            >{{ action.label }}</a
+          >
         } @else {
-          <button>{{ action.label }}</button>
+          <button
+            type="button"
+            (click)="onActionClick(action)"
+            class="inline-flex items-center rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-700 transition-colors hover:border-slate-400 hover:text-slate-900"
+          >
+            {{ action.label }}
+          </button>
         }
       }
     </div>
   }
-  @if (hasSecondaryActions()) {
-    <div>
-      @for (action of secondaryActions(); track $index) {
+
+  @if (hasPrimaryActions()) {
+    <div class="flex flex-wrap items-center gap-2">
+      @for (action of primaryActions(); track $index) {
         @if (action.to) {
-            <a [routerLink]="action.to">{{ action.label }}</a>
+          <a
+            [routerLink]="action.to"
+            class="inline-flex items-center rounded-xl bg-slate-900 px-4 py-2 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-slate-700"
+            >{{ action.label }}</a
+          >
         } @else {
-          <button>{{ action.label }}</button>
+          <button
+            type="button"
+            (click)="onActionClick(action)"
+            class="inline-flex items-center rounded-xl bg-slate-900 px-4 py-2 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-slate-700"
+          >
+            {{ action.label }}
+          </button>
         }
       }
     </div>

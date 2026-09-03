@@ -1,0 +1,17 @@
+<div class="paper">
+  <h3 class="m-0 text-[0.98rem] font-bold text-slate-900">Changer le statut</h3>
+  <p class="mb-3 mt-1 text-[0.82rem] text-slate-500">Selectionnez le nouveau statut puis validez.</p>
+
+  <form class="flex flex-col gap-3" [formGroup]="form" (ngSubmit)="onApply()">
+    <formly-form [form]="form" [fields]="fields" [model]="model"></formly-form>
+    <button
+      class="self-start"
+      mat-raised-button
+      color="primary"
+      type="submit"
+      [disabled]="form.invalid || store.loading()"
+    >
+      Appliquer
+    </button>
+  </form>
+</div>

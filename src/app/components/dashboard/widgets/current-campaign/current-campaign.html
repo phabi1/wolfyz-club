@@ -1,1 +1,19 @@
-<a [routerLink]="['/membership/campaign', campaignId()]">View Campaign</a>
+<div class="flex h-full flex-col justify-between gap-4 p-5 md:p-6">
+	<div>
+		<p class="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">Campaign</p>
+		<h3 class="mt-2 text-xl font-extrabold tracking-tight text-slate-900">Campagne courante</h3>
+		<p class="mt-2 text-sm text-slate-600">Accédez rapidement à la gestion des membres, périodes et cours.</p>
+	</div>
+
+	@if (campaignId()) {
+		<a
+			[routerLink]="['/membership/campaign', campaignId()]"
+			class="inline-flex w-fit items-center rounded-xl border border-sky-200 bg-sky-50 px-4 py-2 text-sm font-semibold text-sky-800 transition-colors hover:border-sky-300 hover:bg-sky-100"
+			>Ouvrir la campagne</a
+		>
+	} @else {
+		<div class="rounded-xl border border-amber-200 bg-amber-50 px-3 py-2 text-sm text-amber-800">
+			Aucune campagne sélectionnée.
+		</div>
+	}
+</div>

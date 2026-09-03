@@ -1,1 +1,37 @@
-<p>filters works!</p>
+<div class="grid gap-3 lg:grid-cols-2">
+	<section class="filter-block" aria-label="Recherche rapide">
+		<p class="filter-block-title">Recherche rapide</p>
+		<div class="relative w-full">
+			<label for="datagrid-search" class="sr-only">Recherche</label>
+			<input
+				id="datagrid-search"
+				type="search"
+				placeholder="Rechercher dans le tableau"
+				class="w-full rounded-xl border border-slate-300 bg-white px-3 py-2 text-sm text-slate-800 shadow-sm outline-none transition focus:border-sky-400 focus:ring-2 focus:ring-sky-100"
+			/>
+		</div>
+	</section>
+
+	<section class="filter-block" aria-label="Filtres avancés">
+		<p class="filter-block-title">Filtres avancés</p>
+		<div class="flex flex-col gap-2 sm:flex-row sm:items-center">
+			<label for="datagrid-status" class="sr-only">Filtre statut</label>
+			<select
+				id="datagrid-status"
+				class="rounded-xl border border-slate-300 bg-white px-3 py-2 text-sm font-medium text-slate-700 shadow-sm outline-none transition focus:border-sky-400 focus:ring-2 focus:ring-sky-100"
+			>
+				<option>Tous statuts</option>
+				<option>Actif</option>
+				<option>En attente</option>
+				<option>Archivé</option>
+			</select>
+
+			<button
+				type="button"
+				class="rounded-xl border border-slate-300 bg-white px-3 py-2 text-sm font-semibold text-slate-700 transition-colors hover:border-slate-400 hover:bg-slate-50"
+			>
+				Réinitialiser
+			</button>
+		</div>
+	</section>
+</div>

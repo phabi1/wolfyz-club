@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
 
 @Component({
   selector: 'app-ui-datagrid-pagination',
@@ -6,4 +6,7 @@ import { Component } from '@angular/core';
   templateUrl: './pagination.html',
   styleUrls: ['./pagination.css'],
 })
-export class Pagination {}
+export class Pagination {
+  count = input<number>(0);
+  total = input<number>(0);
+}

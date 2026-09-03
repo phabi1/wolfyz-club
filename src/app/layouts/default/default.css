@@ -1,0 +1,22 @@
+:host {
+	display: block;
+	height: 100%;
+}
+
+:host ::ng-deep .mat-drawer-container {
+	background: transparent;
+}
+
+:host ::ng-deep .mat-drawer-content,
+:host ::ng-deep mat-sidenav-content {
+	background: transparent !important;
+}
+
+:host ::ng-deep .app-shell-sidenav {
+	background-color: #020617 !important;
+	color: #e2e8f0;
+}
+
+:host ::ng-deep .app-shell-sidenav .mat-drawer-inner-container {
+	background-color: inherit;
+}

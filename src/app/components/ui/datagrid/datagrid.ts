@@ -15,6 +15,7 @@ import { Table } from './table/table';
 export class Datagrid {
   columns = input.required<DatagridColumn[]>();
   rows = input.required<unknown[]>();
+  total = input.required<number>();
   rowActions = input<DatagridAction<any>[]>([]);
 
   rowClick = output<{row: any}>();

@@ -1,0 +1,12 @@
+<div class="flex h-full items-center gap-4 p-5 md:p-6">
+    <div class="metric-badge" aria-hidden="true">
+        {{ count() }}
+    </div>
+    <div class="min-w-0">
+        <div class="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">KPI</div>
+        <div class="truncate text-lg font-bold text-slate-900 md:text-xl">{{ title() }}</div>
+        @if (subtitle()) {
+            <div class="text-sm text-slate-600">{{ subtitle() }}</div>
+        }
+    </div>
+</div>

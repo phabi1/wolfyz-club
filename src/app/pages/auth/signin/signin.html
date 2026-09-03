@@ -1,0 +1,10 @@
+<div class="flex justify-center items-center min-h-screen bg-gray-100">
+  <div class="flex flex-col gap-4">
+    <input
+      type="password"
+      (input)="onCodeChange($event.target.value)"
+      class="h-12 bg-white rounded shadow-md"
+    />
+    <button type="button" mat-raised-button (click)="signin()">Sign In</button>
+  </div>
+</div>

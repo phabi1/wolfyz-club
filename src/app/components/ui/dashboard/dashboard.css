@@ -1,0 +1,48 @@
+:host {
+	display: block;
+	height: 100%;
+	box-sizing: border-box;
+	padding: 0.25rem;
+}
+
+:host ::ng-deep gridster {
+	background: transparent !important;
+	background-image: none !important;
+	height: 100% !important;
+}
+
+:host ::ng-deep gridster-item {
+	background: transparent !important;
+	border: 0 !important;
+	box-shadow: none !important;
+}
+
+:host ::ng-deep gridster-item .gridster-item-content {
+	background: transparent !important;
+	background-image: none !important;
+	border: 0 !important;
+	box-shadow: none !important;
+	height: 100%;
+}
+
+:host ::ng-deep gridster .gridster-item,
+:host ::ng-deep gridster .gridster-item .gridster-item-content {
+	background: transparent !important;
+}
+
+:host ::ng-deep gridster .gridster-column,
+:host ::ng-deep gridster .gridster-row {
+	border-color: transparent !important;
+}
+
+:host ::ng-deep gridster .gridster-preview {
+	background: transparent !important;
+	border: 0 !important;
+	box-shadow: none !important;
+}
+
+@media (min-width: 768px) {
+	:host {
+		padding: 0.5rem;
+	}
+}

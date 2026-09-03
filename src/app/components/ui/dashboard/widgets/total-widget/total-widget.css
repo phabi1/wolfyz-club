@@ -1,0 +1,13 @@
+.metric-badge {
+	min-width: 4.5rem;
+	height: 4.5rem;
+	display: grid;
+	place-items: center;
+	border-radius: 0.9rem;
+	font-size: 1.7rem;
+	font-weight: 800;
+	letter-spacing: -0.02em;
+	color: #0369a1;
+	background: linear-gradient(135deg, #e0f2fe 0%, #dbeafe 100%);
+	border: 1px solid #bae6fd;
+}
