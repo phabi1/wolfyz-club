@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { ConfigService } from '../config.service';
 import { Observable, map } from 'rxjs';
 import type { Period } from '../../models/membership/period';
+import { toTimestamp, toDate } from '../../utils/date';
 
 @Injectable({
   providedIn: 'root',
@@ -71,15 +72,17 @@ export class PeriodService {
       .pipe(map((item) => this.unserialize(item)));
   }
 
-  public create(campaignId: number, period: Partial<Period>): Observable<Period> {
+  public create(campaignId: number, data: Partial<Period>): Observable<Period> {
+    const payload = this.serialize(data);
     return this.httpClient
-      .post<Period>(`${this.endpoint}/membership/campaigns/${campaignId}/periods`, period)
+      .post<Period>(`${this.endpoint}/membership/campaigns/${campaignId}/periods`, payload)
       .pipe(map((item) => this.unserialize(item)));
   }
 
-  public update(campaignId: number, id: number, period: Partial<Period>): Observable<Period> {
+  public update(campaignId: number, id: number, data: Partial<Period>): Observable<Period> {
+    const payload = this.serialize(data);
     return this.httpClient
-      .put<Period>(`${this.endpoint}/membership/campaigns/${campaignId}/periods/${id}`, period)
+      .put<Period>(`${this.endpoint}/membership/campaigns/${campaignId}/periods/${id}`, payload)
       .pipe(map((item) => this.unserialize(item)));
   }
 
@@ -111,6 +114,14 @@ export class PeriodService {
       );
   }
 
+  private serialize(data: Partial<Period>): any {
+    return {
+      ...data,
+      start_date: data.start_date instanceof Date ? toTimestamp(data.start_date) : data.start_date,
+      end_date: data.end_date instanceof Date ? toTimestamp(data.end_date) : data.end_date,
+    };
+  }
+
   private unserialize(data: Period): Period {
     return {
       ...data,
@@ -120,26 +131,3 @@ export class PeriodService {
   }
 }
 
-function toDate(value: unknown): Date {
-  if (value instanceof Date) {
-    return value;
-  }
-
-  if (typeof value === 'number') {
-    return new Date(value < 1_000_000_000_000 ? value * 1000 : value);
-  }
-
-  if (typeof value === 'string') {
-    const numeric = Number(value);
-    if (!Number.isNaN(numeric)) {
-      return new Date(numeric < 1_000_000_000_000 ? numeric * 1000 : numeric);
-    }
-
-    const parsed = new Date(value);
-    if (!Number.isNaN(parsed.getTime())) {
-      return parsed;
-    }
-  }
-
-  return new Date(0);
-}

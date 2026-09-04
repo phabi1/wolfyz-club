@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { ConfigService } from '../config.service';
 import { map, Observable } from 'rxjs';
 import type { Lesson } from '../../models/membership/lesson';
+import { toTimestamp, toDate } from '../../utils/date';
 
 @Injectable({
   providedIn: 'root',
@@ -71,19 +72,21 @@ export class LessonService {
       .pipe(map((item) => this.unserialize(item)));
   }
 
-  public create(campaignId: number, lesson: Partial<Lesson>): Observable<Lesson> {
+  public create(campaignId: number, data: Partial<Lesson>): Observable<Lesson> {
+    const payload = this.serialize(data);
     return this.httpClient
-      .post<Lesson>(`${this.endpoint}/membership/campaigns/${campaignId}/lessons`, lesson)
+      .post<Lesson>(`${this.endpoint}/membership/campaigns/${campaignId}/lessons`, payload)
       .pipe(map((item) => this.unserialize(item)));
   }
 
   public update(
     campaignId: number,
     id: string | number,
-    lesson: Partial<Lesson>,
+    data: Partial<Lesson>,
   ): Observable<Lesson> {
+    const payload = this.serialize(data);
     return this.httpClient
-      .put<Lesson>(`${this.endpoint}/membership/campaigns/${campaignId}/lessons/${id}`, lesson)
+      .put<Lesson>(`${this.endpoint}/membership/campaigns/${campaignId}/lessons/${id}`, payload)
       .pipe(map((item) => this.unserialize(item)));
   }
 
@@ -91,35 +94,19 @@ export class LessonService {
     return this.httpClient.delete<void>(`${this.endpoint}/membership/campaigns/${campaignId}/lessons/${id}`);
   }
 
+  private serialize(data: Partial<Lesson>): any {
+    return {
+      ...data,
+      lesson_start: data.lesson_start ? toTimestamp(data.lesson_start) : undefined,
+      lesson_end: data.lesson_end ? toTimestamp(data.lesson_end) : undefined,
+    };
+  }
+
   private unserialize(data: Lesson): Lesson {
     return {
       ...data,
-      lesson_start: toTimestamp(data.lesson_start),
-      lesson_end: toTimestamp(data.lesson_end),
+      lesson_start: toDate(data.lesson_start),
+      lesson_end: toDate(data.lesson_end),
     };
   }
-}
-
-function toTimestamp(value: unknown): number {
-  if (value instanceof Date) {
-    return value.getTime();
-  }
-
-  if (typeof value === 'number') {
-    return value < 1_000_000_000_000 ? value * 1000 : value;
-  }
-
-  if (typeof value === 'string') {
-    const numeric = Number(value);
-    if (!Number.isNaN(numeric)) {
-      return numeric < 1_000_000_000_000 ? numeric * 1000 : numeric;
-    }
-
-    const parsed = new Date(value).getTime();
-    if (!Number.isNaN(parsed)) {
-      return parsed;
-    }
-  }
-
-  return 0;
 }

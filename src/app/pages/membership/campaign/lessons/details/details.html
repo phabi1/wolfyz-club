@@ -1,4 +1,4 @@
-<app-ui-page [title]="'Lesson details'">
+<app-ui-page [title]="'Lesson details'" [actions]="pageActions">
   @if (store.loading()) {
     <p>Loading...</p>
   }
@@ -48,22 +48,7 @@
           </div>
         </dl>
       </section>
-
-      <section class="paper" aria-labelledby="lesson-meta-title">
-        <h3 id="lesson-meta-title" class="m-0 text-base font-bold tracking-[0.01em] text-slate-900">
-          Metadonnees
-        </h3>
-        <dl class="mt-4 grid grid-cols-1 gap-x-5 gap-y-4 md:grid-cols-2">
-          <div>
-            <dt class="m-0 text-xs uppercase tracking-[0.04em] text-slate-500">ID cours</dt>
-            <dd class="mt-1 text-[0.95rem] font-medium text-slate-900">#{{ item.id }}</dd>
-          </div>
-          <div>
-            <dt class="m-0 text-xs uppercase tracking-[0.04em] text-slate-500">Jour numerique</dt>
-            <dd class="mt-1 text-[0.95rem] font-medium text-slate-900">{{ item.day }}</dd>
-          </div>
-        </dl>
-      </section>
     </div>
   }
 </app-ui-page>
+<router-outlet></router-outlet>

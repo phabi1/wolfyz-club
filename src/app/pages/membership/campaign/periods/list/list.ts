@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
 import { Dispatcher } from '@ngrx/signals/events';
 import type { DatagridAction } from '../../../../../components/ui/datagrid/action';
 import { Datagrid } from '../../../../../components/ui/datagrid/datagrid';
@@ -10,10 +10,10 @@ import type { PageAction } from '../../../../../components/ui/page/action';
 
 @Component({
   selector: 'app-pages-membership-campaign-periods-list',
-  imports: [Page, Datagrid],
+  imports: [Page, Datagrid, RouterOutlet],
   providers: [membershipPeriodList],
   templateUrl: './list.html',
-  styleUrl: './list.css',
+  styleUrls: ['./list.css'],
 })
 export class List {
   readonly store = inject(membershipPeriodList);
@@ -43,6 +43,18 @@ export class List {
         ]);
       },
     },
+    {
+      label: 'Edit',
+      handler: (row: Period) => {
+        this.router.navigate([
+          '/membership/campaign',
+          this.route.snapshot.paramMap.get('campaignId'),
+          'periods',
+          row.id,
+          'edit',
+        ]);
+      },
+    }
   ];
 
   onPaginationChange({ page, size }: { page: number; size: number }) {

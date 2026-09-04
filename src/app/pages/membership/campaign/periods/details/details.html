@@ -1,4 +1,4 @@
-<app-ui-page [title]="'Period details'">
+<app-ui-page [title]="'Period details'" [actions]="pageActions">
   @if (store.loading()) {
     <p>Loading...</p>
   }
@@ -67,3 +67,5 @@
     </div>
   }
 </app-ui-page>
+
+<router-outlet></router-outlet>

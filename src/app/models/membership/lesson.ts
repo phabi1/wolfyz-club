@@ -4,8 +4,8 @@ export type Lesson = {
     title: string;
     description?: string;
     day: number;
-    lesson_start: number;
-    lesson_end: number;
+    lesson_start: Date;
+    lesson_end: Date;
     age_min?: number;
     age_max?: number;
     participant_nb: number;

@@ -62,6 +62,13 @@ export const routes: Routes = [
                 path: '',
                 loadComponent: () =>
                   import('./pages/membership/campaign/lessons/list/list').then((m) => m.List),
+                children: [
+                  {
+                    path: 'new',
+                    loadComponent: () =>
+                      import('./pages/membership/campaign/lessons/new/new').then((m) => m.New),
+                  },
+                ],
               },
               {
                 path: ':lessonId',
@@ -69,6 +76,13 @@ export const routes: Routes = [
                   import('./pages/membership/campaign/lessons/details/details').then(
                     (m) => m.Details,
                   ),
+                children: [
+                  {
+                    path: 'edit',
+                    loadComponent: () =>
+                      import('./pages/membership/campaign/lessons/edit/edit').then((m) => m.Edit),
+                  },
+                ],
               },
             ],
           },
@@ -79,18 +93,28 @@ export const routes: Routes = [
                 path: '',
                 loadComponent: () =>
                   import('./pages/membership/campaign/periods/list/list').then((m) => m.List),
+                children: [
+                  {
+                    path: 'new',
+                    loadComponent: () =>
+                      import('./pages/membership/campaign/periods/new/new').then((m) => m.New),
+                  },
+                ],
               },
-              {
-                path: 'new',
-                loadComponent: () =>
-                  import('./pages/membership/campaign/periods/new/new').then((m) => m.New),
-              },
+
               {
                 path: ':periodId',
                 loadComponent: () =>
                   import('./pages/membership/campaign/periods/details/details').then(
                     (m) => m.Details,
                   ),
+                children: [
+                  {
+                    path: 'edit',
+                    loadComponent: () =>
+                      import('./pages/membership/campaign/periods/edit/edit').then((m) => m.Edit),
+                  },
+                ],
               },
             ],
           },

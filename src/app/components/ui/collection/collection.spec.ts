@@ -8,7 +8,7 @@ import { Collection } from './collection';
   template: `
     <app-ui-collection
       [title]="'Test'"
-      [count]="items.length"
+      [layout]="layout"
       [emptyMessage]="'Aucun element'"
       [items]="items"
       [itemTpl]="itemTpl"
@@ -21,6 +21,7 @@ import { Collection } from './collection';
 })
 class HostComponent {
   items = ['A'];
+  layout: 'grid' | 'list' = 'grid';
 }
 
 describe('Collection', () => {
@@ -39,5 +40,13 @@ describe('Collection', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should render list layout when requested', () => {
+    component.layout = 'list';
+    fixture.detectChanges();
+
+    const container = fixture.nativeElement.querySelector('.collection-items');
+    expect(container.classList.contains('collection-items-list')).toBeTrue();
   });
 });

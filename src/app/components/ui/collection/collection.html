@@ -10,7 +10,11 @@
   </div>
 
   @if (items().length > 0) {
-    <div class="grid grid-cols-1 gap-3 lg:grid-cols-2">
+    <div
+      class="collection-items"
+      [class.collection-items-grid]="layout() === 'grid'"
+      [class.collection-items-list]="layout() === 'list'"
+    >
       @for (item of items(); track $index; let i = $index) {
         <article class="detail-card" (click)="itemClick.emit({index: i})">
           <ng-container
@@ -19,6 +23,13 @@
               context: { $implicit: item, index: i }
             "
           ></ng-container>
+          @if(itemActions().length > 0) {
+            <div class="item-actions">
+              @for (action of itemActions(); track $index; let j = $index) {
+                <button type="button" class="action-btn" (click)="action.handler(item, i)">{{ action.label }}</button>
+              }
+            </div>
+          }
         </article>
       }
     </div>

@@ -1,16 +1,53 @@
 import { Component, inject } from '@angular/core';
 import { Page } from '../../../../../components/ui/page/page';
 import { membershipPeriodDetails } from '../../../../../stores/membership/periods/details';
+import type { PageAction } from '../../../../../components/ui/page/action';
+import { PeriodService } from '../../../../../services/membership/period.service';
+import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-pages-membership-campaign-periods-details',
-  imports: [Page],
+  imports: [Page, RouterOutlet],
   providers: [membershipPeriodDetails],
   templateUrl: './details.html',
-  styleUrl: './details.css',
+  styleUrls: ['./details.css'],
 })
 export class Details {
   readonly store = inject(membershipPeriodDetails);
+  readonly periodSerivce = inject(PeriodService);
+  readonly router = inject(Router);
+  readonly route = inject(ActivatedRoute);
+
+  pageActions: PageAction[] = [
+    {
+      label: 'Imprimer',
+      primary: true,
+      handler: () => {
+        this.print();
+      },
+    },
+    {
+      label: 'Modifier',
+      handler: () => {
+        this.router.navigate(['edit'], { relativeTo: this.route });
+      },
+    },
+    
+    {
+      label: 'Supprimer',
+      handler: () => {
+        this.router.navigate([this.store.id(), 'delete']);
+      },
+    },
+  ];
+
+  private print(): void {
+    const campaignId = 2;
+    const periodId = this.store.id();
+    if (campaignId && periodId) {
+      this.periodSerivce.print(campaignId, periodId).subscribe();
+    }
+  }
 
   formatDate(value: Date | string | number | null | undefined): string {
     if (!value) {

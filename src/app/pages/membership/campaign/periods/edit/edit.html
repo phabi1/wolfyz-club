@@ -1,0 +1,12 @@
+<ng-template #formTpl>
+  <h1 mat-dialog-title>Modifier une periode</h1>
+  <div mat-dialog-content>
+    <formly-form [form]="form" [fields]="fields" [model]="model"></formly-form>
+  </div>
+  <div mat-dialog-actions>
+    <button type="button" mat-button (click)="onCancel()">Annuler</button>
+    <button type="button" mat-button cdkFocusInitial [disabled]="form.invalid" (click)="onSubmit()">
+      Enregistrer
+    </button>
+  </div>
+</ng-template>

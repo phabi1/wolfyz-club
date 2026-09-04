@@ -1,17 +1,31 @@
 import { Component, inject } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import type { PageAction } from '../../../../../components/ui/page/action';
 import { Page } from '../../../../../components/ui/page/page';
 import { membershipLessonDetails } from '../../../../../stores/membership/lessons/details';
 import { formatDay } from '../../../../../utils/date';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-pages-membership-campaign-lessons-details',
-  imports: [Page],
+  imports: [Page, RouterOutlet],
   providers: [membershipLessonDetails],
   templateUrl: './details.html',
   styleUrl: './details.css',
 })
 export class Details {
   readonly store = inject(membershipLessonDetails);
+  readonly router = inject(Router);
+  readonly route = inject(ActivatedRoute)
+
+  readonly pageActions: PageAction[] = [
+    {
+      label: 'Edit',
+      handler: () => {
+        this.router.navigate(['edit'], { relativeTo: this.route });
+      },
+    },
+  ];
 
   formatDay(value: number | null | undefined): string {
     if (typeof value !== 'number') {
@@ -21,9 +35,13 @@ export class Details {
     return formatDay(value);
   }
 
-  formatTime(value: number | null | undefined): string {
+  formatTime(value: number | Date | null | undefined): string {
     if (!value) {
       return 'Non renseignee';
+    }
+
+    if (value instanceof Date) {
+      value = value.getTime();
     }
 
     const timestamp = value < 1_000_000_000_000 ? value * 1000 : value;
