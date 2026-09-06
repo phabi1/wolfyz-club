@@ -1,0 +1,20 @@
+<app-ui-dashboard-widget-card
+  heading="Bank Amount"
+  title="Bank Amount"
+  description="Quick access to the current bank amount."
+  i18n-description=":@@dashboard.widgets.bankAmount.description"
+  i18n-title=":@@dashboard.widgets.bankAmount.title"
+>
+  <div class="h-fullflex flex-col">
+    <div class="flex-1 flex justify-center items-center">
+      @if (loading()) {
+        <app-ui-ghosting-rectangle width="100px" height="50px"></app-ui-ghosting-rectangle>
+      } @else {
+        <p>Bank Amount: {{ amount() }}</p>
+      }
+    </div>
+    <div>
+        <a mat-button routerLink="/billing/payments" i18n=":@@dashboard.widgets.bankAmount.manage">Manage Bank Amount</a>
+    </div>
+  </div>
+</app-ui-dashboard-widget-card>

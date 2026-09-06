@@ -2,13 +2,16 @@ import { Component, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import type { PageAction } from '../../../../../components/ui/page/action';
 import { Page } from '../../../../../components/ui/page/page';
+import { Badge } from '../../../../../components/ui/badge/badge';
 import { membershipLessonDetails } from '../../../../../stores/membership/lessons/details';
 import { formatDay } from '../../../../../utils/date';
 import { RouterOutlet } from '@angular/router';
+import { Datagrid } from '../../../../../components/ui/datagrid/datagrid';
+import { DatagridColumn } from '../../../../../components/ui/datagrid/column';
 
 @Component({
   selector: 'app-pages-membership-campaign-lessons-details',
-  imports: [Page, RouterOutlet],
+  imports: [Page, Badge, RouterOutlet, Datagrid],
   providers: [membershipLessonDetails],
   templateUrl: './details.html',
   styleUrl: './details.css',
@@ -16,7 +19,7 @@ import { RouterOutlet } from '@angular/router';
 export class Details {
   readonly store = inject(membershipLessonDetails);
   readonly router = inject(Router);
-  readonly route = inject(ActivatedRoute)
+  readonly route = inject(ActivatedRoute);
 
   readonly pageActions: PageAction[] = [
     {
@@ -25,6 +28,12 @@ export class Details {
         this.router.navigate(['edit'], { relativeTo: this.route });
       },
     },
+  ];
+
+  participantColumns: DatagridColumn[] = [
+    { header: 'First Name', data: 'member.firstname', name: 'firstname' },
+    { header: 'Last Name', data: 'member.lastname', name: 'lastname' },
+    { header: 'Age', data: 'age', name: 'age', 'type': 'number' }
   ];
 
   formatDay(value: number | null | undefined): string {

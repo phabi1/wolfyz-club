@@ -1,6 +1,6 @@
-<app-ui-page [title]="'Period details'" [actions]="pageActions">
+<app-ui-page title="Period details" i18n-title="@@membership.periods.details.pageTitle" [actions]="pageActions">
   @if (store.loading()) {
-    <p>Loading...</p>
+    <p i18n="@@common.label.loading">Loading...</p>
   }
 
   @if (store.error(); as error) {
@@ -14,36 +14,39 @@
       <section class="paper accent-card" aria-labelledby="period-overview-title">
         <div class="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
           <div>
-            <p class="m-0 text-xs uppercase tracking-widest text-slate-500">Periode</p>
+            <p class="m-0 text-xs uppercase tracking-widest text-slate-500" i18n="@@membership.periods.details.period">Period</p>
             <h2 id="period-overview-title" class="mt-1 text-xl font-bold text-slate-900">
-              {{ item.title || 'Periode sans titre' }}
+              {{ item.title || untitledPeriodLabel }}
             </h2>
-            <p class="mt-1 text-sm text-slate-600">Detail de la periode #{{ item.id }}</p>
+            <p class="mt-1 text-sm text-slate-600">
+              <span i18n="@@membership.periods.details.periodDetail">Period details</span>
+              <app-ui-badge [label]="'#' + item.id"></app-ui-badge>
+            </p>
           </div>
 
           <div class="flex flex-wrap items-center gap-2">
-            <span class="chip">Campagne #{{ item.campaign_id }}</span>
-            <span class="chip chip-primary">{{ periodDays(item.start_date, item.end_date) }} jours</span>
+            <span class="chip"><span i18n="@@membership.periods.details.campaign">Campaign</span> <app-ui-badge [label]="'#' + item.campaign_id"></app-ui-badge></span>
+            <span class="chip chip-primary">{{ periodDays(item.start_date, item.end_date) }} <span i18n="@@membership.periods.details.days">days</span></span>
           </div>
         </div>
 
         <dl class="mt-6 grid grid-cols-1 gap-x-5 gap-y-4 md:grid-cols-2 xl:grid-cols-3">
           <div>
-            <dt class="m-0 text-xs uppercase tracking-[0.04em] text-slate-500">Date de debut</dt>
+            <dt class="m-0 text-xs uppercase tracking-[0.04em] text-slate-500" i18n="@@membership.periods.details.startDate">Start date</dt>
             <dd class="mt-1 text-[0.95rem] font-medium text-slate-900">
               {{ formatDate(item.start_date) }}
             </dd>
           </div>
           <div>
-            <dt class="m-0 text-xs uppercase tracking-[0.04em] text-slate-500">Date de fin</dt>
+            <dt class="m-0 text-xs uppercase tracking-[0.04em] text-slate-500" i18n="@@membership.periods.details.endDate">End date</dt>
             <dd class="mt-1 text-[0.95rem] font-medium text-slate-900">
               {{ formatDate(item.end_date) }}
             </dd>
           </div>
           <div>
-            <dt class="m-0 text-xs uppercase tracking-[0.04em] text-slate-500">Duree</dt>
+            <dt class="m-0 text-xs uppercase tracking-[0.04em] text-slate-500" i18n="@@membership.periods.details.duration">Duration</dt>
             <dd class="mt-1 text-[0.95rem] font-medium text-slate-900">
-              {{ periodDays(item.start_date, item.end_date) }} jours
+              {{ periodDays(item.start_date, item.end_date) }} <span i18n="@@membership.periods.details.days">days</span>
             </dd>
           </div>
         </dl>
@@ -51,16 +54,20 @@
 
       <section class="paper" aria-labelledby="period-meta-title">
         <h3 id="period-meta-title" class="m-0 text-base font-bold tracking-[0.01em] text-slate-900">
-          Metadonnees
+          <span i18n="@@membership.periods.details.metadata">Metadata</span>
         </h3>
         <dl class="mt-4 grid grid-cols-1 gap-x-5 gap-y-4 md:grid-cols-2">
           <div>
-            <dt class="m-0 text-xs uppercase tracking-[0.04em] text-slate-500">ID periode</dt>
-            <dd class="mt-1 text-[0.95rem] font-medium text-slate-900">#{{ item.id }}</dd>
+            <dt class="m-0 text-xs uppercase tracking-[0.04em] text-slate-500" i18n="@@membership.periods.details.periodId">Period ID</dt>
+            <dd class="mt-1 text-[0.95rem] font-medium text-slate-900">
+              <app-ui-badge [label]="'#' + item.id"></app-ui-badge>
+            </dd>
           </div>
           <div>
-            <dt class="m-0 text-xs uppercase tracking-[0.04em] text-slate-500">ID campagne</dt>
-            <dd class="mt-1 text-[0.95rem] font-medium text-slate-900">#{{ item.campaign_id }}</dd>
+            <dt class="m-0 text-xs uppercase tracking-[0.04em] text-slate-500" i18n="@@membership.periods.details.campaignId">Campaign ID</dt>
+            <dd class="mt-1 text-[0.95rem] font-medium text-slate-900">
+              <app-ui-badge [label]="'#' + item.campaign_id"></app-ui-badge>
+            </dd>
           </div>
         </dl>
       </section>

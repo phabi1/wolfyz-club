@@ -3,7 +3,8 @@ import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
 import type { Lesson } from '../../../../../models/membership/lesson';
 import { membershipLessonList } from '../../../../../stores/membership/lessons/list';
 import { Page } from '../../../../../components/ui/page/page';
-import { Collection as UiCollection } from '../../../../../components/ui/collection/collection';
+import { Badge } from '../../../../../components/ui/badge/badge';
+import { CollectionItemAction, Collection as UiCollection } from '../../../../../components/ui/collection/collection';
 import { formatDay } from '../../../../../utils/date';
 
 type LessonGroup = {
@@ -14,7 +15,7 @@ type LessonGroup = {
 
 @Component({
   selector: 'app-pages-membership-campaign-lessons-list',
-  imports: [Page, UiCollection, RouterOutlet],
+  imports: [Page, UiCollection, Badge, RouterOutlet],
   providers: [membershipLessonList],
   templateUrl: './list.html',
   styleUrl: './list.css',
@@ -25,6 +26,10 @@ export class List {
   readonly router = inject(Router);
   readonly route = inject(ActivatedRoute);
   private readonly daysOrder = [1, 2, 3, 4, 5, 6, 0];
+  readonly untitledLessonLabel = $localize`:@@membership.lessons.untitled:Untitled lesson`;
+  readonly noDescriptionLabel = $localize`:@@membership.lessons.noDescription:No description`;
+  readonly notAvailableLabel = $localize`:@@common.label.na:N/A`;
+  readonly notProvidedLabel = $localize`:@@common.label.notProvided:Not provided`;
 
   readonly dayGroups = computed<LessonGroup[]>(() =>
     this.daysOrder.map((day) => ({
@@ -42,20 +47,6 @@ export class List {
     })),
   );
 
-  readonly lessonItemActions = [
-    {
-      label: 'Edit',
-      handler: (lesson: Lesson, index: number) =>
-        this.router.navigate([
-          '/membership/campaign',
-          this.route.snapshot.paramMap.get('campaignId'),
-          'lessons',
-          lesson.id,
-          'edit'
-        ]),
-    },
-  ];
-
   onAdd(): void {
     const campaignId = +(this.route.snapshot.paramMap.get('campaignId') || 0);
     if (!campaignId) {
@@ -65,28 +56,23 @@ export class List {
     this.router.navigate(['/membership/campaign', campaignId, 'lessons', 'new']);
   }
 
-  onLessonClick(day: number, index: number): void {
-    const lesson = this.dayGroups().find((group) => group.day === day)?.items[index];
-    if (!lesson) {
-      return;
-    }
-
+  onLessonClick(item: Lesson, index: number): void {
     this.router.navigate([
       '/membership/campaign',
       this.route.snapshot.paramMap.get('campaignId'),
       'lessons',
-      lesson.id,
+      item.id,
     ]);
   }
 
   formatTime(value: Date | string | number | null | undefined): string {
     if (!value) {
-      return 'Non renseignee';
+      return this.notProvidedLabel;
     }
 
     const parsed = this.toDate(value);
     if (Number.isNaN(parsed.getTime())) {
-      return 'Non renseignee';
+      return this.notProvidedLabel;
     }
 
     return new Intl.DateTimeFormat('fr-FR', {

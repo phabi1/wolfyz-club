@@ -1,9 +1,9 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'dateAgo',
+  name: 'address',
 })
-export class DateAgoPipe implements PipeTransform {
+export class AddressPipe implements PipeTransform {
   transform(value: unknown, ...args: unknown[]): unknown {
     return null;
   }

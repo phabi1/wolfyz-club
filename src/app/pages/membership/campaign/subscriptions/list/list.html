@@ -1,10 +1,11 @@
-<app-ui-page title="Subscriptions">
+<app-ui-page title="Subscriptions" i18n-title="@@membership.subscriptions.pageTitle" [actions]="pageActions">
   <app-ui-datagrid
     [columns]="store.columns()"
     [rows]="store.items()"
     [total]="store.total()"
     [rowActions]="rowActions"
     [currentPage]="store.page()"
+    [quickSearch]="true"
     [search]="store.search()"
     (searchChange)="onSearchChange($event)"
     (paginationChange)="

@@ -14,16 +14,18 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import type { Lesson } from '../../../../../../../models/membership/lesson';
 import type { Session } from '../../../../../../../models/membership/session';
 import { formatDay, formatTime } from '../../../../../../../utils/date';
-import { Collection } from '../../../../../../ui/collection/collection';
+import { Collection, CollectionItemAction } from '../../../../../../ui/collection/collection';
+import { Badge } from '../../../../../../ui/badge/badge';
 import { FormlyFieldConfig, FormlyModule } from '@ngx-formly/core';
 import { FormGroup } from '@angular/forms';
 import type { EditableSession } from '../info.models';
 import { ConfirmDialogService } from '../../../../../../../services/ui/confirm-dialog.service';
 import { firstValueFrom } from 'rxjs';
+import { formatLessonTitle } from '../../../../../../../utils/lesson';
 
 @Component({
   selector: 'app-membership-subscription-details-sessions-section',
-  imports: [Collection, MatDialogModule, MatButtonModule, FormlyModule],
+  imports: [Collection, Badge, MatDialogModule, MatButtonModule, FormlyModule],
   templateUrl: './sessions.html',
   styleUrl: './sessions.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -42,7 +44,7 @@ export class SessionsSection {
       key: 'lesson_id',
       type: 'select',
       props: {
-        label: 'Lesson',
+        label: $localize`:@@membership.subscriptions.form.lesson:Lesson`,
         options: [],
       },
     },
@@ -51,13 +53,20 @@ export class SessionsSection {
 
   private readonly formTpl = viewChild<TemplateRef<any>>('formTpl');
 
+  itemActions: CollectionItemAction[] = [
+    {
+      label: $localize`:@@common.button.delete:Delete`,
+      handler: ({item, index}) => this.onRemoveItem({ item, index }),
+    },
+  ];
+
   constructor() {
     effect(() => {
       this.fields.update((fields) => {
         const field = fields[0];
         if (field && field.props) {
           field.props.options = this.lessons().map((lesson) => ({
-            label: formatDay(lesson.day) + ' ' + formatTime(lesson.lesson_start) + '-' + formatTime(lesson.lesson_end),
+            label: formatLessonTitle(lesson),
             value: lesson.id,
           }));
         }
@@ -69,7 +78,7 @@ export class SessionsSection {
 
   sessionTitle(session: Session): string {
     const lesson = this.lessons().find((lesson) => lesson.id === session.lesson_id);
-    return lesson?.title || 'Cours non renseigne';
+    return lesson?.title || $localize`:@@membership.subscriptions.sessions.lessonNotProvided:Lesson not provided`;
   }
 
   sessionSubtitle(session: Session): string {
@@ -112,8 +121,8 @@ export class SessionsSection {
       });
   }
 
-  async onItemClick(event: { index: number }): Promise<void> {
-    const session = this.sessions()[event.index];
+  async onRemoveItem(event: { item: any; index: number }): Promise<void> {
+    const session = this.sessions().find((item: any) => item.id === event.item.id);
     if (!session) {
       return;
     }
@@ -125,10 +134,10 @@ export class SessionsSection {
 
     const confirmed = await firstValueFrom(
       this.confirmDialogService.confirm({
-        title: 'Supprimer la session',
-        message: `Voulez-vous vraiment supprimer la session ${lessonLabel} ?`,
-        confirmLabel: 'Supprimer',
-        cancelLabel: 'Annuler',
+        title: $localize`:@@membership.subscriptions.sessions.deleteTitle:Delete session`,
+        message: `${$localize`:@@membership.subscriptions.sessions.deleteMessage:Do you really want to delete session`} ${lessonLabel}?`,
+        confirmLabel: $localize`:@@common.button.delete:Delete`,
+        cancelLabel: $localize`:@@common.button.cancel:Cancel`,
         confirmColor: 'warn',
       }),
     );

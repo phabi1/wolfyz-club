@@ -1,11 +1,14 @@
 <app-ui-collection
-  [title]="'Contacts'"
-  [emptyMessage]="'Aucun contact associe a cette souscription.'"
-  [addLabel]="'Ajouter un contact'"
+  title="Contacts"
+  i18n-title="@@membership.subscriptions.contacts.title"
+  emptyMessage="No contact linked to this subscription."
+  i18n-emptyMessage="@@membership.subscriptions.contacts.empty"
+  addLabel="Add contact"
+  i18n-addLabel="@@membership.subscriptions.contacts.add"
   [items]="contacts()"
   [itemTpl]="contactItemTpl"
+  [itemActions]="itemActions()"
   (addItem)="onAddItem()"
-  (itemClick)="onItemClick($event)"
 ></app-ui-collection>
 
 <ng-template #contactItemTpl let-contact>
@@ -13,17 +16,17 @@
     <h4 class="m-0 text-sm font-bold text-slate-900">
       {{ fullName(contact.firstname, contact.lastname) }}
     </h4>
-    <span class="chip">#{{ contact.id }}</span>
+    <app-ui-badge [label]="'#' + contact.id"></app-ui-badge>
   </header>
   <dl class="grid grid-cols-1 gap-y-3 md:grid-cols-2 md:gap-x-4">
     <div class="md:col-span-2">
-      <dt class="m-0 text-xs uppercase tracking-[0.04em] text-slate-500">Email</dt>
+      <dt class="m-0 text-xs uppercase tracking-[0.04em] text-slate-500" i18n="@@membership.subscriptions.contacts.email">Email</dt>
       <dd class="mt-1 text-[0.95rem] font-medium text-slate-900 wrap-break-word">
         {{ contactEmail(contact) }}
       </dd>
     </div>
     <div>
-      <dt class="m-0 text-xs uppercase tracking-[0.04em] text-slate-500">Telephone</dt>
+      <dt class="m-0 text-xs uppercase tracking-[0.04em] text-slate-500" i18n="@@membership.subscriptions.contacts.phone">Phone</dt>
       <dd class="mt-1 text-[0.95rem] font-medium text-slate-900">
         {{ contactPhone(contact) }}
       </dd>
@@ -32,19 +35,14 @@
 </ng-template>
 
 <ng-template #formTpl>
-  <h1 mat-dialog-title>{{ formMode === 'add' ? 'Ajouter un contact' : 'Modifier le contact' }}</h1>
+  <h1 mat-dialog-title>{{ formMode === 'add' ? addContactDialogTitle : editContactDialogTitle }}</h1>
   <div mat-dialog-content>
     <formly-form [form]="form" [fields]="fields" [model]="model"></formly-form>
   </div>
   <div mat-dialog-actions>
-    @if (formMode === 'edit') {
-      <button type="button" mat-button class="action-btn-danger" (click)="onDelete()">
-        Supprimer
-      </button>
-    }
-    <button type="button" mat-button mat-dialog-close>Annuler</button>
+    <button type="button" mat-button mat-dialog-close i18n="@@common.button.cancel">Cancel</button>
     <button type="button" mat-button cdkFocusInitial [disabled]="form.invalid" (click)="onSubmit()">
-      {{ formMode === 'add' ? 'Ajouter' : 'Modifier' }}
+      {{ formMode === 'add' ? addLabel : editLabel }}
     </button>
   </div>
 </ng-template>

@@ -1,6 +1,6 @@
 <div class="paper">
-  <h3 class="m-0 text-[0.98rem] font-bold text-slate-900">Changer le statut</h3>
-  <p class="mb-3 mt-1 text-[0.82rem] text-slate-500">Selectionnez le nouveau statut puis validez.</p>
+  <h3 class="m-0 text-[0.98rem] font-bold text-slate-900" i18n="@@membership.requests.statusSwitcher.title">Change status</h3>
+  <p class="mb-3 mt-1 text-[0.82rem] text-slate-500" i18n="@@membership.requests.statusSwitcher.subtitle">Select the new status then confirm.</p>
 
   <form class="flex flex-col gap-3" [formGroup]="form" (ngSubmit)="onApply()">
     <formly-form [form]="form" [fields]="fields" [model]="model"></formly-form>
@@ -11,7 +11,7 @@
       type="submit"
       [disabled]="form.invalid || store.loading()"
     >
-      Appliquer
+      <span i18n="@@membership.requests.statusSwitcher.apply">Apply</span>
     </button>
   </form>
 </div>

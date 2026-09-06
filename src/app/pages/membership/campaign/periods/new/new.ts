@@ -41,19 +41,19 @@ export class New implements AfterViewInit {
     {
       key: 'title',
       type: 'input',
-      props: { label: 'Titre', required: true, maxLength: 255 },
+      props: { label: $localize`:@@membership.periods.form.title:Title`, required: true, maxLength: 255 },
       validators: { validation: [Validators.required] },
     },
     {
       key: 'start_date',
       type: 'input',
-      props: { label: 'Date de debut', type: 'date', required: true },
+      props: { label: $localize`:@@membership.periods.form.startDate:Start date`, type: 'date', required: true },
       validators: { validation: [Validators.required] },
     },
     {
       key: 'end_date',
       type: 'input',
-      props: { label: 'Date de fin', type: 'date', required: true },
+      props: { label: $localize`:@@membership.periods.form.endDate:End date`, type: 'date', required: true },
       validators: { validation: [Validators.required] },
     },
   ];
@@ -136,7 +136,7 @@ export class New implements AfterViewInit {
     end.setDate(end.getDate() + 30);
 
     return {
-      title: 'Nouvelle periode',
+      title: $localize`:@@membership.periods.new.defaultTitle:New period`,
       start_date: this.toDateInputValue(start),
       end_date: this.toDateInputValue(end),
     };

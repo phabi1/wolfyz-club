@@ -4,6 +4,7 @@ import { ConfigService } from '../config.service';
 import { map, Observable } from 'rxjs';
 import type { Lesson } from '../../models/membership/lesson';
 import { toTimestamp, toDate } from '../../utils/date';
+import { Subscription } from '../../models/membership/subscription';
 
 @Injectable({
   providedIn: 'root',
@@ -91,7 +92,17 @@ export class LessonService {
   }
 
   public delete(campaignId: number, id: string | number): Observable<void> {
-    return this.httpClient.delete<void>(`${this.endpoint}/membership/campaigns/${campaignId}/lessons/${id}`);
+    return this.httpClient.delete<void>(
+      `${this.endpoint}/membership/campaigns/${campaignId}/lessons/${id}`,
+    );
+  }
+
+  public participants(campaignId: number, lessonId: string | number): Observable<Subscription[]> {
+    return this.httpClient
+      .get<{ items: Subscription[]; total: number }>(
+        `${this.endpoint}/membership/campaigns/${campaignId}/sessions?filters=lesson_id:eq:${lessonId}&sort=member.lastname,member.firstname&size=100`,
+      )
+      .pipe(map((res) => res.items.map((item) => this.unserializeParticipant(item))));
   }
 
   private serialize(data: Partial<Lesson>): any {
@@ -107,6 +118,12 @@ export class LessonService {
       ...data,
       lesson_start: toDate(data.lesson_start),
       lesson_end: toDate(data.lesson_end),
+    };
+  }
+
+  private unserializeParticipant(data: any): Subscription {
+    return {
+      ...data,
     };
   }
 }

@@ -3,7 +3,13 @@ export function formatDay(day: number): string {
   return days[day] || 'Jour inconnu';
 }
 
-export function formatDate(value: number): string {
+export function formatDate(value: number | string | Date): string {
+  if (!value) {
+    return '';
+  }
+  if (typeof value === 'string' || typeof value === 'number') {
+    value = new Date(value);
+  }
   const date = new Date(value);
   const day = date.getDate().toString().padStart(2, '0');
   const month = (date.getMonth() + 1).toString().padStart(2, '0');
@@ -20,6 +26,29 @@ export function formatTime(value: number | Date): string {
   return `${hours}:${minutes}`;
 }
 
+export function formatBirthday(value: string | Date | number): string | null {
+  if (!value) {
+    return null;
+  }
+
+  let date: Date;
+  if (typeof value === 'string') {
+    date = new Date(value);
+  } else if (typeof value === 'number') {
+    date = new Date(value);
+  } else {
+    date = value as Date;
+  }
+
+  if (Number.isNaN(date.getTime())) {
+    return null;
+  }
+
+  return new Intl.DateTimeFormat('fr-FR', {
+    dateStyle: 'long',
+  }).format(date);
+}
+
 
 export function toTimestamp(value: Date | string): number {
   if (typeof value === 'string') {
@@ -28,7 +57,7 @@ export function toTimestamp(value: Date | string): number {
   return Math.floor(value.getTime() / 1000);
 }
 
-export function toDate(value: unknown): Date {
+export function toDate(value: Date | number | string): Date {
   if (value instanceof Date) {
     return value;
   }

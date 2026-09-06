@@ -5,7 +5,7 @@
     </h3>
     <div class="flex items-center gap-2">
       <span class="text-xs text-slate-600">{{ count() }} total</span>
-      <button type="button" class="action-btn" (click)="addItem.emit()">{{ addLabel() }}</button>
+      <button type="button" mat-button (click)="addItem.emit()">{{ addLabel() }}</button>
     </div>
   </div>
 
@@ -16,21 +16,25 @@
       [class.collection-items-list]="layout() === 'list'"
     >
       @for (item of items(); track $index; let i = $index) {
-        <article class="detail-card" (click)="itemClick.emit({index: i})">
+        <article class="detail-card relative pr-10" (click)="itemClick.emit({ item: item, index: i })">
           <ng-container
-            *ngTemplateOutlet="
-              itemTpl();
-              context: { $implicit: item, index: i }
-            "
+            *ngTemplateOutlet="itemTpl(); context: { $implicit: item, index: i }"
           ></ng-container>
-          @if(itemActions().length > 0) {
-            <div class="item-actions">
-              @for (action of itemActions(); track $index; let j = $index) {
-                <button type="button" class="action-btn" (click)="action.handler(item, i)">{{ action.label }}</button>
-              }
+          @if (itemActions().length > 0) {
+            <div class="item-actions mt-2 absolute right-2 top-2">
+              <button mat-icon-button [mat-menu-trigger-for]="itemMenu">
+                <mat-icon>more_vert</mat-icon>
+              </button>
             </div>
           }
         </article>
+        <mat-menu #itemMenu="matMenu">
+          @for (action of itemActions(); track $index; let j = $index) {
+            <button type="button" mat-menu-item (click)="action.handler({ item: item, index: j })">
+              {{ action.label }}
+            </button>
+          }
+        </mat-menu>
       }
     </div>
   } @else {

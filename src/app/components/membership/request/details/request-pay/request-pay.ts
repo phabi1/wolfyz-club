@@ -16,6 +16,8 @@ export class RequestPay {
   readonly pay = input.required<RequestPayModel>();
   readonly calculating = input<boolean>(true);
   readonly totalAmount = computed(() => this.pay().total_amount || 0);
+  readonly enterAmountLabel = $localize`:@@membership.requests.pay.enterAmount:Enter amount`;
+  readonly applyLabel = $localize`:@@membership.requests.pay.apply:Apply`;
 
   value = signal<string>('');
 
@@ -26,7 +28,6 @@ export class RequestPay {
   }
 
   applyDiscount() {
-    console.log(this.value());
     this.discountChange.emit(Number(this.value()));
   }
 }

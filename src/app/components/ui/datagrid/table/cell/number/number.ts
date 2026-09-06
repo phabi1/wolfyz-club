@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Cell } from '../../../cell';
 
 @Component({
   selector: 'app-number',
@@ -6,4 +7,4 @@ import { Component } from '@angular/core';
   templateUrl: './number.html',
   styleUrl: './number.css',
 })
-export class Number {}
+export class Number extends Cell<number> {}

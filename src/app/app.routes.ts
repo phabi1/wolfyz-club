@@ -127,6 +127,11 @@ export const routes: Routes = [
                   import('./pages/membership/campaign/subscriptions/list/list').then((m) => m.List),
               },
               {
+                path: 'new',
+                loadComponent: () =>
+                  import('./pages/membership/campaign/subscriptions/new/new').then((m) => m.New),
+              },
+              {
                 path: ':subscriptionId',
                 loadComponent: () =>
                   import('./pages/membership/campaign/subscriptions/details/details').then(

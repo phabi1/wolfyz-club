@@ -27,11 +27,13 @@ export class AuthService {
     }
 
     public login() {
-        this.statusSubject.next('authenticated');
+        localStorage.setItem('isLoggedIn', 'true');
         this.isLoggedInSubject.next(true);
     }
 
     public logout() {
+        localStorage.removeItem('isLoggedIn');
+        this.isLoggedInSubject.next(false);
         this.statusSubject.next('none');
     }
 }

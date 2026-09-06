@@ -1,10 +1,10 @@
 import { Directive, input } from '@angular/core';
 
 @Directive({
-  selector: '[appCell]',
+  selector: '[appUiDatagridTableCell]',
 })
-export class Cell {
+export class Cell<T = unknown> {
   constructor() {}
 
-  value = input();
+  value = input<T>();
 }

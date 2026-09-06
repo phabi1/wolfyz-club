@@ -29,10 +29,10 @@ export class StatusSwitcher {
   private readonly submittedStatus = signal<StatusChangeAction | null>(null);
 
   private readonly statusLabels: Record<StatusChangeAction, string> = {
-    approved: 'approuve',
-    rejected: 'rejete',
-    canceled: 'annule',
-    paid: 'marque comme paye',
+    approved: $localize`:@@membership.requests.statusSwitcher.labelApproved:approved`,
+    rejected: $localize`:@@membership.requests.statusSwitcher.labelRejected:rejected`,
+    canceled: $localize`:@@membership.requests.statusSwitcher.labelCanceled:canceled`,
+    paid: $localize`:@@membership.requests.statusSwitcher.labelPaid:marked as paid`,
   };
 
   form = new FormGroup({});
@@ -42,14 +42,23 @@ export class StatusSwitcher {
       key: 'status',
       type: 'select',
       props: {
-        label: 'Nouveau statut',
-        placeholder: 'Selectionner un statut',
+        label: $localize`:@@membership.requests.statusSwitcher.newStatus:New status`,
+        placeholder: $localize`:@@membership.requests.statusSwitcher.statusPlaceholder:Select a status`,
         required: true,
         options: [
-          { value: 'approved', label: 'Approuvee' },
-          { value: 'rejected', label: 'Rejetee' },
-          { value: 'canceled', label: 'Annulee' },
-          { value: 'paid', label: 'Payee' },
+          {
+            value: 'approved',
+            label: $localize`:@@membership.requests.status.approved:Approved`,
+          },
+          {
+            value: 'rejected',
+            label: $localize`:@@membership.requests.status.rejected:Rejected`,
+          },
+          {
+            value: 'canceled',
+            label: $localize`:@@membership.requests.status.canceled:Canceled`,
+          },
+          { value: 'paid', label: $localize`:@@membership.requests.status.paid:Paid` },
         ],
       },
     },
@@ -57,8 +66,8 @@ export class StatusSwitcher {
       key: 'reason',
       type: 'textarea',
       props: {
-        label: 'Raison (optionnelle)',
-        placeholder: 'Ajouter un commentaire',
+        label: $localize`:@@membership.requests.statusSwitcher.reason:Reason (optional)`,
+        placeholder: $localize`:@@membership.requests.statusSwitcher.reasonPlaceholder:Add a comment`,
         rows: 3,
       },
     },
@@ -82,15 +91,25 @@ export class StatusSwitcher {
 
       const error = this.store.error();
       if (error) {
-        this.snackBar.open('Erreur lors du changement de statut.', 'Fermer', {
+        this.snackBar.open(
+          $localize`:@@membership.requests.statusSwitcher.changeError:Error while changing status.`,
+          $localize`:@@common.button.close:Close`,
+          {
           duration: 5000,
-        });
+          },
+        );
       } else {
         const status = this.submittedStatus();
-        const label = status ? this.statusLabels[status] : 'mis a jour';
-        this.snackBar.open(`Statut ${label} avec succes.`, 'Fermer', {
+        const label = status
+          ? this.statusLabels[status]
+          : $localize`:@@membership.requests.statusSwitcher.updated:updated`;
+        this.snackBar.open(
+          `${$localize`:@@membership.requests.statusSwitcher.changeSuccess:Status`} ${label} ${$localize`:@@membership.requests.statusSwitcher.successSuffix:successfully.`}`,
+          $localize`:@@common.button.close:Close`,
+          {
           duration: 3000,
-        });
+          },
+        );
         this.form.reset();
         this.model.status = '';
         this.model.reason = '';
@@ -111,7 +130,9 @@ export class StatusSwitcher {
 
     const reason = (this.model.reason || '').trim();
     if (this.model.status === 'rejected' && !reason) {
-      this.submitError.set('La raison est obligatoire pour un rejet.');
+      this.submitError.set(
+        $localize`:@@membership.requests.statusSwitcher.reasonRequired:Reason is required for a rejection.`,
+      );
       return;
     }
 
@@ -124,7 +145,9 @@ export class StatusSwitcher {
 
     const item = this.store.item();
     if (!item) {
-      this.submitError.set('Impossible de changer le statut sans demande chargee.');
+      this.submitError.set(
+        $localize`:@@membership.requests.statusSwitcher.noRequestLoaded:Unable to change status without a loaded request.`,
+      );
       return;
     }
 
@@ -144,13 +167,16 @@ export class StatusSwitcher {
   private async confirmSensitiveAction(status: Extract<StatusChangeAction, 'rejected' | 'canceled'>): Promise<boolean> {
     const result = await firstValueFrom(
       this.confirmDialogService.confirm({
-        title: status === 'rejected' ? 'Confirmer le rejet' : 'Confirmer l\'annulation',
+        title:
+          status === 'rejected'
+            ? $localize`:@@membership.requests.statusSwitcher.confirmRejectTitle:Confirm rejection`
+            : $localize`:@@membership.requests.statusSwitcher.confirmCancelTitle:Confirm cancellation`,
         message:
           status === 'rejected'
-            ? 'Cette action va rejeter la demande. Voulez-vous continuer ?'
-            : 'Cette action va annuler la demande. Voulez-vous continuer ?',
-        confirmLabel: 'Confirmer',
-        cancelLabel: 'Annuler',
+            ? $localize`:@@membership.requests.statusSwitcher.confirmRejectMessage:This action will reject the request. Do you want to continue?`
+            : $localize`:@@membership.requests.statusSwitcher.confirmCancelMessage:This action will cancel the request. Do you want to continue?`,
+        confirmLabel: $localize`:@@common.button.confirm:Confirm`,
+        cancelLabel: $localize`:@@common.button.cancel:Cancel`,
         confirmColor: 'warn',
       }),
     );

@@ -17,13 +17,13 @@
   @if (!calculating()) {
     <div class="flex justify-between items-center mb-4">
       <mat-form-field>
-        <input matInput type="number" placeholder="Enter amount" [value]="value()" (input)="onValueChange($event.target.value)" />
+        <input matInput type="number" [placeholder]="enterAmountLabel" [value]="value()" (input)="onValueChange($event.target.value)" />
       </mat-form-field>
-      <button type="button" mat-button (click)="applyDiscount()">Apply</button>
+      <button type="button" mat-button (click)="applyDiscount()">{{ applyLabel }}</button>
     </div>
   }
   <div class="flex justify-between">
-    <span>Total à payer</span>
+    <span i18n="@@membership.requests.pay.totalToPay">Total to pay</span>
     @if (calculating()) {
       <app-ui-ghosting-line></app-ui-ghosting-line>
     } @else {

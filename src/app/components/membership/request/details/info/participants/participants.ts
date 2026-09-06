@@ -11,5 +11,8 @@ import { GhostingLine } from "../../../../../ui/ghosting/line/line";
   styleUrl: './participants.css',
 })
 export class Participants {
-  participants = input<any[]>([])
+  participants = input<any[]>([]);
+  readonly notProvidedLabel = $localize`:@@membership.requests.notProvided:Not provided`;
+  readonly lessonNotProvidedLabel = $localize`:@@membership.requests.participants.lessonNotProvided:Lesson not provided`;
+  readonly unknownLabel = $localize`:@@membership.requests.unknown:Unknown`;
 }

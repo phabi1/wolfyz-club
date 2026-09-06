@@ -19,14 +19,10 @@ export const isLoggedGuard: CanActivateFn = (route, state) => {
       authService.isLoggedIn$.pipe(
         first(),
         map((isLoggedIn) => {
-          if (isLoggedIn) {
-            return true;
-          } else {
-            // Redirect to OAuth2 login instead of signin page
-            authService.login();
-            router.createUrlTree(['/signin'])
-            return false;
+          if (!isLoggedIn) {
+            return router.createUrlTree(['/signin'])
           }
+          return true;
         }),
       ),
     ),

@@ -25,4 +25,7 @@ export class StatusHistory {
   history = input<HistoryItem[]>([]);
   items = computed(() => this.history().reverse());
   empty = computed(() => this.history().length === 0);
+  readonly unknownLabel = $localize`:@@membership.requests.unknown:Unknown`;
+  readonly noReasonLabel = $localize`:@@membership.requests.noReasonProvided:No reason provided`;
+  readonly notSpecifiedLabel = $localize`:@@membership.requests.notSpecified:Not specified`;
 }

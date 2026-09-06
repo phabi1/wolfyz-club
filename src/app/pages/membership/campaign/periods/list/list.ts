@@ -23,7 +23,7 @@ export class List {
 
   actions: PageAction[] = [
     {
-      label: 'Ajouter',
+      label: $localize`:@@common.button.new:New`,
       primary: true,
       handler: () => {
         this.onAdd();
@@ -33,7 +33,7 @@ export class List {
 
   rowActions: DatagridAction<Period>[] = [
     {
-      label: 'View',
+      label: $localize`:@@common.button.view:View`,
       handler: (row: Period) => {
         this.router.navigate([
           '/membership/campaign',
@@ -44,7 +44,7 @@ export class List {
       },
     },
     {
-      label: 'Edit',
+      label: $localize`:@@common.button.edit:Edit`,
       handler: (row: Period) => {
         this.router.navigate([
           '/membership/campaign',

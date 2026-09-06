@@ -1,5 +1,6 @@
 import { NgComponentOutlet } from '@angular/common';
 import { ChangeDetectionStrategy, Component, effect, inject, signal, Type } from '@angular/core';
+import { AuthService } from '../../services/auth.service';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { distinctUntilChanged, filter, map, startWith } from 'rxjs';
@@ -13,6 +14,7 @@ import { distinctUntilChanged, filter, map, startWith } from 'rxjs';
 })
 export class DefaultLayout {
   private router = inject(Router);
+  private authService = inject(AuthService);
 
   private sidebars: Record<string, () => Promise<Type<any>>> = {
     'default': () => import('../../components/layouts/sidebars/default/default').then(m => m.Default),
@@ -47,5 +49,10 @@ export class DefaultLayout {
         });
       return () => subciption.unsubscribe();
     });
+  }
+
+  logout() {
+    this.authService.logout();
+    this.router.navigate(['/']);
   }
 }

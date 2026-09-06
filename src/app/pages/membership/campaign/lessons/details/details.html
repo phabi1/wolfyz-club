@@ -18,11 +18,13 @@
             <h2 id="lesson-overview-title" class="mt-1 text-xl font-bold text-slate-900">
               {{ item.title || 'Cours sans titre' }}
             </h2>
-            <p class="mt-1 text-sm text-slate-600">Detail du cours #{{ item.id }}</p>
+            <p class="mt-1 text-sm text-slate-600">
+              Detail du cours <app-ui-badge [label]="'#' + item.id"></app-ui-badge>
+            </p>
           </div>
 
           <div class="flex flex-wrap items-center gap-2">
-            <span class="chip">Campagne #{{ item.campaign_id || 'N/A' }}</span>
+            <span class="chip">Campagne <app-ui-badge [label]="'#' + (item.campaign_id || 'N/A')"></app-ui-badge></span>
             <span class="chip chip-primary">{{ formatDay(item.day) }}</span>
           </div>
         </div>
@@ -49,6 +51,13 @@
         </dl>
       </section>
     </div>
+    <app-ui-datagrid
+      [rows]="store.participants()"
+      [columns]="participantColumns"
+      [total]="store.participants().length"
+      [fetching]="store.fetchingParticipants()"
+      [paginable]="false"
+    ></app-ui-datagrid>
   }
 </app-ui-page>
 <router-outlet></router-outlet>

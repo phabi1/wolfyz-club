@@ -1,0 +1,16 @@
+<div class="flex h-full flex-col gap-4 p-5 md:p-6">
+  <div>
+    @if (heading()) {
+      <p class="text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">
+        {{ heading() }}
+      </p>
+    }
+    <h3 class="mt-2 text-xl font-extrabold tracking-tight text-slate-900">{{ title() }}</h3>
+    @if (description()) {
+      <p class="mt-2 text-sm text-slate-600">{{ description() }}</p>
+    }
+  </div>
+  <div class="flex-1">
+    <ng-content></ng-content>
+  </div>
+</div>

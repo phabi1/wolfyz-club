@@ -4,6 +4,7 @@ import { ConfigService } from '../config.service';
 import { map, Observable } from 'rxjs';
 import type { Lesson } from '../../models/membership/lesson';
 import type { Subscription } from '../../models/membership/subscription';
+import { toDate, toTimestamp } from '../../utils/date';
 
 @Injectable({
   providedIn: 'root',
@@ -72,8 +73,12 @@ export class SubscriptionService {
   }
 
   public create(campaignId: number, data: Partial<Subscription>): Observable<Subscription> {
+    const payload = this.serialize(data);
     return this.httpClient
-      .post<Subscription>(`${this.endpoint}/membership/campaigns/${campaignId}/subscriptions`, data)
+      .post<Subscription>(
+        `${this.endpoint}/membership/campaigns/${campaignId}/subscriptions`,
+        payload,
+      )
       .pipe(map(this.unserialize));
   }
 
@@ -82,10 +87,11 @@ export class SubscriptionService {
     id: number,
     data: Partial<Subscription>,
   ): Observable<Subscription> {
+    const payload = this.serialize(data);
     return this.httpClient
       .put<Subscription>(
         `${this.endpoint}/membership/campaigns/${campaignId}/subscriptions/${id}`,
-        data,
+        payload,
       )
       .pipe(map(this.unserialize));
   }
@@ -96,12 +102,20 @@ export class SubscriptionService {
     );
   }
 
+  private serialize(data: Partial<Subscription>): any {
+    return {
+      ...data,
+      subscribed_at: data.subscribed_at ? toTimestamp(data.subscribed_at) : undefined,
+    };
+  }
+
   private unserialize(data: any): Subscription {
     return {
       ...data,
+      subscribed_at: data.subscribed_at ? toDate(data.subscribed_at) : null,
       member: {
         ...data.member,
-        birthdate: data.member?.birthdate ? new Date(data.member.birthdate * 1000) : null,
+        birthdate: data.member?.birthdate ? toDate(data.member.birthdate) : null,
       },
     };
   }

@@ -1,0 +1,34 @@
+<div class="flex justify-between">
+  <a
+    [routerLink]="item().to"
+    [routerLinkActiveOptions]="{ exact: item().exact || false }"
+    [routerLinkActive]="'bg-sky-500/20 text-sky-200'"
+    class="block flex-1 rounded-xl px-3 py-2 text-sm font-semibold text-slate-300 transition-colors hover:bg-white/10 hover:text-white"
+    >{{ item().label }}</a
+  >
+  <span>
+    @if (item().badge && item().badge?.text) {
+      <app-ui-navbar-badge
+        [text]="item().badge?.text || ''"
+        [color]="item().badge?.color || ''"
+      ></app-ui-navbar-badge>
+    }
+    @if(hasChildren()) {
+      <button class="ml-2" (click)="toggle()" >▼</button>
+    }
+  </span>
+</div>
+@if (hasChildren()) {
+  <div class="ml-4 border-l border-slate-700 pl-4">
+    @for (item of item().children; track $index) {
+      @switch (item.type) {
+        @case ('divider') {
+          <app-ui-navbar-divider [item]="item"></app-ui-navbar-divider>
+        }
+        @case ('link') {
+          <app-ui-navbar-link [item]="item"></app-ui-navbar-link>
+        }
+      }
+    }
+  </div>
+}

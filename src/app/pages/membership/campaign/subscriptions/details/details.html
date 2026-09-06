@@ -1,6 +1,6 @@
-<app-ui-page [title]="'Subscription details'">
+<app-ui-page title="Subscription details" i18n-title="@@membership.subscriptions.details.pageTitle">
   @if (store.loading()) {
-    <p>Loading...</p>
+    <p i18n="@@common.label.loading">Loading...</p>
   }
   @if (store.item(); as item) {
     <div class="flex flex-col gap-4">

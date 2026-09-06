@@ -2,14 +2,23 @@
   <mat-sidenav
     opened
     mode="side"
-    class="app-shell-sidenav w-72 border-r border-slate-800/80 bg-slate-950 px-4 py-5 text-slate-100 shadow-2xl"
+    class="app-shell-sidenav w-72 bg-slate-950 px-4 py-5 text-slate-100 shadow-2xl"
   >
-    <div class="mb-6 rounded-2xl border border-slate-800 bg-slate-900/80 p-4 shadow-lg ring-1 ring-white/5">
-      <p class="text-xs font-semibold uppercase tracking-[0.18em] text-sky-300">Club</p>
-      <div class="mt-1 text-2xl font-extrabold tracking-tight text-white">Roller Les Loups</div>
-      <p class="mt-2 text-sm text-slate-300">Gestion sportive, membres et campagnes.</p>
+    <div class="h-full flex flex-col">
+      <div
+        class="mb-6 rounded-2xl border border-slate-800 bg-slate-900/80 p-4 shadow-lg ring-1 ring-white/5"
+      >
+        <p class="text-xs font-semibold uppercase tracking-[0.18em] text-sky-300">Club</p>
+        <div class="mt-1 text-2xl font-extrabold tracking-tight text-white">Roller Les Loups</div>
+        <p class="mt-2 text-sm text-slate-300">Gestion sportive, membres et campagnes.</p>
+      </div>
+      <div class="flex-1">
+        <ng-container *ngComponentOutlet="sidebar()"></ng-container>
+      </div>
+      <div class="border-t pt-4 px-4">
+        <button mat-button (click)="logout()" i18n=":@@common.button.logout">Logout</button>
+      </div>
     </div>
-    <ng-container *ngComponentOutlet="sidebar()"></ng-container>
   </mat-sidenav>
   <div class="h-full overflow-auto bg-transparent">
     <router-outlet></router-outlet>

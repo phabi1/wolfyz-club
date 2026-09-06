@@ -1,0 +1,15 @@
+<div>
+    @for(item of items(); track $index) {
+        @switch (item.type) {
+            @case('group') {
+                <app-ui-navbar-group [item]="item"></app-ui-navbar-group>
+            }
+            @case('link') {
+                <app-ui-navbar-link [item]="item"></app-ui-navbar-link>
+            }
+            @case('divider') {
+                <app-ui-navbar-divider [item]="item"></app-ui-navbar-divider>
+            }
+        }
+    }
+</div>

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, computed } from '@angular/core';
 import { Cell } from '../../../cell';
 import { DatePipe } from '../../../../../../pipes/date-pipe';
 
@@ -8,4 +8,6 @@ import { DatePipe } from '../../../../../../pipes/date-pipe';
   templateUrl: './date.html',
   styleUrl: './date.css',
 })
-export class DateCell extends Cell {}
+export class DateCell extends Cell {
+  date = computed(() => this.value() as Date);
+}

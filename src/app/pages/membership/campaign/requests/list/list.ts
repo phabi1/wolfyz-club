@@ -20,7 +20,7 @@ export class List {
 
   rowActions: DatagridAction<Payment>[] = [
     {
-      label: 'View',
+      label: $localize`:@@membership.requests.view:View`,
       handler: (row: Payment) => {
         this.router.navigate([
           '/membership/campaign',

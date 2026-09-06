@@ -1,8 +1,8 @@
 <div class="paper">
-  <h3 class="mb-3 text-[0.98rem] font-bold text-slate-900">Historique des statuts</h3>
+  <h3 class="mb-3 text-[0.98rem] font-bold text-slate-900" i18n="@@membership.requests.statusHistory.title">Status history</h3>
 
   @if (empty()) {
-    <p class="m-0 text-[0.85rem] text-slate-500">Aucun changement de statut pour le moment.</p>
+    <p class="m-0 text-[0.85rem] text-slate-500" i18n="@@membership.requests.statusHistory.empty">No status changes yet.</p>
   } @else {
     <div class="flex flex-col gap-2.5">
       @for (item of items(); track $index) {
@@ -10,59 +10,47 @@
           @switch (item.status) {
             @case ('pending') {
               <div>
-                <div class="text-[0.9rem] font-bold text-slate-900">En attente</div>
-                <div class="mt-1 text-xs text-slate-500">
-                  Demande creee par {{ item.changed_by?.display_name || 'Inconnu' }}
-                </div>
+                <div class="text-[0.9rem] font-bold text-slate-900" i18n="@@membership.requests.status.pending">Pending</div>
+                <div class="mt-1 text-xs text-slate-500" i18n="@@membership.requests.statusHistory.pendingBy">Request created by {{ item.changed_by?.display_name || unknownLabel }}</div>
               </div>
             }
             @case ('approved') {
               <div>
-                <div class="text-[0.9rem] font-bold text-slate-900">Approuvee</div>
-                <div class="mt-1 text-xs text-slate-500">
-                  Demande approuvee par {{ item.changed_by?.display_name || 'Inconnu' }}
-                </div>
+                <div class="text-[0.9rem] font-bold text-slate-900" i18n="@@membership.requests.status.approved">Approved</div>
+                <div class="mt-1 text-xs text-slate-500" i18n="@@membership.requests.statusHistory.approvedBy">Request approved by {{ item.changed_by?.display_name || unknownLabel }}</div>
               </div>
             }
             @case ('rejected') {
               <div>
-                <div class="text-[0.9rem] font-bold text-slate-900">Rejetee</div>
+                <div class="text-[0.9rem] font-bold text-slate-900" i18n="@@membership.requests.status.rejected">Rejected</div>
                 <div class="mt-1 text-[0.82rem] text-slate-700">
-                  {{ item.reason || item.params?.reason || 'Sans raison renseignee' }}
+                  {{ item.reason || item.params?.reason || noReasonLabel }}
                 </div>
-                <div class="mt-1 text-xs text-slate-500">
-                  Demande rejetee par {{ item.changed_by?.display_name || 'Inconnu' }}
-                </div>
+                <div class="mt-1 text-xs text-slate-500" i18n="@@membership.requests.statusHistory.rejectedBy">Request rejected by {{ item.changed_by?.display_name || unknownLabel }}</div>
               </div>
             }
             @case ('canceled') {
               <div>
-                <div class="text-[0.9rem] font-bold text-slate-900">Annulee</div>
-                <div class="mt-1 text-xs text-slate-500">
-                  Demande annulee par {{ item.changed_by?.display_name || 'Inconnu' }}
-                </div>
+                <div class="text-[0.9rem] font-bold text-slate-900" i18n="@@membership.requests.status.canceled">Canceled</div>
+                <div class="mt-1 text-xs text-slate-500" i18n="@@membership.requests.statusHistory.canceledBy">Request canceled by {{ item.changed_by?.display_name || unknownLabel }}</div>
               </div>
             }
             @case ('paid') {
               <div>
-                <div class="text-[0.9rem] font-bold text-slate-900">Payee</div>
-                <div class="mt-1 text-xs text-slate-500">
-                  Demande marquee payee par {{ item.changed_by?.display_name || 'Inconnu' }}
-                </div>
+                <div class="text-[0.9rem] font-bold text-slate-900" i18n="@@membership.requests.status.paid">Paid</div>
+                <div class="mt-1 text-xs text-slate-500" i18n="@@membership.requests.statusHistory.paidBy">Request marked as paid by {{ item.changed_by?.display_name || unknownLabel }}</div>
               </div>
             }
             @case ('archived') {
               <div>
-                <div class="text-[0.9rem] font-bold text-slate-900">Archivee</div>
-                <div class="mt-1 text-xs text-slate-500">
-                  Demande archivee par {{ item.changed_by?.display_name || 'Inconnu' }}
-                </div>
+                <div class="text-[0.9rem] font-bold text-slate-900" i18n="@@membership.requests.status.archived">Archived</div>
+                <div class="mt-1 text-xs text-slate-500" i18n="@@membership.requests.statusHistory.archivedBy">Request archived by {{ item.changed_by?.display_name || unknownLabel }}</div>
               </div>
             }
             @default {
               <div>
-                <div class="text-[0.9rem] font-bold text-slate-900">Action inconnue</div>
-                <div class="mt-1 text-xs text-slate-500">{{ item.action || 'Non precisee' }}</div>
+                <div class="text-[0.9rem] font-bold text-slate-900" i18n="@@membership.requests.statusHistory.unknownAction">Unknown action</div>
+                <div class="mt-1 text-xs text-slate-500">{{ item.action || notSpecifiedLabel }}</div>
               </div>
             }
           }

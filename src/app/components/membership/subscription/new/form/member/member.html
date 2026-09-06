@@ -1,0 +1,45 @@
+@switch (state()) {
+  @case ('form') {
+    <div [formGroup]="memberForm" class="flex flex-col sm:flex-row gap-2">
+      <mat-form-field class="w-full">
+        <mat-label>Nom</mat-label>
+        <input matInput type="text" formControlName="lastname" />
+      </mat-form-field>
+      <mat-form-field class="w-full">
+        <mat-label>Prénom</mat-label>
+        <input matInput type="text" formControlName="firstname" />
+      </mat-form-field>
+      <mat-form-field class="w-full">
+        <mat-label>Date de naissance</mat-label>
+        <input matInput type="date" formControlName="birthdate" />
+      </mat-form-field>
+    </div>
+    <button type="button" mat-raised-button (click)="search()">Recherche</button>
+  }
+  @case ('suggestions') {
+    <label id="example-radio-group-label">Sélectionner un membre</label>
+    @if (searching()) {
+      <div class="flex items-center gap-2">
+        <div>
+          <mat-progress-spinner mode="indeterminate" diameter="24"></mat-progress-spinner>
+        </div>
+        <p>Recherche en cours...</p>
+      </div>
+    } @else {
+      <mat-radio-group
+        class="flex flex-col gap-2"
+        aria-labelledby="example-radio-group-label"
+        [(ngModel)]="member_id"
+        (ngModelChange)="onModelChange($event)"
+      >
+        @for (suggestion of suggestions(); track suggestion.id) {
+          <mat-radio-button [value]="suggestion.id">{{
+            suggestion.lastname + ' ' + suggestion.firstname + ' (' + suggestion.birthdate + ')'
+          }}</mat-radio-button>
+        }
+        <mat-radio-button [value]="'new'">Nouveau membre</mat-radio-button>
+      </mat-radio-group>
+      <button type="button" mat-raised-button (click)="back()">Retour</button>
+    }
+  }
+}

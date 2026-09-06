@@ -1,3 +1,4 @@
+import { Address } from "./address";
 import { Member } from "./member";
 import { Session } from "./session";
 
@@ -6,7 +7,8 @@ export type Subscription = {
   license_type: string;
   member_id: number;
   member: Member;
-  subscribed_at: number;
+  subscribed_at: Date;
+  address: Address;
   contacts: {
     id: number;
     firstname: string;

@@ -1,9 +1,9 @@
 <section class="paper" aria-labelledby="request-participants-title">
   <div class="mb-4 flex items-center justify-between gap-3">
     <h2 id="request-participants-title" class="m-0 text-base font-bold tracking-[0.01em] text-slate-900">
-      Participants
+      <span i18n="@@membership.requests.participants.title">Participants</span>
     </h2>
-    <span class="text-xs text-slate-600">{{ participants().length }} total</span>
+    <span class="text-xs text-slate-600" i18n="@@membership.requests.participants.total">{{ participants().length }} total</span>
   </div>
 
   <details
@@ -20,121 +20,121 @@
         </h3>
         <p class="mt-1 text-[0.82rem] text-slate-500">
           {{ participant.birthdate | date: 'dd/MM/yyyy' }} •
-          {{ participant.lesson_id || 'Cours non renseigne' }}
+          {{ participant.lesson_id || lessonNotProvidedLabel }}
         </p>
       </div>
 
       <div class="hidden items-center gap-2 md:flex">
         <span class="rounded-full bg-slate-200 px-2 py-0.5 text-xs text-slate-700">
-          {{ participant.lesson_id || 'Cours non renseigne' }}
+          {{ participant.lesson_id || lessonNotProvidedLabel }}
         </span>
         <ng-container *ngIf="participant.member?.status === 'loading'; else memberStatusTpl">
           <app-ui-ghosting-line [width]="'4.5rem'" [height]="'0.65rem'"></app-ui-ghosting-line>
         </ng-container>
         <ng-template #memberStatusTpl>
           <span class="rounded-full bg-white px-2 py-0.5 text-xs text-slate-700 ring-1 ring-slate-200">
-            {{ participant.member?.status || 'Inconnu' }}
+            {{ participant.member?.status || unknownLabel }}
           </span>
         </ng-template>
       </div>
 
       <span class="whitespace-nowrap text-xs font-semibold text-slate-700" aria-hidden="true">
-        <span class="group-open:hidden">Voir details</span>
-        <span class="hidden group-open:inline">Masquer details</span>
+        <span class="group-open:hidden" i18n="@@membership.requests.participants.showDetails">Show details</span>
+        <span class="hidden group-open:inline" i18n="@@membership.requests.participants.hideDetails">Hide details</span>
       </span>
     </summary>
 
     <div class="border-t border-slate-200 px-4 pb-4">
       <div class="mt-4 grid grid-cols-1 gap-3 lg:grid-cols-3">
         <div class="rounded-xl border border-slate-200 bg-white p-3">
-          <h4 class="mb-2 text-sm font-bold text-slate-700">Profil</h4>
+          <h4 class="mb-2 text-sm font-bold text-slate-700" i18n="@@membership.requests.participants.profile">Profile</h4>
           <dl class="m-0 flex flex-col gap-3">
             <div>
-              <dt class="m-0 text-xs uppercase tracking-[0.04em] text-slate-500">Date de naissance</dt>
+              <dt class="m-0 text-xs uppercase tracking-[0.04em] text-slate-500" i18n="@@membership.requests.participants.birthdate">Birth date</dt>
               <dd class="mt-1 text-[0.95rem] font-medium text-slate-900">
                 {{ participant.birthdate | date: 'dd/MM/yyyy' }}
               </dd>
             </div>
             <div>
-              <dt class="m-0 text-xs uppercase tracking-[0.04em] text-slate-500">Cours</dt>
+              <dt class="m-0 text-xs uppercase tracking-[0.04em] text-slate-500" i18n="@@membership.requests.participants.lesson">Lesson</dt>
               <dd class="mt-1 text-[0.95rem] font-medium text-slate-900">
-                {{ participant.lesson_id || 'Non renseigne' }}
+                {{ participant.lesson_id || notProvidedLabel }}
               </dd>
             </div>
             <div>
-              <dt class="m-0 text-xs uppercase tracking-[0.04em] text-slate-500">Type de licence</dt>
+              <dt class="m-0 text-xs uppercase tracking-[0.04em] text-slate-500" i18n="@@membership.requests.participants.licenseType">License type</dt>
               <dd class="mt-1 text-[0.95rem] font-medium text-slate-900">
-                {{ participant.license_type || 'Non renseigne' }}
+                {{ participant.license_type || notProvidedLabel }}
               </dd>
             </div>
           </dl>
         </div>
 
         <div class="rounded-xl border border-slate-200 bg-white p-3">
-          <h4 class="mb-2 text-sm font-bold text-slate-700">Adresse</h4>
+          <h4 class="mb-2 text-sm font-bold text-slate-700" i18n="@@membership.requests.participants.address">Address</h4>
           <dl class="m-0 flex flex-col gap-3">
             <div>
-              <dt class="m-0 text-xs uppercase tracking-[0.04em] text-slate-500">Ligne 1</dt>
+              <dt class="m-0 text-xs uppercase tracking-[0.04em] text-slate-500" i18n="@@membership.requests.participants.addressLine1">Line 1</dt>
               <dd class="mt-1 text-[0.95rem] font-medium text-slate-900">
-                {{ participant.address.line1 || 'Non renseigne' }}
+                {{ participant.address.line1 || notProvidedLabel }}
               </dd>
             </div>
             <div>
-              <dt class="m-0 text-xs uppercase tracking-[0.04em] text-slate-500">Ligne 2</dt>
+              <dt class="m-0 text-xs uppercase tracking-[0.04em] text-slate-500" i18n="@@membership.requests.participants.addressLine2">Line 2</dt>
               <dd class="mt-1 text-[0.95rem] font-medium text-slate-900">
                 {{ participant.address.line2 || '-' }}
               </dd>
             </div>
             <div>
-              <dt class="m-0 text-xs uppercase tracking-[0.04em] text-slate-500">Ville</dt>
+              <dt class="m-0 text-xs uppercase tracking-[0.04em] text-slate-500" i18n="@@membership.requests.participants.city">City</dt>
               <dd class="mt-1 text-[0.95rem] font-medium text-slate-900">
-                {{ participant.address.city || 'Non renseigne' }}
+                {{ participant.address.city || notProvidedLabel }}
               </dd>
             </div>
             <div>
-              <dt class="m-0 text-xs uppercase tracking-[0.04em] text-slate-500">Code postal</dt>
+              <dt class="m-0 text-xs uppercase tracking-[0.04em] text-slate-500" i18n="@@membership.requests.participants.postalCode">Postal code</dt>
               <dd class="mt-1 text-[0.95rem] font-medium text-slate-900">
-                {{ participant.address.postal_code || 'Non renseigne' }}
+                {{ participant.address.postal_code || notProvidedLabel }}
               </dd>
             </div>
             <div>
-              <dt class="m-0 text-xs uppercase tracking-[0.04em] text-slate-500">Pays</dt>
+              <dt class="m-0 text-xs uppercase tracking-[0.04em] text-slate-500" i18n="@@membership.requests.participants.country">Country</dt>
               <dd class="mt-1 text-[0.95rem] font-medium text-slate-900">
-                {{ participant.address.country || 'Non renseigne' }}
+                {{ participant.address.country || notProvidedLabel }}
               </dd>
             </div>
           </dl>
         </div>
 
         <div class="rounded-xl border border-slate-200 bg-white p-3">
-          <h4 class="mb-2 text-sm font-bold text-slate-700">Documents et validations</h4>
+          <h4 class="mb-2 text-sm font-bold text-slate-700" i18n="@@membership.requests.participants.documents">Documents and validations</h4>
           <dl class="m-0 flex flex-col gap-3">
             <div>
-              <dt class="m-0 text-xs uppercase tracking-[0.04em] text-slate-500">Questionnaire sante</dt>
+              <dt class="m-0 text-xs uppercase tracking-[0.04em] text-slate-500" i18n="@@membership.requests.participants.healthQuestionnaire">Health questionnaire</dt>
               <dd class="mt-1 text-[0.95rem] font-medium text-slate-900">
-                {{ participant.health_questionnaire || 'Non renseigne' }}
+                {{ participant.health_questionnaire || notProvidedLabel }}
               </dd>
             </div>
             <div>
-              <dt class="m-0 text-xs uppercase tracking-[0.04em] text-slate-500">Certificat medical</dt>
+              <dt class="m-0 text-xs uppercase tracking-[0.04em] text-slate-500" i18n="@@membership.requests.participants.medicalCertificate">Medical certificate</dt>
               <dd class="mt-1 text-[0.95rem] font-medium text-slate-900">
-                {{ participant.medical_certificate || 'Non renseigne' }}
+                {{ participant.medical_certificate || notProvidedLabel }}
               </dd>
             </div>
             <div>
-              <dt class="m-0 text-xs uppercase tracking-[0.04em] text-slate-500">Photo identite</dt>
+              <dt class="m-0 text-xs uppercase tracking-[0.04em] text-slate-500" i18n="@@membership.requests.participants.identityPhoto">Identity photo</dt>
               <dd class="mt-1 text-[0.95rem] font-medium text-slate-900">
-                {{ participant.identity_photo || 'Non renseigne' }}
+                {{ participant.identity_photo || notProvidedLabel }}
               </dd>
             </div>
             <div>
-              <dt class="m-0 text-xs uppercase tracking-[0.04em] text-slate-500">Autorisation de sortie</dt>
+              <dt class="m-0 text-xs uppercase tracking-[0.04em] text-slate-500" i18n="@@membership.requests.participants.exitAuthorization">Exit authorization</dt>
               <dd class="mt-1 text-[0.95rem] font-medium text-slate-900">
                 <app-ui-yes-no [value]="participant.agree_exit"></app-ui-yes-no>
               </dd>
             </div>
             <div>
-              <dt class="m-0 text-xs uppercase tracking-[0.04em] text-slate-500">Droit a l'image</dt>
+              <dt class="m-0 text-xs uppercase tracking-[0.04em] text-slate-500" i18n="@@membership.requests.participants.photoRights">Image rights</dt>
               <dd class="mt-1 text-[0.95rem] font-medium text-slate-900">
                 <app-ui-yes-no [value]="participant.agree_photo"></app-ui-yes-no>
               </dd>
@@ -144,7 +144,7 @@
       </div>
 
       <div class="mt-4">
-        <h4 class="mb-2 text-sm font-bold text-slate-700">Contacts du participant</h4>
+        <h4 class="mb-2 text-sm font-bold text-slate-700" i18n="@@membership.requests.participants.contactsTitle">Participant contacts</h4>
         <ng-container *ngIf="participant.contacts && participant.contacts.length > 0; else emptyContactsTpl">
           <div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
             <article
@@ -154,13 +154,13 @@
               <h5 class="mb-1 text-sm font-bold text-slate-900">
                 {{ contact.firstname }} {{ contact.lastname }}
               </h5>
-              <p class="my-0.5 text-sm text-slate-600">{{ contact.email || 'Non renseigne' }}</p>
-              <p class="my-0.5 text-sm text-slate-600">{{ contact.phone || 'Non renseigne' }}</p>
+              <p class="my-0.5 text-sm text-slate-600">{{ contact.email || notProvidedLabel }}</p>
+              <p class="my-0.5 text-sm text-slate-600">{{ contact.phone || notProvidedLabel }}</p>
             </article>
           </div>
         </ng-container>
         <ng-template #emptyContactsTpl>
-          <p class="m-0 text-sm text-slate-500">Aucun contact renseigne.</p>
+          <p class="m-0 text-sm text-slate-500" i18n="@@membership.requests.participants.emptyContacts">No contact provided.</p>
         </ng-template>
       </div>
     </div>

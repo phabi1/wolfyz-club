@@ -4,6 +4,8 @@ import { ConfigService } from '../config.service';
 import { Observable } from 'rxjs';
 import type { Session } from '../../models/membership/session';
 
+type SessionData = Omit<Session, 'id' | 'lesson'>;
+
 @Injectable({
   providedIn: 'root',
 })
@@ -29,14 +31,18 @@ export class SessionService {
     );
   }
 
-  public create(campaignId: number, data: Partial<Session>): Observable<Session> {
+  public create(campaignId: number, data: SessionData): Observable<Session> {
     return this.httpClient.post<Session>(
       `${this.endpoint}/membership/campaigns/${campaignId}/sessions`,
       data,
     );
   }
 
-  public update(campaignId: number, id: number, session: Partial<Session>): Observable<Session> {
+  public update(
+    campaignId: number,
+    id: number,
+    session: Partial<SessionData>,
+  ): Observable<Session> {
     return this.httpClient.put<Session>(
       `${this.endpoint}/membership/campaigns/${campaignId}/sessions/${id}`,
       session,

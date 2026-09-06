@@ -1,0 +1,1776 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file datatype="plaintext" original="ng2.template" source-language="en-US" target-language="fr-FR">
+    <body>
+      <trans-unit id="dashboard.widgets.bankAmount.title" datatype="html">
+        <source>Bank Amount</source>
+        <target>Montant bancaire</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/dashboard/widgets/bank-amount/bank-amount.html</context>
+          <context context-type="linenumber">3,4</context>
+        </context-group>
+        <note priority="1" from="description">:</note>
+      </trans-unit>
+      <trans-unit id="dashboard.widgets.bankAmount.description" datatype="html">
+        <source>Quick access to the current bank amount.</source>
+        <target>Accès rapide au solde bancaire actuel.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/dashboard/widgets/bank-amount/bank-amount.html</context>
+          <context context-type="linenumber">4,5</context>
+        </context-group>
+        <note priority="1" from="description">:</note>
+      </trans-unit>
+      <trans-unit id="dashboard.widgets.bankAmount.manage" datatype="html">
+        <source>Manage Bank Amount</source>
+        <target>Gérer le solde bancaire</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/dashboard/widgets/bank-amount/bank-amount.html</context>
+          <context context-type="linenumber">17,20</context>
+        </context-group>
+        <note priority="1" from="description">:</note>
+      </trans-unit>
+      <trans-unit id="dashboard.widgets.currentCampaign.title" datatype="html">
+        <source>Current Campaign</source>
+        <target>Campagne actuelle</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/dashboard/widgets/current-campaign/current-campaign.html</context>
+          <context context-type="linenumber">3,4</context>
+        </context-group>
+        <note priority="1" from="description">:</note>
+      </trans-unit>
+      <trans-unit id="dashboard.widgets.currentCampaign.description" datatype="html">
+        <source>Quick access to membership management.</source>
+        <target>Accès rapide à la gestion des adhésions.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/dashboard/widgets/current-campaign/current-campaign.html</context>
+          <context context-type="linenumber">4,5</context>
+        </context-group>
+        <note priority="1" from="description">:</note>
+      </trans-unit>
+      <trans-unit id="dashboard.widgets.currentCampaign.open" datatype="html">
+        <source>Open Campaign</source>
+        <target>Campagne ouverte</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/dashboard/widgets/current-campaign/current-campaign.html</context>
+          <context context-type="linenumber">14,18</context>
+        </context-group>
+        <note priority="1" from="description">:</note>
+      </trans-unit>
+      <trans-unit id="dashboard.widgets.currentCampaign.noCampaign" datatype="html">
+        <source> No campaign selected. </source>
+        <target>Aucune campagne sélectionnée.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/dashboard/widgets/current-campaign/current-campaign.html</context>
+          <context context-type="linenumber">21,25</context>
+        </context-group>
+        <note priority="1" from="description">:</note>
+      </trans-unit>
+      <trans-unit id="nav.campaign.backToCampaigns" datatype="html">
+        <source> Back to Campaigns </source>
+        <target>Retour aux campagnes</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/layouts/sidebars/campaign/campaign.html</context>
+          <context context-type="linenumber">11,15</context>
+        </context-group>
+        <note priority="1" from="description">:</note>
+      </trans-unit>
+      <trans-unit id="nav.campaign.dashboard" datatype="html">
+        <source>Dashboard</source>
+        <target>Tableau de bord</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/layouts/sidebars/campaign/campaign.ts</context>
+          <context context-type="linenumber">31</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="nav.campaign.members" datatype="html">
+        <source>Members</source>
+        <target>Membres</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/layouts/sidebars/campaign/campaign.ts</context>
+          <context context-type="linenumber">37</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="nav.campaign.periods" datatype="html">
+        <source>Periods</source>
+        <target>Périodes</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/layouts/sidebars/campaign/campaign.ts</context>
+          <context context-type="linenumber">42</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="nav.campaign.lessons" datatype="html">
+        <source>Lessons</source>
+        <target>Cours</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/layouts/sidebars/campaign/campaign.ts</context>
+          <context context-type="linenumber">47</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="nav.campaign.requests" datatype="html">
+        <source>Requests</source>
+        <target>Demandes</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/layouts/sidebars/campaign/campaign.ts</context>
+          <context context-type="linenumber">52</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="nav.campaign.settings" datatype="html">
+        <source>Settings</source>
+        <target>Paramètres</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/layouts/sidebars/campaign/campaign.ts</context>
+          <context context-type="linenumber">57</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="nav.default.dashboard" datatype="html">
+        <source>Dashboard</source>
+        <target>Tableau de bord</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/layouts/sidebars/default/default.ts</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="nav.default.billing" datatype="html">
+        <source>Billing</source>
+        <target>Facturation</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/layouts/sidebars/default/default.ts</context>
+          <context context-type="linenumber">22</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="nav.default.events" datatype="html">
+        <source>Events</source>
+        <target>Événements</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/layouts/sidebars/default/default.ts</context>
+          <context context-type="linenumber">27</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="nav.default.membership" datatype="html">
+        <source>Memberships</source>
+        <target>Adhésions</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/layouts/sidebars/default/default.ts</context>
+          <context context-type="linenumber">32</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.requests.summary.title" datatype="html">
+        <source>Request summary</source>
+        <target>Résumé de la demande</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/request/details/details.html</context>
+          <context context-type="linenumber">4,7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.requests.summary.identifier" datatype="html">
+        <source>Identifier</source>
+        <target>Identifiant</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/request/details/details.html</context>
+          <context context-type="linenumber">9,10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.requests.summary.campaign" datatype="html">
+        <source>Campaign</source>
+        <target>Campagne</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/request/details/details.html</context>
+          <context context-type="linenumber">13,14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.requests.summary.status" datatype="html">
+        <source>Status</source>
+        <target>Statut</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/request/details/details.html</context>
+          <context context-type="linenumber">19,20</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.requests.summary.requester" datatype="html">
+        <source>Requester</source>
+        <target>Demandeur</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/request/details/details.html</context>
+          <context context-type="linenumber">25,26</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.requests.summary.primaryEmail" datatype="html">
+        <source>Primary email</source>
+        <target>E-mail principal</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/request/details/details.html</context>
+          <context context-type="linenumber">31,32</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.requests.summary.paymentDate" datatype="html">
+        <source>Payment date</source>
+        <target>Date de paiement</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/request/details/details.html</context>
+          <context context-type="linenumber">37,38</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.requests.contact.title" datatype="html">
+        <source>Primary contact</source>
+        <target>Contact principal</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/request/details/details.html</context>
+          <context context-type="linenumber">45,48</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.requests.contact.firstName" datatype="html">
+        <source>First name</source>
+        <target>Prénom</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/request/details/details.html</context>
+          <context context-type="linenumber">50,51</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.requests.contact.lastName" datatype="html">
+        <source>Last name</source>
+        <target>Nom de famille</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/request/details/details.html</context>
+          <context context-type="linenumber">54,55</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.requests.contact.email" datatype="html">
+        <source>Email</source>
+        <target>E-mail</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/request/details/details.html</context>
+          <context context-type="linenumber">58,59</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.requests.contact.phone" datatype="html">
+        <source>Phone</source>
+        <target>Téléphone</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/request/details/details.html</context>
+          <context context-type="linenumber">64,65</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.requests.notProvided" datatype="html">
+        <source>Not provided</source>
+        <target>Non fourni</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/request/details/details.ts</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/request/details/info/participants/participants.ts</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.requests.status.pending" datatype="html">
+        <source>Pending</source>
+        <target>En attente</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/request/details/details.ts</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/request/details/status-history/status-history.html</context>
+          <context context-type="linenumber">13,14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.requests.status.approved" datatype="html">
+        <source>Approved</source>
+        <target>Approuvé</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/request/details/details.ts</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/request/details/status-history/status-history.html</context>
+          <context context-type="linenumber">19,20</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/request/details/status-switcher/status-switcher.ts</context>
+          <context context-type="linenumber">51</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.requests.status.rejected" datatype="html">
+        <source>Rejected</source>
+        <target>Rejeté</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/request/details/details.ts</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/request/details/status-history/status-history.html</context>
+          <context context-type="linenumber">25,26</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/request/details/status-switcher/status-switcher.ts</context>
+          <context context-type="linenumber">55</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.requests.status.canceled" datatype="html">
+        <source>Canceled</source>
+        <target>Annulé</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/request/details/details.ts</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/request/details/status-history/status-history.html</context>
+          <context context-type="linenumber">34,35</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/request/details/status-switcher/status-switcher.ts</context>
+          <context context-type="linenumber">59</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.requests.status.paid" datatype="html">
+        <source>Paid</source>
+        <target>Payé</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/request/details/details.ts</context>
+          <context context-type="linenumber">22</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/request/details/status-history/status-history.html</context>
+          <context context-type="linenumber">40,41</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/request/details/status-switcher/status-switcher.ts</context>
+          <context context-type="linenumber">61</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.requests.status.archived" datatype="html">
+        <source>Archived</source>
+        <target>Archive</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/request/details/details.ts</context>
+          <context context-type="linenumber">23</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/request/details/status-history/status-history.html</context>
+          <context context-type="linenumber">46,47</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.requests.yes" datatype="html">
+        <source>Yes</source>
+        <target>Oui</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/request/details/details.ts</context>
+          <context context-type="linenumber">41</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.requests.no" datatype="html">
+        <source>No</source>
+        <target>Non</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/request/details/details.ts</context>
+          <context context-type="linenumber">42</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.requests.participants.title" datatype="html">
+        <source>Participants</source>
+        <target>Participants</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/request/details/info/participants/participants.html</context>
+          <context context-type="linenumber">4,6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.requests.participants.total" datatype="html">
+        <source><x id="INTERPOLATION" equiv-text="{{ participants().length }}"/> total</source>
+        <target><x id="INTERPOLATION" equiv-text="{{ participants().length }}"/> Total</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/request/details/info/participants/participants.html</context>
+          <context context-type="linenumber">6,8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.requests.participants.showDetails" datatype="html">
+        <source>Show details</source>
+        <target>Afficher les détails</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/request/details/info/participants/participants.html</context>
+          <context context-type="linenumber">42,43</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.requests.participants.hideDetails" datatype="html">
+        <source>Hide details</source>
+        <target>Cacher les détails</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/request/details/info/participants/participants.html</context>
+          <context context-type="linenumber">43,47</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.requests.participants.profile" datatype="html">
+        <source>Profile</source>
+        <target>Profil</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/request/details/info/participants/participants.html</context>
+          <context context-type="linenumber">50,52</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.requests.participants.birthdate" datatype="html">
+        <source>Birth date</source>
+        <target>Date de naissance</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/request/details/info/participants/participants.html</context>
+          <context context-type="linenumber">53,54</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.requests.participants.lesson" datatype="html">
+        <source>Lesson</source>
+        <target>Leçon</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/request/details/info/participants/participants.html</context>
+          <context context-type="linenumber">59,60</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.requests.participants.licenseType" datatype="html">
+        <source>License type</source>
+        <target>Type de licence</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/request/details/info/participants/participants.html</context>
+          <context context-type="linenumber">65,66</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.requests.participants.address" datatype="html">
+        <source>Address</source>
+        <target>Adresse</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/request/details/info/participants/participants.html</context>
+          <context context-type="linenumber">74,76</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.requests.participants.addressLine1" datatype="html">
+        <source>Line 1</source>
+        <target>Ligne 1</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/request/details/info/participants/participants.html</context>
+          <context context-type="linenumber">77,78</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.requests.participants.addressLine2" datatype="html">
+        <source>Line 2</source>
+        <target>Ligne 2</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/request/details/info/participants/participants.html</context>
+          <context context-type="linenumber">83,84</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.requests.participants.city" datatype="html">
+        <source>City</source>
+        <target>Ville</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/request/details/info/participants/participants.html</context>
+          <context context-type="linenumber">89,90</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.requests.participants.postalCode" datatype="html">
+        <source>Postal code</source>
+        <target>Code Postal</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/request/details/info/participants/participants.html</context>
+          <context context-type="linenumber">95,96</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.requests.participants.country" datatype="html">
+        <source>Country</source>
+        <target>Pays</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/request/details/info/participants/participants.html</context>
+          <context context-type="linenumber">101,102</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.requests.participants.documents" datatype="html">
+        <source>Documents and validations</source>
+        <target>Documents et validations</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/request/details/info/participants/participants.html</context>
+          <context context-type="linenumber">110,112</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.requests.participants.healthQuestionnaire" datatype="html">
+        <source>Health questionnaire</source>
+        <target>Questionnaire de santé</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/request/details/info/participants/participants.html</context>
+          <context context-type="linenumber">113,114</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.requests.participants.medicalCertificate" datatype="html">
+        <source>Medical certificate</source>
+        <target>Certificat médical</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/request/details/info/participants/participants.html</context>
+          <context context-type="linenumber">119,120</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.requests.participants.identityPhoto" datatype="html">
+        <source>Identity photo</source>
+        <target>Photo d'identité</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/request/details/info/participants/participants.html</context>
+          <context context-type="linenumber">125,126</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.requests.participants.exitAuthorization" datatype="html">
+        <source>Exit authorization</source>
+        <target>Autorisation de sortie</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/request/details/info/participants/participants.html</context>
+          <context context-type="linenumber">131,132</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.requests.participants.photoRights" datatype="html">
+        <source>Image rights</source>
+        <target>Droits d'image</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/request/details/info/participants/participants.html</context>
+          <context context-type="linenumber">137,138</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.requests.participants.contactsTitle" datatype="html">
+        <source>Participant contacts</source>
+        <target>Contacts des participants</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/request/details/info/participants/participants.html</context>
+          <context context-type="linenumber">147,148</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.requests.participants.emptyContacts" datatype="html">
+        <source>No contact provided.</source>
+        <target>Aucun contact fourni.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/request/details/info/participants/participants.html</context>
+          <context context-type="linenumber">163,167</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.requests.participants.lessonNotProvided" datatype="html">
+        <source>Lesson not provided</source>
+        <target>Leçon non fournie</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/request/details/info/participants/participants.ts</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.requests.unknown" datatype="html">
+        <source>Unknown</source>
+        <target>Inconnu</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/request/details/info/participants/participants.ts</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/request/details/status-history/status-history.ts</context>
+          <context context-type="linenumber">28</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.requests.pay.totalToPay" datatype="html">
+        <source>Total to pay</source>
+        <target>Le total à payer</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/request/details/request-pay/request-pay.html</context>
+          <context context-type="linenumber">26,28</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.requests.pay.enterAmount" datatype="html">
+        <source>Enter amount</source>
+        <target>Entrer le montant</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/request/details/request-pay/request-pay.ts</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.requests.pay.apply" datatype="html">
+        <source>Apply</source>
+        <target>Appliquer</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/request/details/request-pay/request-pay.ts</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.requests.statusHistory.title" datatype="html">
+        <source>Status history</source>
+        <target>Historique du statut</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/request/details/status-history/status-history.html</context>
+          <context context-type="linenumber">2,5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.requests.statusHistory.empty" datatype="html">
+        <source>No status changes yet.</source>
+        <target>Aucun changement de statut pour le moment.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/request/details/status-history/status-history.html</context>
+          <context context-type="linenumber">5,7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.requests.statusHistory.pendingBy" datatype="html">
+        <source>Request created by <x id="INTERPOLATION" equiv-text="{{ item.changed_by?.display_name || unknownLabel }}"/></source>
+        <target>Requête créée par <x id="INTERPOLATION" equiv-text="{{ item.changed_by?.display_name || unknownLabel }}"/></target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/request/details/status-history/status-history.html</context>
+          <context context-type="linenumber">14,15</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.requests.statusHistory.approvedBy" datatype="html">
+        <source>Request approved by <x id="INTERPOLATION" equiv-text="{{ item.changed_by?.display_name || unknownLabel }}"/></source>
+        <target>Demande approuvée par <x id="INTERPOLATION" equiv-text="{{ item.changed_by?.display_name || unknownLabel }}"/></target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/request/details/status-history/status-history.html</context>
+          <context context-type="linenumber">20,21</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.requests.statusHistory.rejectedBy" datatype="html">
+        <source>Request rejected by <x id="INTERPOLATION" equiv-text="{{ item.changed_by?.display_name || unknownLabel }}"/></source>
+        <target>Requête rejetée par <x id="INTERPOLATION" equiv-text="{{ item.changed_by?.display_name || unknownLabel }}"/></target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/request/details/status-history/status-history.html</context>
+          <context context-type="linenumber">29,30</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.requests.statusHistory.canceledBy" datatype="html">
+        <source>Request canceled by <x id="INTERPOLATION" equiv-text="{{ item.changed_by?.display_name || unknownLabel }}"/></source>
+        <target>Requête annulée par <x id="INTERPOLATION" equiv-text="{{ item.changed_by?.display_name || unknownLabel }}"/></target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/request/details/status-history/status-history.html</context>
+          <context context-type="linenumber">35,36</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.requests.statusHistory.paidBy" datatype="html">
+        <source>Request marked as paid by <x id="INTERPOLATION" equiv-text="{{ item.changed_by?.display_name || unknownLabel }}"/></source>
+        <target>Demande marquée comme payée par <x id="INTERPOLATION" equiv-text="{{ item.changed_by?.display_name || unknownLabel }}"/></target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/request/details/status-history/status-history.html</context>
+          <context context-type="linenumber">41,42</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.requests.statusHistory.archivedBy" datatype="html">
+        <source>Request archived by <x id="INTERPOLATION" equiv-text="{{ item.changed_by?.display_name || unknownLabel }}"/></source>
+        <target>Requête archivée par <x id="INTERPOLATION" equiv-text="{{ item.changed_by?.display_name || unknownLabel }}"/></target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/request/details/status-history/status-history.html</context>
+          <context context-type="linenumber">47,48</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.requests.statusHistory.unknownAction" datatype="html">
+        <source>Unknown action</source>
+        <target>Action inconnue</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/request/details/status-history/status-history.html</context>
+          <context context-type="linenumber">52,53</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.requests.noReasonProvided" datatype="html">
+        <source>No reason provided</source>
+        <target>Aucune raison n'a été fournie.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/request/details/status-history/status-history.ts</context>
+          <context context-type="linenumber">29</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.requests.notSpecified" datatype="html">
+        <source>Not specified</source>
+        <target>Non spécifié</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/request/details/status-history/status-history.ts</context>
+          <context context-type="linenumber">30</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.requests.statusSwitcher.title" datatype="html">
+        <source>Change status</source>
+        <target>Changer de statut</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/request/details/status-switcher/status-switcher.html</context>
+          <context context-type="linenumber">2,3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.requests.statusSwitcher.subtitle" datatype="html">
+        <source>Select the new status then confirm.</source>
+        <target>Sélectionnez le nouveau statut, puis confirmez.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/request/details/status-switcher/status-switcher.html</context>
+          <context context-type="linenumber">3,5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.requests.statusSwitcher.apply" datatype="html">
+        <source>Apply</source>
+        <target>Appliquer</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/request/details/status-switcher/status-switcher.html</context>
+          <context context-type="linenumber">14,18</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.requests.statusSwitcher.labelApproved" datatype="html">
+        <source>approved</source>
+        <target>Approuvé</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/request/details/status-switcher/status-switcher.ts</context>
+          <context context-type="linenumber">32</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.requests.statusSwitcher.labelRejected" datatype="html">
+        <source>rejected</source>
+        <target>Rejeté</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/request/details/status-switcher/status-switcher.ts</context>
+          <context context-type="linenumber">33</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.requests.statusSwitcher.labelCanceled" datatype="html">
+        <source>canceled</source>
+        <target>Annulé</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/request/details/status-switcher/status-switcher.ts</context>
+          <context context-type="linenumber">34</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.requests.statusSwitcher.labelPaid" datatype="html">
+        <source>marked as paid</source>
+        <target>marqué comme payé</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/request/details/status-switcher/status-switcher.ts</context>
+          <context context-type="linenumber">35</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.requests.statusSwitcher.newStatus" datatype="html">
+        <source>New status</source>
+        <target>Nouveau statut</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/request/details/status-switcher/status-switcher.ts</context>
+          <context context-type="linenumber">45</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.requests.statusSwitcher.statusPlaceholder" datatype="html">
+        <source>Select a status</source>
+        <target>Sélectionnez un statut</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/request/details/status-switcher/status-switcher.ts</context>
+          <context context-type="linenumber">46</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.requests.statusSwitcher.reason" datatype="html">
+        <source>Reason (optional)</source>
+        <target>Raison (facultatif)</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/request/details/status-switcher/status-switcher.ts</context>
+          <context context-type="linenumber">69</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.requests.statusSwitcher.reasonPlaceholder" datatype="html">
+        <source>Add a comment</source>
+        <target>Ajouter un commentaire</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/request/details/status-switcher/status-switcher.ts</context>
+          <context context-type="linenumber">70</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.requests.statusSwitcher.changeError" datatype="html">
+        <source>Error while changing status.</source>
+        <target>Erreur lors du changement de statut.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/request/details/status-switcher/status-switcher.ts</context>
+          <context context-type="linenumber">95</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="common.button.close" datatype="html">
+        <source>Close</source>
+        <target>Fermer</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/request/details/status-switcher/status-switcher.ts</context>
+          <context context-type="linenumber">96</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/request/details/status-switcher/status-switcher.ts</context>
+          <context context-type="linenumber">108</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/membership/campaign/subscriptions/new/new.ts</context>
+          <context context-type="linenumber">152</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.requests.statusSwitcher.updated" datatype="html">
+        <source>updated</source>
+        <target>Mis à jour</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/request/details/status-switcher/status-switcher.ts</context>
+          <context context-type="linenumber">105</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.requests.statusSwitcher.changeSuccess" datatype="html">
+        <source>Status</source>
+        <target>Statut</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/request/details/status-switcher/status-switcher.ts</context>
+          <context context-type="linenumber">107</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.requests.statusSwitcher.successSuffix" datatype="html">
+        <source>successfully.</source>
+        <target>avec succès.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/request/details/status-switcher/status-switcher.ts</context>
+          <context context-type="linenumber">107</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.requests.statusSwitcher.reasonRequired" datatype="html">
+        <source>Reason is required for a rejection.</source>
+        <target>Un motif est requis pour un refus.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/request/details/status-switcher/status-switcher.ts</context>
+          <context context-type="linenumber">134</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.requests.statusSwitcher.noRequestLoaded" datatype="html">
+        <source>Unable to change status without a loaded request.</source>
+        <target>Impossible de modifier le statut sans requête chargée.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/request/details/status-switcher/status-switcher.ts</context>
+          <context context-type="linenumber">149</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.requests.statusSwitcher.confirmRejectTitle" datatype="html">
+        <source>Confirm rejection</source>
+        <target>Confirmer le rejet</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/request/details/status-switcher/status-switcher.ts</context>
+          <context context-type="linenumber">172</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.requests.statusSwitcher.confirmCancelTitle" datatype="html">
+        <source>Confirm cancellation</source>
+        <target>Confirmer l'annulation</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/request/details/status-switcher/status-switcher.ts</context>
+          <context context-type="linenumber">173</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.requests.statusSwitcher.confirmRejectMessage" datatype="html">
+        <source>This action will reject the request. Do you want to continue?</source>
+        <target>Cette action rejettera la demande. Voulez-vous continuer ?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/request/details/status-switcher/status-switcher.ts</context>
+          <context context-type="linenumber">176</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.requests.statusSwitcher.confirmCancelMessage" datatype="html">
+        <source>This action will cancel the request. Do you want to continue?</source>
+        <target>Cette action annulera la requête. Voulez-vous continuer ?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/request/details/status-switcher/status-switcher.ts</context>
+          <context context-type="linenumber">177</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="common.button.confirm" datatype="html">
+        <source>Confirm</source>
+        <target>Confirmer</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/request/details/status-switcher/status-switcher.ts</context>
+          <context context-type="linenumber">178</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="common.button.cancel" datatype="html">
+        <source>Cancel</source>
+        <target>Annuler</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/request/details/status-switcher/status-switcher.ts</context>
+          <context context-type="linenumber">179</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/subscription/details/info/sections/contacts/contacts.html</context>
+          <context context-type="linenumber">43,44</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/subscription/details/info/sections/sessions/sessions.html</context>
+          <context context-type="linenumber">43,44</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/subscription/details/info/sections/sessions/sessions.ts</context>
+          <context context-type="linenumber">140</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/membership/campaign/periods/edit/edit.html</context>
+          <context context-type="linenumber">7,9</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/membership/campaign/periods/new/new.html</context>
+          <context context-type="linenumber">7,8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.subscriptions.contacts.title" datatype="html">
+        <source>Contacts</source>
+        <target>Contacts</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/subscription/details/info/sections/contacts/contacts.html</context>
+          <context context-type="linenumber">2,3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.subscriptions.contacts.empty" datatype="html">
+        <source>No contact linked to this subscription.</source>
+        <target>Aucun contact n'est lié à cet abonnement.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/subscription/details/info/sections/contacts/contacts.html</context>
+          <context context-type="linenumber">4,5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.subscriptions.contacts.add" datatype="html">
+        <source>Add contact</source>
+        <target>Ajouter un contact</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/subscription/details/info/sections/contacts/contacts.html</context>
+          <context context-type="linenumber">6,7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.subscriptions.contacts.email" datatype="html">
+        <source>Email</source>
+        <target>E-mail</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/subscription/details/info/sections/contacts/contacts.html</context>
+          <context context-type="linenumber">23,24</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.subscriptions.contacts.phone" datatype="html">
+        <source>Phone</source>
+        <target>Téléphone</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/subscription/details/info/sections/contacts/contacts.html</context>
+          <context context-type="linenumber">29,30</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/subscription/details/info/sections/contacts/contacts.ts</context>
+          <context context-type="linenumber">70</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.subscriptions.contacts.dialogAdd" datatype="html">
+        <source>Add contact</source>
+        <target>Ajouter un contact</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/subscription/details/info/sections/contacts/contacts.ts</context>
+          <context context-type="linenumber">31</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.subscriptions.contacts.dialogEdit" datatype="html">
+        <source>Edit contact</source>
+        <target>Modifier le contact</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/subscription/details/info/sections/contacts/contacts.ts</context>
+          <context context-type="linenumber">32</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="common.button.add" datatype="html">
+        <source>Add</source>
+        <target>Ajouter</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/subscription/details/info/sections/contacts/contacts.ts</context>
+          <context context-type="linenumber">33</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/subscription/details/info/sections/sessions/sessions.html</context>
+          <context context-type="linenumber">44,46</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/membership/campaign/lessons/list/list.html</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/membership/campaign/periods/new/new.html</context>
+          <context context-type="linenumber">8,10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="common.button.edit" datatype="html">
+        <source>Edit</source>
+        <target>Modifier</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/subscription/details/info/sections/contacts/contacts.ts</context>
+          <context context-type="linenumber">34</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/subscription/details/info/sections/contacts/contacts.ts</context>
+          <context context-type="linenumber">77</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/membership/campaign/lessons/list/list.ts</context>
+          <context context-type="linenumber">52</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/membership/campaign/periods/details/details.ts</context>
+          <context context-type="linenumber">33</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/membership/campaign/periods/list/list.ts</context>
+          <context context-type="linenumber">47</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="common.label.notProvided" datatype="html">
+        <source>Not provided</source>
+        <target>Non fourni</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/subscription/details/info/sections/contacts/contacts.ts</context>
+          <context context-type="linenumber">35</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/membership/campaign/lessons/list/list.ts</context>
+          <context context-type="linenumber">32</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.subscriptions.contacts.firstName" datatype="html">
+        <source>First name</source>
+        <target>Prénom</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/subscription/details/info/sections/contacts/contacts.ts</context>
+          <context context-type="linenumber">46</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.subscriptions.contacts.lastName" datatype="html">
+        <source>Last name</source>
+        <target>Nom de famille</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/subscription/details/info/sections/contacts/contacts.ts</context>
+          <context context-type="linenumber">54</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="common.button.delete" datatype="html">
+        <source>Delete</source>
+        <target>SUPPRIMER</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/subscription/details/info/sections/contacts/contacts.ts</context>
+          <context context-type="linenumber">81</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/subscription/details/info/sections/sessions/sessions.ts</context>
+          <context context-type="linenumber">58</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/subscription/details/info/sections/sessions/sessions.ts</context>
+          <context context-type="linenumber">139</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.subscriptions.member.title" datatype="html">
+        <source>Member</source>
+        <target>Membre</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/subscription/details/info/sections/member/member.html</context>
+          <context context-type="linenumber">9,11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.subscriptions.member.subtitle" datatype="html">
+        <source> Subscription holder information </source>
+        <target>Informations sur les abonnés</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/subscription/details/info/sections/member/member.html</context>
+          <context context-type="linenumber">12,17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.subscriptions.member.fullName" datatype="html">
+        <source> Full name </source>
+        <target>Nom et prénom</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/subscription/details/info/sections/member/member.html</context>
+          <context context-type="linenumber">23,25</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.subscriptions.member.memberId" datatype="html">
+        <source> Member ID </source>
+        <target>Numéro de membre</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/subscription/details/info/sections/member/member.html</context>
+          <context context-type="linenumber">34,36</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.subscriptions.member.birthdate" datatype="html">
+        <source> Birth date </source>
+        <target>Date de naissance</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/subscription/details/info/sections/member/member.html</context>
+          <context context-type="linenumber">45,47</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.subscriptions.member.licenseNumber" datatype="html">
+        <source> License number </source>
+        <target>Numéro de licence</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/subscription/details/info/sections/member/member.html</context>
+          <context context-type="linenumber">56,58</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="common.label.email" datatype="html">
+        <source> Email </source>
+        <target>Email</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/subscription/details/info/sections/member/member.html</context>
+          <context context-type="linenumber">67,69</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="common.label.phone" datatype="html">
+        <source> Phone </source>
+        <target>Téléphone</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/subscription/details/info/sections/member/member.html</context>
+          <context context-type="linenumber">78,80</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="common.label.address" datatype="html">
+        <source> Address </source>
+        <target>Adresse</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/subscription/details/info/sections/member/member.html</context>
+          <context context-type="linenumber">89,91</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.subscriptions.notProvided" datatype="html">
+        <source>Not provided</source>
+        <target>Non fourni</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/subscription/details/info/sections/member/member.ts</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/subscription/details/info/sections/overview/overview.ts</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.subscriptions.unknownInitials" datatype="html">
+        <source>??</source>
+        <target>??</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/subscription/details/info/sections/member/member.ts</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.subscriptions.overview.title" datatype="html">
+        <source>Subscription</source>
+        <target>Abonnement</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/subscription/details/info/sections/overview/overview.html</context>
+          <context context-type="linenumber">4,5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.subscriptions.overview.details" datatype="html">
+        <source>Subscription details</source>
+        <target>Détails de l'abonnement</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/subscription/details/info/sections/overview/overview.html</context>
+          <context context-type="linenumber">9,10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.subscriptions.overview.campaign" datatype="html">
+        <source>Campaign</source>
+        <target>Campagne</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/subscription/details/info/sections/overview/overview.html</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.subscriptions.overview.subscribedAt" datatype="html">
+        <source>Subscribed at</source>
+        <target>Abonné à</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/subscription/details/info/sections/overview/overview.html</context>
+          <context context-type="linenumber">22,23</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.subscriptions.overview.sessions" datatype="html">
+        <source>Sessions</source>
+        <target>Séances</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/subscription/details/info/sections/overview/overview.html</context>
+          <context context-type="linenumber">28,29</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.subscriptions.overview.contacts" datatype="html">
+        <source>Contacts</source>
+        <target>Contacts</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/subscription/details/info/sections/overview/overview.html</context>
+          <context context-type="linenumber">32,33</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.subscriptions.sessions.title" datatype="html">
+        <source>Sessions</source>
+        <target>Séances</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/subscription/details/info/sections/sessions/sessions.html</context>
+          <context context-type="linenumber">2,3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.subscriptions.sessions.empty" datatype="html">
+        <source>No session linked to this subscription.</source>
+        <target>Aucune session n'est liée à cet abonnement.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/subscription/details/info/sections/sessions/sessions.html</context>
+          <context context-type="linenumber">4,5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.subscriptions.sessions.add" datatype="html">
+        <source>Add session</source>
+        <target>Ajouter une session</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/subscription/details/info/sections/sessions/sessions.html</context>
+          <context context-type="linenumber">6,7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.subscriptions.sessions.lessonId" datatype="html">
+        <source>Lesson ID</source>
+        <target>ID de la leçon</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/subscription/details/info/sections/sessions/sessions.html</context>
+          <context context-type="linenumber">25,27</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.subscriptions.sessions.subscriptionId" datatype="html">
+        <source>Subscription ID</source>
+        <target>Identifiant d'abonnement</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/subscription/details/info/sections/sessions/sessions.html</context>
+          <context context-type="linenumber">30,32</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.subscriptions.sessions.dialogTitle" datatype="html">
+        <source>Add session</source>
+        <target>Ajouter une session</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/subscription/details/info/sections/sessions/sessions.html</context>
+          <context context-type="linenumber">38,40</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.subscriptions.form.lesson" datatype="html">
+        <source>Lesson</source>
+        <target>Leçon</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/subscription/details/info/sections/sessions/sessions.ts</context>
+          <context context-type="linenumber">47</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/membership/campaign/subscriptions/new/new.ts</context>
+          <context context-type="linenumber">81</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.subscriptions.sessions.lessonNotProvided" datatype="html">
+        <source>Lesson not provided</source>
+        <target>Leçon non fournie</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/subscription/details/info/sections/sessions/sessions.ts</context>
+          <context context-type="linenumber">81</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.subscriptions.sessions.deleteTitle" datatype="html">
+        <source>Delete session</source>
+        <target>Supprimer la session</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/subscription/details/info/sections/sessions/sessions.ts</context>
+          <context context-type="linenumber">137</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.subscriptions.sessions.deleteMessage" datatype="html">
+        <source>Do you really want to delete session</source>
+        <target>Voulez-vous vraiment supprimer la session</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/subscription/details/info/sections/sessions/sessions.ts</context>
+          <context context-type="linenumber">138</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="common.button.logout" datatype="html">
+        <source>Logout</source>
+        <target>Se déconnecter</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/layouts/default/default.html</context>
+          <context context-type="linenumber">19,22</context>
+        </context-group>
+        <note priority="1" from="description">:</note>
+      </trans-unit>
+      <trans-unit id="billing.payment.list.columns.type" datatype="html">
+        <source>Type</source>
+        <target>Taper</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/billing/payments/list/list.ts</context>
+          <context context-type="linenumber">32</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="billing.payment.list.columns.amount" datatype="html">
+        <source>Amount</source>
+        <target>Montant</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/billing/payments/list/list.ts</context>
+          <context context-type="linenumber">38</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="billing.payment.list.columns.payedAt" datatype="html">
+        <source>Payed At</source>
+        <target>Payé à</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/billing/payments/list/list.ts</context>
+          <context context-type="linenumber">44</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="billing.payment.list.columns.paymentMethod" datatype="html">
+        <source>Payment Method</source>
+        <target>Mode de paiement</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/billing/payments/list/list.ts</context>
+          <context context-type="linenumber">49</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="billing.payment.list.columns.payerFirstname" datatype="html">
+        <source>First Name</source>
+        <target>Prénom</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/billing/payments/list/list.ts</context>
+          <context context-type="linenumber">54</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="billing.payment.list.columns.payerLastname" datatype="html">
+        <source>Last Name</source>
+        <target>Nom de famille</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/billing/payments/list/list.ts</context>
+          <context context-type="linenumber">59</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="common.button.new" datatype="html">
+        <source>New</source>
+        <target>Nouveau</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/billing/payments/list/list.ts</context>
+          <context context-type="linenumber">75</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/membership/campaign/periods/list/list.ts</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/membership/campaign/subscriptions/list/list.ts</context>
+          <context context-type="linenumber">29</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.lessons.pageTitle" datatype="html">
+        <source>Lessons</source>
+        <target>Cours</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/membership/campaign/lessons/list/list.html</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="common.label.loading" datatype="html">
+        <source>Loading...</source>
+        <target>Chargement...</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/membership/campaign/lessons/list/list.html</context>
+          <context context-type="linenumber">3,6</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/membership/campaign/periods/details/details.html</context>
+          <context context-type="linenumber">3,6</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/membership/campaign/requests/details/details.html</context>
+          <context context-type="linenumber">8,10</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/membership/campaign/subscriptions/details/details.html</context>
+          <context context-type="linenumber">3,5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.lessons.emptyByDay" datatype="html">
+        <source>No lessons for this day.</source>
+        <target>Pas de cours aujourd'hui.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/membership/campaign/lessons/list/list.html</context>
+          <context context-type="linenumber">16,17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.lessons.description" datatype="html">
+        <source>Description</source>
+        <target>Description</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/membership/campaign/lessons/list/list.html</context>
+          <context context-type="linenumber">44,45</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.lessons.participants" datatype="html">
+        <source>Participants</source>
+        <target>Participants</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/membership/campaign/lessons/list/list.html</context>
+          <context context-type="linenumber">50,51</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.lessons.ageRange" datatype="html">
+        <source>Age range</source>
+        <target>Tranche d'âge</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/membership/campaign/lessons/list/list.html</context>
+          <context context-type="linenumber">56,57</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.lessons.untitled" datatype="html">
+        <source>Untitled lesson</source>
+        <target>Leçon sans titre</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/membership/campaign/lessons/list/list.ts</context>
+          <context context-type="linenumber">29</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.lessons.noDescription" datatype="html">
+        <source>No description</source>
+        <target>Pas de description</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/membership/campaign/lessons/list/list.ts</context>
+          <context context-type="linenumber">30</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="common.label.na" datatype="html">
+        <source>N/A</source>
+        <target>N / A</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/membership/campaign/lessons/list/list.ts</context>
+          <context context-type="linenumber">31</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.periods.details.pageTitle" datatype="html">
+        <source>Period details</source>
+        <target>Détails de la période</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/membership/campaign/periods/details/details.html</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.periods.details.period" datatype="html">
+        <source>Period</source>
+        <target>Période</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/membership/campaign/periods/details/details.html</context>
+          <context context-type="linenumber">17,18</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.periods.details.periodDetail" datatype="html">
+        <source>Period details</source>
+        <target>Détails de la période</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/membership/campaign/periods/details/details.html</context>
+          <context context-type="linenumber">22,23</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.periods.details.campaign" datatype="html">
+        <source>Campaign</source>
+        <target>Campagne</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/membership/campaign/periods/details/details.html</context>
+          <context context-type="linenumber">28</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.periods.details.days" datatype="html">
+        <source>days</source>
+        <target>jours</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/membership/campaign/periods/details/details.html</context>
+          <context context-type="linenumber">29,31</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/membership/campaign/periods/details/details.html</context>
+          <context context-type="linenumber">49,52</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.periods.details.startDate" datatype="html">
+        <source>Start date</source>
+        <target>Date de début</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/membership/campaign/periods/details/details.html</context>
+          <context context-type="linenumber">35,36</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.periods.details.endDate" datatype="html">
+        <source>End date</source>
+        <target>Date de fin</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/membership/campaign/periods/details/details.html</context>
+          <context context-type="linenumber">41,42</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.periods.details.duration" datatype="html">
+        <source>Duration</source>
+        <target>Durée</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/membership/campaign/periods/details/details.html</context>
+          <context context-type="linenumber">47,48</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.periods.details.metadata" datatype="html">
+        <source>Metadata</source>
+        <target>Métadonnées</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/membership/campaign/periods/details/details.html</context>
+          <context context-type="linenumber">57,59</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.periods.details.periodId" datatype="html">
+        <source>Period ID</source>
+        <target>ID de période</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/membership/campaign/periods/details/details.html</context>
+          <context context-type="linenumber">61,62</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.periods.details.campaignId" datatype="html">
+        <source>Campaign ID</source>
+        <target>ID de campagne</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/membership/campaign/periods/details/details.html</context>
+          <context context-type="linenumber">67,68</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.periods.details.untitled" datatype="html">
+        <source>Untitled period</source>
+        <target>Période sans titre</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/membership/campaign/periods/details/details.ts</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.periods.notProvided" datatype="html">
+        <source>Not provided</source>
+        <target>Non fourni</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/membership/campaign/periods/details/details.ts</context>
+          <context context-type="linenumber">22</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.periods.print" datatype="html">
+        <source>Print</source>
+        <target>Imprimer</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/membership/campaign/periods/details/details.ts</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.periods.delete" datatype="html">
+        <source>Delete</source>
+        <target>SUPPRIMER</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/membership/campaign/periods/details/details.ts</context>
+          <context context-type="linenumber">40</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.periods.edit.dialogTitle" datatype="html">
+        <source>Edit period</source>
+        <target>Période de modification</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/membership/campaign/periods/edit/edit.html</context>
+          <context context-type="linenumber">2,4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="common.button.save" datatype="html">
+        <source> Save </source>
+        <target> Sauvegarder</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/membership/campaign/periods/edit/edit.html</context>
+          <context context-type="linenumber">16,19</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.periods.form.title" datatype="html">
+        <source>Title</source>
+        <target>Titre</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/membership/campaign/periods/edit/edit.ts</context>
+          <context context-type="linenumber">47</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/membership/campaign/periods/new/new.ts</context>
+          <context context-type="linenumber">44</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.periods.form.startDate" datatype="html">
+        <source>Start date</source>
+        <target>Date de début</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/membership/campaign/periods/edit/edit.ts</context>
+          <context context-type="linenumber">53</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/membership/campaign/periods/new/new.ts</context>
+          <context context-type="linenumber">50</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.periods.form.endDate" datatype="html">
+        <source>End date</source>
+        <target>Date de fin</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/membership/campaign/periods/edit/edit.ts</context>
+          <context context-type="linenumber">59</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/membership/campaign/periods/new/new.ts</context>
+          <context context-type="linenumber">56</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.periods.pageTitle" datatype="html">
+        <source>Periods</source>
+        <target>Périodes</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/membership/campaign/periods/list/list.html</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="common.button.view" datatype="html">
+        <source>View</source>
+        <target>Voir</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/membership/campaign/periods/list/list.ts</context>
+          <context context-type="linenumber">36</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/membership/campaign/subscriptions/list/list.ts</context>
+          <context context-type="linenumber">44</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.periods.new.dialogTitle" datatype="html">
+        <source>Add period</source>
+        <target>Ajouter une période</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/membership/campaign/periods/new/new.html</context>
+          <context context-type="linenumber">2,4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.periods.new.defaultTitle" datatype="html">
+        <source>New period</source>
+        <target>Nouvelle période</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/membership/campaign/periods/new/new.ts</context>
+          <context context-type="linenumber">139</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.requests.details.pageTitle" datatype="html">
+        <source>Request details</source>
+        <target>Demande de détails</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/membership/campaign/requests/details/details.html</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.requests.details.actionsAndHistory" datatype="html">
+        <source>Actions and history</source>
+        <target>Actions et histoire</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/membership/campaign/requests/details/details.html</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.requests.pageTitle" datatype="html">
+        <source>Requests</source>
+        <target>Demandes</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/membership/campaign/requests/list/list.html</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.requests.view" datatype="html">
+        <source>View</source>
+        <target>Voir</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/membership/campaign/requests/list/list.ts</context>
+          <context context-type="linenumber">23</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.subscriptions.details.pageTitle" datatype="html">
+        <source>Subscription details</source>
+        <target>Détails de l'abonnement</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/membership/campaign/subscriptions/details/details.html</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.subscriptions.pageTitle" datatype="html">
+        <source>Subscriptions</source>
+        <target>Abonnements</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/membership/campaign/subscriptions/list/list.html</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.subscriptions.new.pageTitle" datatype="html">
+        <source>New subscription</source>
+        <target>Nouvel abonnement</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/membership/campaign/subscriptions/new/new.html</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.subscriptions.new.create" datatype="html">
+        <source>Create</source>
+        <target>Créer</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/membership/campaign/subscriptions/new/new.html</context>
+          <context context-type="linenumber">3,5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.subscriptions.form.member" datatype="html">
+        <source>Member</source>
+        <target>Membre</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/membership/campaign/subscriptions/new/new.ts</context>
+          <context context-type="linenumber">59</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.subscriptions.form.memberPlaceholder" datatype="html">
+        <source>Select a member</source>
+        <target>Sélectionnez un membre</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/membership/campaign/subscriptions/new/new.ts</context>
+          <context context-type="linenumber">60</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.subscriptions.form.licenseType" datatype="html">
+        <source>License type</source>
+        <target>Type de licence</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/membership/campaign/subscriptions/new/new.ts</context>
+          <context context-type="linenumber">68</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.subscriptions.form.licenseTypePlaceholder" datatype="html">
+        <source>Select a license type</source>
+        <target>Sélectionnez un type de licence</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/membership/campaign/subscriptions/new/new.ts</context>
+          <context context-type="linenumber">69</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.subscriptions.form.licenseHobby" datatype="html">
+        <source>Hobby</source>
+        <target>Passe-temps</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/membership/campaign/subscriptions/new/new.ts</context>
+          <context context-type="linenumber">72</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.subscriptions.form.licenseCompetition" datatype="html">
+        <source>Competition</source>
+        <target>Concours</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/membership/campaign/subscriptions/new/new.ts</context>
+          <context context-type="linenumber">73</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.subscriptions.form.lessonPlaceholder" datatype="html">
+        <source>Select a lesson</source>
+        <target>Sélectionnez une leçon</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/membership/campaign/subscriptions/new/new.ts</context>
+          <context context-type="linenumber">82</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="common.error.default" datatype="html">
+        <source>An error occurred</source>
+        <target>Une erreur s'est produite</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/membership/campaign/subscriptions/new/new.ts</context>
+          <context context-type="linenumber">148</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.subscriptions.error.duplicateMember" datatype="html">
+        <source>A member with this information already exists for this campaign</source>
+        <target>Un membre disposant de ces informations existe déjà pour cette campagne.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/membership/campaign/subscriptions/new/new.ts</context>
+          <context context-type="linenumber">150</context>
+        </context-group>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

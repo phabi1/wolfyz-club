@@ -1,0 +1,4 @@
+<app-ui-page title="New subscription" i18n-title="@@membership.subscriptions.new.pageTitle">
+  <formly-form [form]="form" [fields]="fields" [model]="model"></formly-form>
+  <button mat-button type="submit" [disabled]="form.invalid" (click)="submit()" i18n="@@membership.subscriptions.new.create">Create</button>
+</app-ui-page>

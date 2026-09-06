@@ -9,7 +9,8 @@ import {
 } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
-import { Collection } from '../../../../../../ui/collection/collection';
+import { Collection, CollectionItemAction } from '../../../../../../ui/collection/collection';
+import { Badge } from '../../../../../../ui/badge/badge';
 import type { Subscription } from '../../../../../../../models/membership/subscription';
 import type { EditableContact } from '../info.models';
 import { FormGroup, Validators } from '@angular/forms';
@@ -19,7 +20,7 @@ type SubscriptionContact = Subscription['contacts'][number];
 
 @Component({
   selector: 'app-membership-subscription-details-contacts-section',
-  imports: [Collection, MatDialogModule, MatButtonModule, FormlyModule],
+  imports: [Collection, Badge, MatDialogModule, MatButtonModule, FormlyModule],
   templateUrl: './contacts.html',
   styleUrl: './contacts.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -27,6 +28,11 @@ type SubscriptionContact = Subscription['contacts'][number];
 export class ContactsSection {
   private readonly dialog = inject(MatDialog);
   private activeDialogRef: MatDialogRef<unknown> | null = null;
+  readonly addContactDialogTitle = $localize`:@@membership.subscriptions.contacts.dialogAdd:Add contact`;
+  readonly editContactDialogTitle = $localize`:@@membership.subscriptions.contacts.dialogEdit:Edit contact`;
+  readonly addLabel = $localize`:@@common.button.add:Add`;
+  readonly editLabel = $localize`:@@common.button.edit:Edit`;
+  readonly notProvidedLabel = $localize`:@@common.label.notProvided:Not provided`;
 
   contacts = input<SubscriptionContact[]>([]);
   contactsChange = output<SubscriptionContact[]>();
@@ -37,7 +43,7 @@ export class ContactsSection {
     {
       key: 'firstname',
       type: 'input',
-      props: { label: 'Prenom', required: true, maxLength: 120 },
+      props: { label: $localize`:@@membership.subscriptions.contacts.firstName:First name`, required: true, maxLength: 120 },
       validators: {
         validation: [Validators.required],
       },
@@ -45,7 +51,7 @@ export class ContactsSection {
     {
       key: 'lastname',
       type: 'input',
-      props: { label: 'Nom', required: true, maxLength: 120 },
+      props: { label: $localize`:@@membership.subscriptions.contacts.lastName:Last name`, required: true, maxLength: 120 },
       validators: {
         validation: [Validators.required],
       },
@@ -61,25 +67,36 @@ export class ContactsSection {
     {
       key: 'phone',
       type: 'input',
-      props: { label: 'Telephone', maxLength: 50 },
+      props: { label: $localize`:@@membership.subscriptions.contacts.phone:Phone`, maxLength: 50 },
     },
   ];
   model: EditableContact = this.emptyModel();
+
+  itemActions = input<CollectionItemAction[]>([
+    {
+      label: $localize`:@@common.button.edit:Edit`,
+      handler: ({ item, index }) => this.onItemEdit({ item, index }),
+    },
+    {
+      label: $localize`:@@common.button.delete:Delete`,
+      handler: ({ item, index }) => this.onDeleteItem({ item, index }),
+    },
+  ]);
 
   private editingIndex: number | null = null;
   private readonly formTpl = viewChild<TemplateRef<unknown>>('formTpl');
 
   fullName(firstname?: string, lastname?: string): string {
     const value = `${firstname || ''} ${lastname || ''}`.trim();
-    return value || 'Non renseigne';
+    return value || this.notProvidedLabel;
   }
 
   contactEmail(contact: SubscriptionContact): string {
-    return contact.email || 'Non renseigne';
+    return contact.email || this.notProvidedLabel;
   }
 
   contactPhone(contact: SubscriptionContact): string {
-    return contact.phone || 'Non renseigne';
+    return contact.phone || this.notProvidedLabel;
   }
 
   onAddItem(): void {
@@ -94,7 +111,7 @@ export class ContactsSection {
     this.openDialog(formTpl);
   }
 
-  onItemClick(event: { index: number }): void {
+  onItemEdit(event: { item: SubscriptionContact; index: number }): void {
     const formTpl = this.formTpl();
     if (!formTpl) {
       return;
@@ -157,8 +174,7 @@ export class ContactsSection {
     this.activeDialogRef?.close();
   }
 
-  onDelete(): void {
-    const index = this.editingIndex;
+  onDeleteItem({item, index}: {item: SubscriptionContact; index: number}): void {
     if (index === null) {
       return;
     }

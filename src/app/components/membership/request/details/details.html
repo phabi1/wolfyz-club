@@ -1,38 +1,40 @@
 <div class="flex flex-col gap-4">
   <section class="paper" aria-labelledby="request-summary-title">
     <h2 id="request-summary-title" class="mb-4 text-base font-bold tracking-[0.01em] text-slate-900">
-      Synthese de la demande
+      <span i18n="@@membership.requests.summary.title">Request summary</span>
     </h2>
 
     <dl class="grid grid-cols-1 gap-x-5 gap-y-4 md:grid-cols-2">
       <div>
-        <dt class="m-0 text-xs uppercase tracking-[0.04em] text-slate-500">Identifiant</dt>
+        <dt class="m-0 text-xs uppercase tracking-[0.04em] text-slate-500" i18n="@@membership.requests.summary.identifier">Identifier</dt>
         <dd class="mt-1 text-[0.95rem] font-medium text-slate-900 wrap-break-word">{{ item().id }}</dd>
       </div>
       <div>
-        <dt class="m-0 text-xs uppercase tracking-[0.04em] text-slate-500">Campagne</dt>
-        <dd class="mt-1 text-[0.95rem] font-medium text-slate-900 wrap-break-word">#{{ item().campaign_id }}</dd>
+        <dt class="m-0 text-xs uppercase tracking-[0.04em] text-slate-500" i18n="@@membership.requests.summary.campaign">Campaign</dt>
+        <dd class="mt-1 text-[0.95rem] font-medium text-slate-900 wrap-break-word">
+          <app-ui-badge [label]="'#' + item().campaign_id"></app-ui-badge>
+        </dd>
       </div>
       <div>
-        <dt class="m-0 text-xs uppercase tracking-[0.04em] text-slate-500">Statut</dt>
+        <dt class="m-0 text-xs uppercase tracking-[0.04em] text-slate-500" i18n="@@membership.requests.summary.status">Status</dt>
         <dd class="mt-1 inline-flex items-center rounded-full border border-slate-300 px-2.5 py-0.5 text-[0.82rem] font-semibold text-slate-900">
           {{ statusLabels[item().status] }}
         </dd>
       </div>
       <div>
-        <dt class="m-0 text-xs uppercase tracking-[0.04em] text-slate-500">Demandeur</dt>
+        <dt class="m-0 text-xs uppercase tracking-[0.04em] text-slate-500" i18n="@@membership.requests.summary.requester">Requester</dt>
         <dd class="mt-1 text-[0.95rem] font-medium text-slate-900 wrap-break-word">
           {{ item().firstname }} {{ item().lastname }}
         </dd>
       </div>
       <div>
-        <dt class="m-0 text-xs uppercase tracking-[0.04em] text-slate-500">Email principal</dt>
+        <dt class="m-0 text-xs uppercase tracking-[0.04em] text-slate-500" i18n="@@membership.requests.summary.primaryEmail">Primary email</dt>
         <dd class="mt-1 text-[0.95rem] font-medium text-slate-900 wrap-break-word">
-          {{ item().email || 'Non renseigne' }}
+          {{ item().email || notProvidedLabel }}
         </dd>
       </div>
       <div>
-        <dt class="m-0 text-xs uppercase tracking-[0.04em] text-slate-500">Date de paiement</dt>
+        <dt class="m-0 text-xs uppercase tracking-[0.04em] text-slate-500" i18n="@@membership.requests.summary.paymentDate">Payment date</dt>
         <dd class="mt-1 text-[0.95rem] font-medium text-slate-900 wrap-break-word">{{ formatDate(item().payed_at) }}</dd>
       </div>
     </dl>
@@ -40,28 +42,28 @@
 
   <section class="paper" aria-labelledby="request-contact-title">
     <h2 id="request-contact-title" class="mb-4 text-base font-bold tracking-[0.01em] text-slate-900">
-      Contact principal
+      <span i18n="@@membership.requests.contact.title">Primary contact</span>
     </h2>
 
     <dl class="grid grid-cols-1 gap-x-5 gap-y-4 md:grid-cols-2">
       <div>
-        <dt class="m-0 text-xs uppercase tracking-[0.04em] text-slate-500">Prenom</dt>
+        <dt class="m-0 text-xs uppercase tracking-[0.04em] text-slate-500" i18n="@@membership.requests.contact.firstName">First name</dt>
         <dd class="mt-1 text-[0.95rem] font-medium text-slate-900 wrap-break-word">{{ item().data.contact.firstname || item().firstname }}</dd>
       </div>
       <div>
-        <dt class="m-0 text-xs uppercase tracking-[0.04em] text-slate-500">Nom</dt>
+        <dt class="m-0 text-xs uppercase tracking-[0.04em] text-slate-500" i18n="@@membership.requests.contact.lastName">Last name</dt>
         <dd class="mt-1 text-[0.95rem] font-medium text-slate-900 wrap-break-word">{{ item().data.contact.lastname || item().lastname }}</dd>
       </div>
       <div>
-        <dt class="m-0 text-xs uppercase tracking-[0.04em] text-slate-500">Email</dt>
+        <dt class="m-0 text-xs uppercase tracking-[0.04em] text-slate-500" i18n="@@membership.requests.contact.email">Email</dt>
         <dd class="mt-1 text-[0.95rem] font-medium text-slate-900 wrap-break-word">
-          {{ item().data.contact.email || item().email || 'Non renseigne' }}
+          {{ item().data.contact.email || item().email || notProvidedLabel }}
         </dd>
       </div>
       <div>
-        <dt class="m-0 text-xs uppercase tracking-[0.04em] text-slate-500">Telephone</dt>
+        <dt class="m-0 text-xs uppercase tracking-[0.04em] text-slate-500" i18n="@@membership.requests.contact.phone">Phone</dt>
         <dd class="mt-1 text-[0.95rem] font-medium text-slate-900 wrap-break-word">
-          {{ item().data.contact.phone || 'Non renseigne' }}
+          {{ item().data.contact.phone || notProvidedLabel }}
         </dd>
       </div>
     </dl>

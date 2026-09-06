@@ -1,4 +1,4 @@
-import type { WheelAssignment } from "./wheel-assignment";
+import { Address } from "./address";
 
 export type Member = {
   id: number;
@@ -6,6 +6,9 @@ export type Member = {
   lastname: string;
   birthdate: string;
   license_number?: string;
-  avatar_url?: string;
   gender?: "male" | "female";
+  avatar_url?: string;
+  address: Address;
+  email?: string;
+  phone?: string;
 };
