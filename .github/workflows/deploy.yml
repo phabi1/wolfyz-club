@@ -42,7 +42,7 @@ jobs:
           RewriteCond %{REQUEST_FILENAME} !-f
           RewriteCond %{REQUEST_FILENAME} !-d
           RewriteRule . /index.html [L]
-        </IfModule>" > dist/*/browser/.htaccess
+        </IfModule>" > dist/fr/browser/.htaccess
 
     - name: Synchronization Files
       env:
