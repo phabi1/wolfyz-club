@@ -26,7 +26,7 @@ jobs:
     - name: Setup Node.js
       uses: actions/setup-node@v4
       with:
-        node-version: '20'
+        node-version: '24'
 
     - name: Install dependencies & Build
       run: |
@@ -44,4 +44,4 @@ jobs:
           --exclude='.git*' \
           --exclude='.htaccess' \
           --exclude='config.json' \
-          ./ $SSH_USER@$SSH_SERVER:$FTP_SERVER_DIR/
+          ./dist/club/browser/fr/ $SSH_USER@$SSH_SERVER:$FTP_SERVER_DIR/
