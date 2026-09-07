@@ -1,0 +1,19 @@
+<div class="flex justify-between">
+  <div class="flex items-center">
+    <div>
+      @switch (filetype()) {
+        @case ('image') {
+          <mat-icon>picture</mat-icon>
+        }
+        @case ('pdf') {
+          <mat-icon>picture_as_pdf</mat-icon>
+        }
+        @default {
+          <mat-icon>insert_drive_file</mat-icon>
+        }
+      }
+    </div>
+    <div>{{ filename() }}</div>
+  </div>
+  <div><a href="{{ url() }}" i18n=":@@common.button.preview">Preview</a></div>
+</div>
