@@ -14,16 +14,16 @@ export class Dashboard {
   widgets = input.required<Widget[]>();
 
   static itemChange(item: GridsterItemConfig, itemComponent: any) {
-    console.info('itemChanged', item, itemComponent);
+    
   }
 
   static itemResize(item: GridsterItemConfig, itemComponent: any) {
-    console.info('itemResized', item, itemComponent);
+
   }
 
   ngOnInit() {
     this.options = {
-      gridType: 'scrollVertical',
+      gridType: 'verticalFixed',
       maxItemCols: 12,
       fixedRowHeight: 100,
       margin: 14,
