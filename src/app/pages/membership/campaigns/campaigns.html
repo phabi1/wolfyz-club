@@ -1,5 +1,9 @@
 <app-ui-page title="Campaigns">
-  @for (item of items(); track $index) {
-    <a [routerLink]="['/membership/campaign', item.id]">{{ item.title }}</a>
-  }
+  <div class="grid grid-cols-1 gap-4 md:grid-cols-4">
+    @for (item of items(); track $index) {
+      <a [routerLink]="['/membership/campaign', item.id]" class="paper">
+        {{ item.title }}
+      </a>
+    }
+  </div>
 </app-ui-page>
