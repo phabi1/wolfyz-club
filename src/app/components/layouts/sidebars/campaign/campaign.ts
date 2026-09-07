@@ -13,7 +13,7 @@ import { NavItem } from '../../../ui/navbar/nav-item';
 
 @Component({
   selector: 'app-layout-sidebar-membership-campaign',
-  imports: [RouterLink, RouterLinkActive, Navbar],
+  imports: [RouterLink, Navbar],
   templateUrl: './campaign.html',
   styleUrl: './campaign.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
