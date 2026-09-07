@@ -16,6 +16,7 @@ export type Subscription = {
     email?: string;
     phone?: string;
   }[];
+  fields: Record<string, any>;
   sessions?: Session[];
   campaign_id: number;
 };
