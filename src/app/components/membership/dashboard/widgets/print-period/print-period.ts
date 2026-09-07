@@ -1,12 +1,13 @@
 import { Component, effect, inject, signal } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
 import { PeriodService } from '../../../../../services/membership/period.service';
 
 @Component({
   selector: 'app-print-period',
-  imports: [MatFormFieldModule, MatSelectModule, MatButtonModule],
+  imports: [MatFormFieldModule, MatSelectModule, MatButtonModule, MatIconModule],
   templateUrl: './print-period.html',
   styleUrl: './print-period.css',
 })
