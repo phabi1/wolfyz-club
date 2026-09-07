@@ -1,26 +1,39 @@
 <mat-sidenav-container class="h-full bg-transparent">
   <mat-sidenav
-    opened
-    mode="side"
-    class="app-shell-sidenav w-72 bg-slate-950 px-4 py-5 text-slate-100 shadow-2xl"
+    #sidenav
+    class="app-shell-sidenav bg-slate-950 text-slate-100 shadow-2xl"
+    [mode]="isHandset() ? 'over' : 'side'"
+    [opened]="isHandset() === false"
   >
     <div class="h-full flex flex-col">
-      <div
-        class="mb-6 rounded-2xl border border-slate-800 bg-slate-900/80 p-4 shadow-lg ring-1 ring-white/5"
-      >
-        <p class="text-xs font-semibold uppercase tracking-[0.18em] text-sky-300">Club</p>
-        <div class="mt-1 text-2xl font-extrabold tracking-tight text-white">Roller Les Loups</div>
-        <p class="mt-2 text-sm text-slate-300">Gestion sportive, membres et campagnes.</p>
+      <div class="h-16 px-4 flex items-center justify-between border-b border-slate-600">
+        <h1 class="text-lg font-bold text-white">Roller les loups</h1>
+        @if (isHandset()) {
+          <button type="button" mat-icon-button (click)="sidenav.close()">
+            <mat-icon>close</mat-icon>
+          </button>
+        }
       </div>
-      <div class="flex-1">
+      <div class="">
         <ng-container *ngComponentOutlet="sidebar()"></ng-container>
       </div>
-      <div class="border-t pt-4 px-4">
+      <div class="border-t border-slate-600 pt-4 px-4">
         <button mat-button (click)="logout()" i18n=":@@common.button.logout">Logout</button>
       </div>
     </div>
   </mat-sidenav>
-  <div class="h-full overflow-auto bg-transparent">
-    <router-outlet></router-outlet>
+  <div class="h-full overflow-auto bg-transparent" [ngClass]="{ 'pt-16': isHandset() }">
+    @if (isHandset()) {
+      <div
+        class="fixed w-full z-50 h-16 flex top-0 left-0 items-center justify-between px-4 bg-white border-b border-slate-200"
+      >
+        <div>
+          <button type="button" mat-icon-button (click)="sidenav.toggle()">
+            <mat-icon>menu</mat-icon>
+          </button>
+        </div>
+      </div>
+    }
+      <router-outlet></router-outlet>
   </div>
 </mat-sidenav-container>
