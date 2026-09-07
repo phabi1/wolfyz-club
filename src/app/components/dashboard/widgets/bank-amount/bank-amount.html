@@ -10,7 +10,7 @@
       @if (loading()) {
         <app-ui-ghosting-rectangle width="100px" height="50px"></app-ui-ghosting-rectangle>
       } @else {
-        <p>Bank Amount: {{ amount() }}</p>
+        <p class="text-3xl font-bold">{{ amount() | amount }}</p>
       }
     </div>
     <div>
