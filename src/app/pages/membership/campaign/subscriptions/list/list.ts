@@ -53,6 +53,15 @@ export class List {
     },
   ];
 
+  onRowClick(row: Subscription) {
+    this.router.navigate([
+      '/membership/campaign',
+      this.route.snapshot.paramMap.get('campaignId'),
+      'subscriptions',
+      row.id,
+    ]);
+  }
+
   onPaginationChange({ page, size }: { page: number; size: number }) {
     this.dispatcher.dispatch(membershipSubscriptionListEvents.setPagination({ page, size }));
   }

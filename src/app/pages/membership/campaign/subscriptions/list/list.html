@@ -7,6 +7,7 @@
     [currentPage]="store.page()"
     [quickSearch]="true"
     [search]="store.search()"
+    (rowClick)="onRowClick($event.row)"
     (searchChange)="onSearchChange($event)"
     (paginationChange)="
       onPaginationChange({
