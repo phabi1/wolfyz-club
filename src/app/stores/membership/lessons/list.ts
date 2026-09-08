@@ -18,7 +18,6 @@ import { LessonService } from '../../../services/membership/lesson.service';
 type State = {
   campaign_id: number;
   loading: boolean;
-  columns: DatagridColumn[];
   items: Lesson[];
   page: number;
   size: number;
@@ -33,19 +32,6 @@ type State = {
 const initialState: State = {
   campaign_id: 0,
   loading: false,
-  columns: [
-    { name: 'id', header: 'ID' },
-    {
-      name: 'title',
-      header: 'Titre',
-      cell: { type: 'text', options: { featured: true } },
-    },
-    { name: 'day', header: 'Jour' },
-    { name: 'lesson_start', header: 'Debut', type: 'date' },
-    { name: 'lesson_end', header: 'Fin', type: 'date' },
-    { name: 'participant_nb', header: 'Participants' },
-    { name: 'participant_max', header: 'Max' },
-  ],
   items: [],
   page: 1,
   size: 10,
@@ -129,6 +115,8 @@ export const membershipLessonList = signalStore(
               'day',
               'lesson_start',
               'lesson_end',
+              'age_min',
+              'age_max',
               'participant_nb',
               'participant_max',
             ],
