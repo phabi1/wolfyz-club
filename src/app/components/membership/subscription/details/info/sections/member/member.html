@@ -92,29 +92,32 @@
         <app-ui-address [address]="item().member.address"></app-ui-address>
       </dd>
     </div>
-    @for (field of fields; track field.name) {
-      <div>
-        <dt class="m-0 text-xs uppercase tracking-[0.04em] text-slate-500">
-          {{ field.label }}
-        </dt>
-        <dd class="mt-1 text-[0.95rem] font-medium text-slate-900">
-          @if (item().fields[field.name] !== undefined) {
-            @switch (field.type) {
-              @case ('file') {
-                <app-ui-file-preview [file]="item().fields[field.name]"></app-ui-file-preview>
+    @if (item().fields) {
+      @for (field of fields; track field.name) {
+        @let fieldValue = item().fields[field.name];
+        <div>
+          <dt class="m-0 text-xs uppercase tracking-[0.04em] text-slate-500">
+            {{ field.label }}
+          </dt>
+          <dd class="mt-1 text-[0.95rem] font-medium text-slate-900">
+            @if (fieldValue !== undefined && fieldValue !== null) {
+              @switch (field.type) {
+                @case ('file') {
+                  <app-ui-file-preview [file]="fieldValue"></app-ui-file-preview>
+                }
+                @case ('bool') {
+                  <app-ui-yes-no [value]="fieldValue"></app-ui-yes-no>
+                }
+                @default {
+                  <span>{{ fieldValue }}</span>
+                }
               }
-              @case ('bool') {
-                <app-ui-yes-no [value]="item().fields[field.name]"></app-ui-yes-no>
-              }
-              @default {
-                <span>{{ item().fields[field.name] }}</span>
-              }
+            } @else {
+              <span>{{ notProvidedLabel }}</span>
             }
-          } @else {
-            <span>{{ notProvidedLabel }}</span>
-          }
-        </dd>
-      </div>
+          </dd>
+        </div>
+      }
     }
   </dl>
 </section>
