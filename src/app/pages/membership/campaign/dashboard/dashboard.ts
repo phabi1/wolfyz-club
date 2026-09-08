@@ -38,7 +38,7 @@ export class CampaignDashboard {
     { id: "1", cols: 2, rows: 1, y: 0, x: 0, type: 'total-subscriptions', settings: {} },
     { id: "2", cols: 2, rows: 1, y: 0, x: 2, type: 'total-lessons', settings: {} },
     { id: "3", cols: 2, rows: 1, y: 0, x: 4, type: 'total-periods', settings: {} },
-    { id: "4", cols: 2, rows: 3, y: 1, x: 2, type: 'lesson-completude', settings: {} },
+    { id: "4", cols: 2, rows: 4, y: 1, x: 2, type: 'lesson-completude', settings: {} },
     { id: "5", cols: 2, rows: 2, y: 1, x: 4, type: 'print-period', settings: {} },
   ]);
 }
