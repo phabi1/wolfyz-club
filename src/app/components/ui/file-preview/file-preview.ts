@@ -23,7 +23,7 @@ export class FilePreview {
 
   filename = computed(() => {
     const file = this.file();
-    return file.substring(file.lastIndexOf('/'));
+    return file.substring(file.lastIndexOf('/') + 1);
   });
 
   url = computed(() => this.file());

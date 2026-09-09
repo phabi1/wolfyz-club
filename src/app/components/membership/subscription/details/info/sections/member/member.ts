@@ -25,6 +25,21 @@ export class MemberSection {
       type: 'file',
     },
     {
+      name: 'identity_photo',
+      label: $localize`:@@membership.subscriptions.identityPhoto:Identity photo`,
+      type: 'file',
+    },
+    {
+      name: 'license_paid',
+      label: $localize`:@@membership.subscriptions.licensePaid:License paid`,
+      type: 'bool',
+    },
+    {
+      name: 'doctor',
+      label: $localize`:@@membership.subscriptions.doctor:Doctor`,
+      type: 'text',
+    },
+    {
       name: 'agree_exit',
       label: $localize`:@@membership.subscriptions.agreeExit:Agree exit`,
       type: 'bool',
