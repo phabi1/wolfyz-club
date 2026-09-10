@@ -1,0 +1,10 @@
+<h1 mat-dialog-title i18n=":@@membership.subscriptions.editLicense:Edit license">Edit license</h1>
+<div mat-dialog-content>
+  <formly-form [form]="form" [fields]="fields" [model]="model"> </formly-form>
+</div>
+<div mat-dialog-actions>
+  <button mat-button mat-dialog-close i18n=":@@common.button.cancel">Cancel</button>
+  <button mat-button [disabled]="form.invalid" cdkFocusInitial [mat-dialog-close]="model" i18n=":@@common.button.save">
+    Save
+  </button>
+</div>

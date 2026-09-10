@@ -10,64 +10,62 @@ import {
   withEventHandlers,
   withReducer,
 } from '@ngrx/signals/events';
-import { combineLatest, forkJoin, Observable, of, switchMap } from 'rxjs';
-import type { Session } from '../../../models/membership/session';
-import type { Subscription } from '../../../models/membership/subscription';
-import { SubscriptionService } from '../../../services/membership/subscription.service';
-import { ContactService } from '../../../services/membership/contact.service';
-import { SessionService } from '../../../services/membership/session.service';
+import { combineLatest, concatMap, forkJoin, map, Observable, of, switchMap } from 'rxjs';
+import type { Contact } from '../../../models/membership/contact';
 import { Lesson } from '../../../models/membership/lesson';
+import type { Session } from '../../../models/membership/session';
+import {
+  createEmptySubscription,
+  type Subscription,
+} from '../../../models/membership/subscription';
+import { ContactService } from '../../../services/membership/contact.service';
 import { LessonService } from '../../../services/membership/lesson.service';
+import { MemberService } from '../../../services/membership/member.service';
+import { SessionService } from '../../../services/membership/session.service';
+import { SubscriptionService } from '../../../services/membership/subscription.service';
 
 type State = {
   campaignId: number | null;
   lessons: Lesson[];
   id: number | null;
-  item: Subscription | null;
+  item: Subscription;
   loading: boolean;
-  contactsUpdating: boolean;
-  sessionsUpdating: boolean;
-  contactsUpdateError: any | null;
-  sessionsUpdateError: any | null;
+  updating: string[];
   error: any | null;
 };
 
 const initialState: State = {
   campaignId: null,
   id: null,
-  item: null,
+  item: createEmptySubscription(),
   loading: false,
   lessons: [],
-  contactsUpdating: false,
-  sessionsUpdating: false,
-  contactsUpdateError: null,
-  sessionsUpdateError: null,
+  updating: [],
   error: null,
 };
 
 export const membershipSubscriptionDetailsEvents = eventGroup({
   source: 'Membership Subscription Details',
   events: {
-    init: type<{ campaignId: number; }>(),
-    initSuccess: type<{ lessons: Lesson[]; }>(),
+    init: type<{ campaignId: number }>(),
+    initSuccess: type<{ lessons: Lesson[] }>(),
     initFailure: type<{ error: any }>(),
     load: type<{ id: number }>(),
     loadSuccess: type<{ item: Subscription }>(),
     loadFailure: type<{ error: any }>(),
-    updateContacts: type<{
-      campaignId: number;
-      id: number;
-      contacts: Subscription['contacts'];
+    update: type<{
+      member?: Partial<Subscription['member']>;
+      license?: Partial<Omit<Subscription, 'member' | 'contacts' | 'sessions'>>;
+      contacts?: Partial<Contact>[];
+      sessions?: Partial<Session>[];
     }>(),
-    updateContactsSuccess: type<{ item: Subscription }>(),
-    updateContactsFailure: type<{ error: any }>(),
-    updateSessions: type<{
-      campaignId: number;
-      id: number;
-      sessions: Pick<Session, 'id' | 'lesson_id' | 'subscription_id'>[];
+    updateSuccess: type<{
+      member?: Partial<Subscription['member']>;
+      license?: Partial<Omit<Subscription, 'member' | 'contacts' | 'sessions'>>;
+      contacts?: Contact[];
+      sessions?: Session[];
     }>(),
-    updateSessionsSuccess: type<{ item: Subscription }>(),
-    updateSessionsFailure: type<{ error: any }>(),
+    updateFailure: type<{ error: any }>(),
   },
 });
 
@@ -96,29 +94,63 @@ export const membershipSubscriptionDetails = signalStore(
       loading: false,
       error,
     })),
-    on(membershipSubscriptionDetailsEvents.updateContacts, () => ({
-      contactsUpdating: true,
-      contactsUpdateError: null,
-    })),
-    on(membershipSubscriptionDetailsEvents.updateContactsSuccess, ({ payload: { item } }) => ({
-      contactsUpdating: false,
-      item,
-    })),
-    on(membershipSubscriptionDetailsEvents.updateContactsFailure, ({ payload: { error } }) => ({
-      contactsUpdating: false,
-      contactsUpdateError: error,
-    })),
-    on(membershipSubscriptionDetailsEvents.updateSessions, () => ({
-      sessionsUpdating: true,
-      sessionsUpdateError: null,
-    })),
-    on(membershipSubscriptionDetailsEvents.updateSessionsSuccess, ({ payload: { item } }) => ({
-      sessionsUpdating: false,
-      item,
-    })),
-    on(membershipSubscriptionDetailsEvents.updateSessionsFailure, ({ payload: { error } }) => ({
-      sessionsUpdating: false,
-      sessionsUpdateError: error,
+    on(membershipSubscriptionDetailsEvents.update, ({ payload }, state) => {
+      const updates = [];
+
+      if (payload.member) {
+        updates.push('member');
+      }
+
+      if (payload.license) {
+        updates.push('license');
+      }
+      if (payload.contacts) {
+        updates.push('contacts');
+      }
+      if (payload.sessions) {
+        updates.push('sessions');
+      }
+
+      return {
+        updating: [...state.updating, ...updates],
+        error: null,
+      };
+    }),
+    on(membershipSubscriptionDetailsEvents.updateSuccess, ({ payload }, state) => {
+      const item = state.item as Subscription;
+
+      const { member, license, contacts, sessions } = payload;
+
+      const updated: string[] = [];
+
+      const newItem: Partial<Subscription> = {};
+
+      if (member) {
+        newItem.member = { ...item.member, ...member };
+        updated.push('member');
+      }
+      if (license) {
+        newItem.license_type = license?.license_type ?? item.license_type;
+        newItem.fields = license?.fields ?? item.fields;
+        updated.push('license');
+      }
+      if (contacts) {
+        newItem.contacts = contacts;
+        updated.push('contacts');
+      }
+      if (sessions) {
+        newItem.sessions = sessions;
+        updated.push('sessions');
+      }
+
+      return {
+        item: { ...item, ...newItem },
+        updating: state.updating.filter((key) => !updated.includes(key)),
+      };
+    }),
+    on(membershipSubscriptionDetailsEvents.updateFailure, ({ payload: { error } }) => ({
+      updating: [],
+      error,
     })),
   ),
   withEventHandlers(
@@ -129,20 +161,22 @@ export const membershipSubscriptionDetails = signalStore(
       subscriptionService = inject(SubscriptionService),
       contactService = inject(ContactService),
       sessionService = inject(SessionService),
+      memberService = inject(MemberService),
     ) => ({
       init$: events.on(membershipSubscriptionDetailsEvents.init).pipe(
         switchMap(({ payload: { campaignId } }) =>
           lessonService.items(campaignId).pipe(
             mapResponse({
-              next: ({ items }) => membershipSubscriptionDetailsEvents.initSuccess({ lessons: items }),
+              next: ({ items }) =>
+                membershipSubscriptionDetailsEvents.initSuccess({ lessons: items }),
               error: (error) => membershipSubscriptionDetailsEvents.initFailure({ error }),
             }),
-          )
+          ),
         ),
       ),
       load$: events.on(membershipSubscriptionDetailsEvents.load).pipe(
         switchMap(({ payload: { id } }) =>
-          subscriptionService.item(state.campaignId()|| 0, +id).pipe(
+          subscriptionService.item(state.campaignId() || 0, +id).pipe(
             mapResponse({
               next: (item) => membershipSubscriptionDetailsEvents.loadSuccess({ item }),
               error: (error) => membershipSubscriptionDetailsEvents.loadFailure({ error }),
@@ -150,42 +184,59 @@ export const membershipSubscriptionDetails = signalStore(
           ),
         ),
       ),
-      updateContacts$: events.on(membershipSubscriptionDetailsEvents.updateContacts).pipe(
-        switchMap(({ payload: { campaignId, id, contacts } }) =>
-          syncContacts({
-            campaignId,
-            subscriptionId: id,
-            contacts,
-            current: state.item()?.contacts || [],
-            contactService,
-          }).pipe(
-            switchMap(() => subscriptionService.item(campaignId, id)),
+      update$: events.on(membershipSubscriptionDetailsEvents.update).pipe(
+        concatMap(({ payload: { member, license, sessions, contacts } }) => {
+          const actions: any[] = [];
+          if (member) {
+            actions.push(
+              memberService
+                .update(state.item()?.member_id || 0, member)
+                .pipe(map((item) => ({ member: item }))),
+            );
+          }
+          if (license) {
+            actions.push(
+              subscriptionService
+                .update(state.campaignId() || 0, state.item()?.id || 0, {
+                  fields: {
+                    ...state.item()?.fields,
+                    ...license,
+                  },
+                })
+                .pipe(map((item) => ({ license: item }))),
+            );
+          }
+          if (sessions) {
+            const syncSessionsAction = syncSessions({
+              campaignId: state.campaignId() || 0,
+              subscriptionId: state.item()?.id || 0,
+              sessions,
+              current: state.item()?.sessions || [],
+              memberId: state.item()?.member_id || null,
+              sessionService,
+            }).pipe(map((item) => ({ sessions: item })));
+            actions.push(syncSessionsAction);
+          }
+          if (contacts) {
+            const syncContactsAction = syncContacts({
+              campaignId: state.campaignId() || 0,
+              subscriptionId: state.item()?.id || 0,
+              contacts,
+              current: state.item()?.contacts || [],
+              contactService,
+            }).pipe(map((item) => ({ contacts: item })));
+            actions.push(syncContactsAction);
+          }
+          return forkJoin(actions).pipe(
             mapResponse({
-              next: (item) => membershipSubscriptionDetailsEvents.updateContactsSuccess({ item }),
-              error: (error) =>
-                membershipSubscriptionDetailsEvents.updateContactsFailure({ error }),
+              next: (results) =>
+                membershipSubscriptionDetailsEvents.updateSuccess({
+                  ...results.reduce((acc, curr) => ({ ...acc, ...curr }), {}),
+                }),
+              error: (error) => membershipSubscriptionDetailsEvents.updateFailure({ error }),
             }),
-          ),
-        ),
-      ),
-      updateSessions$: events.on(membershipSubscriptionDetailsEvents.updateSessions).pipe(
-        switchMap(({ payload: { campaignId, id, sessions } }) =>
-          syncSessions({
-            campaignId,
-            subscriptionId: id,
-            sessions,
-            current: state.item()?.sessions || [],
-            memberId: state.item()?.member_id || null,
-            sessionService,
-          }).pipe(
-            switchMap(() => subscriptionService.item(campaignId, id)),
-            mapResponse({
-              next: (item) => membershipSubscriptionDetailsEvents.updateSessionsSuccess({ item }),
-              error: (error) =>
-                membershipSubscriptionDetailsEvents.updateSessionsFailure({ error }),
-            })
-          ),
-        ),
+          );
+        }),
       ),
     }),
   ),
@@ -211,16 +262,14 @@ export const membershipSubscriptionDetails = signalStore(
 function syncContacts(params: {
   campaignId: number;
   subscriptionId: number;
-  contacts: Subscription['contacts'];
-  current: Subscription['contacts'];
+  contacts: Partial<Contact>[];
+  current: Partial<Contact>[];
   contactService: ContactService;
 }): Observable<unknown[]> {
   const { campaignId, subscriptionId, contacts, current, contactService } = params;
 
   const requestedExistingIds = new Set(
-    contacts
-      .filter((contact) => Number(contact.id) > 0)
-      .map((contact) => Number(contact.id)),
+    contacts.filter((contact) => Number(contact.id) > 0).map((contact) => Number(contact.id)),
   );
 
   const toDelete = current.filter((contact) => !requestedExistingIds.has(Number(contact.id)));
@@ -266,17 +315,15 @@ function syncContacts(params: {
 function syncSessions(params: {
   campaignId: number;
   subscriptionId: number;
-  sessions: Pick<Session, 'id' | 'lesson_id' | 'subscription_id'>[];
-  current: Session[];
+  sessions: Partial<Session>[];
+  current: Partial<Session>[];
   memberId: number | null;
   sessionService: SessionService;
 }): Observable<unknown[]> {
   const { campaignId, subscriptionId, sessions, current, memberId, sessionService } = params;
 
   const requestedExistingIds = new Set(
-    sessions
-      .filter((session) => Number(session.id) > 0)
-      .map((session) => Number(session.id)),
+    sessions.filter((session) => Number(session.id) > 0).map((session) => Number(session.id)),
   );
 
   const toDelete = current.filter((session) => !requestedExistingIds.has(Number(session.id)));

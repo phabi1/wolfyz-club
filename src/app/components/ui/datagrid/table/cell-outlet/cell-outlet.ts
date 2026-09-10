@@ -13,7 +13,6 @@ export class CellOutlet {
   cells = inject(DATAGRID_CELLS);
   row = input.required<any>();
   column = input.required<any>();
-
   cmp = signal<Type<Cell> | null>(null);
 
   value = computed(() => {
@@ -21,6 +20,7 @@ export class CellOutlet {
 
     const prop = column.data || column.name;
     const segments = prop.split('.');
+
     let value = this.row();
     for (const segment of segments) {
       value = value?.[segment];
@@ -44,7 +44,11 @@ export class CellOutlet {
     }
     return { type, options };
   });
-  cellInputs = signal<any>({});
+
+  cellInputs = signal<{ value: any; row: any } & Record<string, unknown>>({
+    value: null,
+    row: null,
+  });
 
   constructor() {
     effect(async () => {
@@ -55,7 +59,7 @@ export class CellOutlet {
 
     effect(() => {
       const { options } = this.cell();
-      this.cellInputs.set({ value: this.value(), ...options });
+      this.cellInputs.set({ value: this.value(), row: this.row(), ...options });
     });
   }
 }

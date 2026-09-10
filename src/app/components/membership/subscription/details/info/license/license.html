@@ -1,0 +1,51 @@
+<section class="paper">
+     <div class="mb-4 flex justify-between items-center gap-3">
+      <div class="flex gap-2">
+        <div>
+          <h3
+            id="subscription-member-title"
+            class="m-0 text-base font-bold tracking-[0.01em] text-slate-900"
+          >
+            <span i18n="@@membership.subscriptions.license.title">License</span>
+          </h3>
+          <p class="m-0 text-sm text-slate-600" i18n="@@membership.subscriptions.license.subtitle">
+            License information
+          </p>
+        </div>
+      </div>
+      <div class="flex items-center gap-2">
+        <button
+          mat-icon-button
+          i18n="@@membership.subscriptions.member.edit"
+          [disabled]="busy()"
+          (click)="showForm()"
+        >
+          <mat-icon>edit</mat-icon>
+        </button>
+      </div>
+    </div>
+    <app-ui-details>
+    @if (item().fields) {
+        @for (field of fields; track field.name) {
+          @let fieldValue = item().fields[field.name];
+          <ng-template appUiDetailItem [label]="field.label">
+            @if (fieldValue !== undefined && fieldValue !== null) {
+              @switch (field.type) {
+                @case ('file') {
+                  <app-ui-file-preview [file]="fieldValue"></app-ui-file-preview>
+                }
+                @case ('bool') {
+                  <app-ui-yes-no [value]="fieldValue"></app-ui-yes-no>
+                }
+                @default {
+                  <span>{{ fieldValue | notProvided }}</span>
+                }
+              }
+            } @else {
+              <span>{{ '' | notProvided }}</span>
+            }
+          </ng-template>
+        }
+      }
+    </app-ui-details>
+</section>

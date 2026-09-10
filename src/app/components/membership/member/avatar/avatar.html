@@ -1,0 +1,6 @@
+<div
+  class="rounded-full flex items-center justify-center w-10 h-10"
+  [ngClass]="{ 'bg-cyan-600': gender() === 'male', 'bg-pink-300': gender() === 'female' }"
+>
+  <span class="text-white font-bold">{{ initials() }}</span>
+</div>

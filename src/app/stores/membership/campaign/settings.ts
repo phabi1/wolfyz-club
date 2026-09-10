@@ -2,13 +2,7 @@ import { inject } from '@angular/core';
 import { AbstractControl, Validators } from '@angular/forms';
 import { mapResponse } from '@ngrx/operators';
 import { signalStore, type, withState } from '@ngrx/signals';
-import {
-  eventGroup,
-  Events,
-  on,
-  withEventHandlers,
-  withReducer,
-} from '@ngrx/signals/events';
+import { eventGroup, Events, on, withEventHandlers, withReducer } from '@ngrx/signals/events';
 import type { FormlyFieldConfig } from '@ngx-formly/core';
 import { forkJoin, of, switchMap } from 'rxjs';
 import type { Campaign } from '../../../models/membership/campaign';
@@ -228,36 +222,46 @@ function toFormlyFields(settings: Record<string, unknown>): {
       },
     },
     {
-      key: CAMPAIGN_START_DATE_KEY,
-      type: 'input',
-      props: {
-        label: 'Start date',
-        type: 'date',
-      },
+      fieldGroupClassName: 'grid grid-cols-2 gap-x-4',
+      fieldGroup: [
+        {
+          key: CAMPAIGN_START_DATE_KEY,
+          type: 'input',
+          props: {
+            label: 'Start date',
+            type: 'date',
+          },
+        },
+        {
+          key: CAMPAIGN_END_DATE_KEY,
+          type: 'input',
+          props: {
+            label: 'End date',
+            type: 'date',
+          },
+        },
+      ],
     },
     {
-      key: CAMPAIGN_END_DATE_KEY,
-      type: 'input',
-      props: {
-        label: 'End date',
-        type: 'date',
-      },
-    },
-    {
-      key: CAMPAIGN_REGISTRATION_START_KEY,
-      type: 'input',
-      props: {
-        label: 'Registration start',
-        type: 'date',
-      },
-    },
-    {
-      key: CAMPAIGN_REGISTRATION_END_KEY,
-      type: 'input',
-      props: {
-        label: 'Registration end',
-        type: 'date',
-      },
+      fieldGroupClassName: 'grid grid-cols-2 gap-x-4',
+      fieldGroup: [
+        {
+          key: CAMPAIGN_REGISTRATION_START_KEY,
+          type: 'input',
+          props: {
+            label: 'Registration start',
+            type: 'date',
+          },
+        },
+        {
+          key: CAMPAIGN_REGISTRATION_END_KEY,
+          type: 'input',
+          props: {
+            label: 'Registration end',
+            type: 'date',
+          },
+        },
+      ],
     },
   ];
   const licensesFields: FormlyFieldConfig[] = [];
@@ -271,10 +275,19 @@ function toFormlyFields(settings: Record<string, unknown>): {
     if (key === 'licenses' && Array.isArray(value)) {
       fieldKinds[key] = 'custom';
       licensesFields.push({
-        key,
-        type: 'licenses',
-        props: {
-          label,
+        key: 'licenses',
+        type: 'collection',
+        fieldArray: {
+          fieldGroup: [
+            {
+              key: 'title',
+              type: 'input',
+            },
+            {
+              key: 'amount',
+              type: 'input',
+            },
+          ],
         },
       });
       continue;
@@ -283,10 +296,31 @@ function toFormlyFields(settings: Record<string, unknown>): {
     if (key === 'payment_methods' && Array.isArray(value)) {
       fieldKinds[key] = 'custom';
       paymentFields.push({
-        key,
-        type: 'payment-methods',
-        props: {
-          label,
+        key: 'payment_methods',
+        type: 'collection',
+        fieldArray: {
+          fieldGroup: [
+            {
+              key: 'title',
+              type: 'input',
+            },
+            {
+              key: 'amount',
+              type: 'input',
+            },
+            {
+              key: 'method',
+              type: 'select',
+              props: {
+                label: 'Method',
+                options: [
+                  { label: 'Credit Card', value: 'credit_card' },
+                  { label: 'PayPal', value: 'paypal' },
+                  { label: 'Bank Transfer', value: 'bank_transfer' },
+                ],
+              },
+            },
+          ],
         },
       });
       continue;
@@ -402,7 +436,7 @@ function toFormModel(campaign: Campaign): Record<string, unknown> {
   for (const key of Object.keys(settings)) {
     const value = settings[key];
     if (value !== null && typeof value === 'object') {
-      model[key] = JSON.stringify(value, null, 2);
+      model[key] = JSON.parse(JSON.stringify(value, null, 2));
     } else {
       model[key] = value;
     }
@@ -508,9 +542,7 @@ function toSettingsPayload(
 }
 
 function humanizeKey(key: string): string {
-  return key
-    .replace(/[_-]+/g, ' ')
-    .replace(/\b\w/g, (char) => char.toUpperCase());
+  return key.replace(/[_-]+/g, ' ').replace(/\b\w/g, (char) => char.toUpperCase());
 }
 
 function toDateInputValue(value: unknown): string {

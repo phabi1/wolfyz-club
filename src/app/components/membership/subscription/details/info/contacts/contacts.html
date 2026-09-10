@@ -1,0 +1,48 @@
+<app-ui-collection
+  title="Contacts"
+  i18n-title="@@membership.subscriptions.contacts.title"
+  emptyMessage="No contact linked to this subscription."
+  i18n-emptyMessage="@@membership.subscriptions.contacts.empty"
+  addLabel="Add contact"
+  i18n-addLabel="@@membership.subscriptions.contacts.add"
+  [items]="contacts()"
+  [itemTpl]="contactItemTpl"
+  [itemActions]="itemActions()"
+  (addItem)="onAddItem()"
+></app-ui-collection>
+
+<ng-template #contactItemTpl let-contact>
+  <header class="mb-3 flex items-start justify-between gap-3">
+    <h4 class="m-0 text-sm font-bold text-slate-900">
+      {{ fullName(contact.firstname, contact.lastname) | notProvided }}
+    </h4>
+    <app-ui-badge [label]="'#' + contact.id"></app-ui-badge>
+  </header>
+  <dl class="grid grid-cols-1 gap-y-3 md:grid-cols-2 md:gap-x-4">
+    <div class="md:col-span-2">
+      <dt class="m-0 text-xs uppercase tracking-[0.04em] text-slate-500" i18n="@@membership.subscriptions.contacts.email">Email</dt>
+      <dd class="mt-1 text-[0.95rem] font-medium text-slate-900 wrap-break-word">
+        {{ contact.email | notProvided }}
+      </dd>
+    </div>
+    <div>
+      <dt class="m-0 text-xs uppercase tracking-[0.04em] text-slate-500" i18n="@@membership.subscriptions.contacts.phone">Phone</dt>
+      <dd class="mt-1 text-[0.95rem] font-medium text-slate-900">
+        {{ contact.phone | notProvided }}
+      </dd>
+    </div>
+  </dl>
+</ng-template>
+
+<ng-template #formTpl>
+  <h1 mat-dialog-title>{{ formMode === 'add' ? addContactDialogTitle : editContactDialogTitle }}</h1>
+  <div mat-dialog-content>
+    <formly-form [form]="form" [fields]="fields" [model]="model"></formly-form>
+  </div>
+  <div mat-dialog-actions>
+    <button type="button" mat-button mat-dialog-close i18n="@@common.button.cancel">Cancel</button>
+    <button type="button" mat-button cdkFocusInitial [disabled]="form.invalid" (click)="onSubmit()">
+      {{ formMode === 'add' ? addLabel : editLabel }}
+    </button>
+  </div>
+</ng-template>

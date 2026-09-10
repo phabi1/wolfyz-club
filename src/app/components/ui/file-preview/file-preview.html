@@ -1,6 +1,6 @@
-<div class="flex justify-between">
-  <div class="flex items-center">
-    <div>
+<div class="flex justify-between items-center gap-2">
+  <div class="flex-1 min-w-0 flex items-center gap-2">
+    <div class="shrink-0">
       @switch (filetype()) {
         @case ('image') {
           <mat-icon>picture</mat-icon>
@@ -13,7 +13,7 @@
         }
       }
     </div>
-    <div>{{ filename() }}</div>
+    <div class="flex-1 min-w-0 truncate">{{ filename() }}</div>
   </div>
   <div><a href="{{ url() }}" target="_blank" i18n=":@@common.button.preview">Preview</a></div>
 </div>

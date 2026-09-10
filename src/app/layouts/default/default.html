@@ -6,19 +6,23 @@
     [opened]="isHandset() === false"
   >
     <div class="h-full flex flex-col">
-      <div class="h-16 px-4 flex items-center justify-between border-b border-slate-600">
-        <h1 class="text-lg font-bold text-white">Roller les loups</h1>
-        @if (isHandset()) {
-          <button type="button" mat-icon-button (click)="sidenav.close()">
-            <mat-icon>close</mat-icon>
-          </button>
-        }
+      <div class="h-16 shrink-0">
+        <div class="flex items-center justify-between px-4 py-4 border-b border-slate-600">
+          <h1 class="text-lg font-bold text-white">Roller les loups</h1>
+          @if (isHandset()) {
+            <button type="button" mat-icon-button (click)="sidenav.close()">
+              <mat-icon>close</mat-icon>
+            </button>
+          }
+        </div>
       </div>
-      <div class="">
+      <div class="flex-1 p-4">
         <ng-container *ngComponentOutlet="sidebar()"></ng-container>
       </div>
-      <div class="border-t border-slate-600 pt-4 px-4">
-        <button mat-button (click)="logout()" i18n=":@@common.button.logout">Logout</button>
+      <div class="h-16 shrink-0">
+        <div class="flex items-center justify-between px-4 py-2 border-t border-slate-600">
+          <button mat-button (click)="logout()" i18n=":@@common.button.logout">Logout</button>
+        </div>
       </div>
     </div>
   </mat-sidenav>
@@ -34,6 +38,6 @@
         </div>
       </div>
     }
-      <router-outlet></router-outlet>
+    <router-outlet></router-outlet>
   </div>
 </mat-sidenav-container>

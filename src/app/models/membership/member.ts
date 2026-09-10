@@ -1,4 +1,4 @@
-import { Address } from "./address";
+import { type Address, createEmptyAddress } from "./address";
 
 export type Member = {
   id: number;
@@ -12,3 +12,18 @@ export type Member = {
   email?: string;
   phone?: string;
 };
+
+export function createEmptyMember(): Member {
+  return {
+    id: 0,
+    firstname: '',
+    lastname: '',
+    birthdate: '',
+    license_number: undefined,
+    gender: undefined,
+    avatar_url: undefined,
+    address: createEmptyAddress(),
+    email: undefined,
+    phone: undefined,
+  };
+}

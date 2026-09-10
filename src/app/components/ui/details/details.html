@@ -1,0 +1,16 @@
+<dl class="grid grid-cols-1 gap-x-5 gap-y-4 md:grid-cols-2 xl:grid-cols-3">
+  @for (item of items(); track $index) {
+    <div>
+      <dt
+        class="m-0 text-xs uppercase tracking-[0.04em] text-slate-500"
+        [ngClass]="{'bg-amber-200': item.color() === 'primary'}"
+        i18n="@@membership.subscriptions.member.fullName"
+      >
+        {{ item.label() }}
+      </dt>
+      <dd class="mt-1 text-[0.95rem] font-medium text-slate-900">
+        <ng-container *ngTemplateOutlet="item.templateRef"></ng-container>
+      </dd>
+    </div>
+  }
+</dl>

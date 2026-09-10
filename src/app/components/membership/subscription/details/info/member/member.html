@@ -1,0 +1,151 @@
+<section
+  class="paper relative"
+  aria-labelledby="subscription-member-title"
+  [attr.aria-busy]="busy()"
+>
+  <div
+    class="transition-opacity duration-200"
+    [class.opacity-40]="busy()"
+    [class.pointer-events-none]="busy()"
+  >
+    <div class="mb-4 flex justify-between items-center gap-3">
+      <div class="flex gap-2">
+        <app-membership-member-avatar
+          [firstname]="item().member.firstname"
+          [lastname]="item().member.lastname"
+          [gender]="item().member.gender"
+        ></app-membership-member-avatar>
+        <div>
+          <h3
+            id="subscription-member-title"
+            class="m-0 text-base font-bold tracking-[0.01em] text-slate-900"
+          >
+            <span i18n="@@membership.subscriptions.member.title">Member</span>
+          </h3>
+          <p class="m-0 text-sm text-slate-600" i18n="@@membership.subscriptions.member.subtitle">
+            Subscription holder information
+          </p>
+        </div>
+      </div>
+      <div class="flex items-center gap-2">
+        <app-ui-badge [label]="'#' + item().member_id"></app-ui-badge>
+        <button
+          mat-icon-button
+          i18n="@@membership.subscriptions.member.edit"
+          [disabled]="busy()"
+          (click)="showForm()"
+        >
+          <mat-icon>edit</mat-icon>
+        </button>
+      </div>
+    </div>
+
+    <app-ui-details>
+      <ng-template
+        appUiDetailItem
+        label="Firstname"
+        i18n-label="@@membership.subscriptions.member.firstname"
+      >
+        {{ item().member.firstname }}
+      </ng-template>
+      <ng-template
+        appUiDetailItem
+        label="Lastname"
+        i18n-label="@@membership.subscriptions.member.lastname"
+      >
+        {{ item().member.lastname }}
+      </ng-template>
+      <ng-template
+        appUiDetailItem
+        label="Birthdate"
+        i18n-label="@@membership.subscriptions.member.birthdate"
+      >
+        {{ formatBirthday(item().member.birthdate) }}
+      </ng-template>
+      <ng-template
+        appUiDetailItem
+        label="License number"
+        i18n-label="@@membership.subscriptions.member.licenseNumber"
+      >
+        {{ item().member.license_number | notProvided }}
+      </ng-template>
+      <ng-template
+        appUiDetailItem
+        label="Email"
+        i18n-label="@@membership.subscriptions.member.email"
+      >
+        {{ item().member.email | notProvided }}
+      </ng-template>
+      <ng-template appUiDetailItem label="Phone" i18n-label="@@common.label.phone">
+        {{ item().member.phone | notProvided }}
+      </ng-template>
+      <ng-template
+        appUiDetailItem
+        label="Address"
+        i18n-label="@@membership.subscriptions.member.address"
+      >
+        <app-ui-address [address]="item().member.address"></app-ui-address>
+      </ng-template>
+    </app-ui-details>
+  </div>
+
+  <div
+    class="pointer-events-none absolute inset-0 rounded-2xl bg-white/60 px-6 py-5 backdrop-blur-[1px]"
+    [class.hidden]="!busy()"
+    aria-hidden="true"
+  >
+    <div class="mb-4 flex items-center justify-between gap-3">
+      <div class="flex items-center gap-2">
+        <app-ui-ghosting-circle size="2.5rem"></app-ui-ghosting-circle>
+        <div class="flex flex-col gap-2">
+          <app-ui-ghosting-line width="7rem" height="0.9rem"></app-ui-ghosting-line>
+          <app-ui-ghosting-line width="12rem" height="0.7rem"></app-ui-ghosting-line>
+        </div>
+      </div>
+      <app-ui-ghosting-rectangle
+        width="3rem"
+        height="1.4rem"
+        rounded="9999px"
+      ></app-ui-ghosting-rectangle>
+    </div>
+
+    <div class="grid grid-cols-1 gap-x-5 gap-y-4 md:grid-cols-3">
+      <div>
+        <app-ui-ghosting-line width="5rem" height="0.55rem"></app-ui-ghosting-line>
+        <div class="mt-2">
+          <app-ui-ghosting-line width="9rem" height="0.85rem"></app-ui-ghosting-line>
+        </div>
+      </div>
+      <div>
+        <app-ui-ghosting-line width="5rem" height="0.55rem"></app-ui-ghosting-line>
+        <div class="mt-2">
+          <app-ui-ghosting-line width="8rem" height="0.85rem"></app-ui-ghosting-line>
+        </div>
+      </div>
+      <div>
+        <app-ui-ghosting-line width="6rem" height="0.55rem"></app-ui-ghosting-line>
+        <div class="mt-2">
+          <app-ui-ghosting-line width="7rem" height="0.85rem"></app-ui-ghosting-line>
+        </div>
+      </div>
+      <div>
+        <app-ui-ghosting-line width="4.5rem" height="0.55rem"></app-ui-ghosting-line>
+        <div class="mt-2">
+          <app-ui-ghosting-line width="10rem" height="0.85rem"></app-ui-ghosting-line>
+        </div>
+      </div>
+      <div>
+        <app-ui-ghosting-line width="4rem" height="0.55rem"></app-ui-ghosting-line>
+        <div class="mt-2">
+          <app-ui-ghosting-line width="7.5rem" height="0.85rem"></app-ui-ghosting-line>
+        </div>
+      </div>
+      <div>
+        <app-ui-ghosting-line width="5rem" height="0.55rem"></app-ui-ghosting-line>
+        <div class="mt-2">
+          <app-ui-ghosting-line width="11rem" height="0.85rem"></app-ui-ghosting-line>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -10,11 +10,15 @@ import {
   membershipSubscriptionList,
   membershipSubscriptionListEvents,
 } from '../../../../../stores/membership/subscriptions/list';
+import { provideDatagrid } from '../../../../../components/ui/datagrid/provider';
 
 @Component({
   selector: 'app-pages-membership-campaign-subscriptions-list',
   imports: [Page, Datagrid],
-  providers: [membershipSubscriptionList],
+  providers: [membershipSubscriptionList, provideDatagrid({
+    'avatar': () => import('../../../../../components/membership/subscription/list/columns/avatar/avatar').then(m => m.Avatar),
+    'license-type': () => import('../../../../../components/membership/subscription/list/columns/license-type/license-type').then(m => m.LicenseType)
+  })],
   templateUrl: './list.html',
   styleUrl: './list.css',
 })

@@ -892,10 +892,6 @@
           <context context-type="linenumber">77</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/pages/membership/campaign/lessons/list/list.ts</context>
-          <context context-type="linenumber">52</context>
-        </context-group>
-        <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/membership/campaign/periods/details/details.ts</context>
           <context context-type="linenumber">33</context>
         </context-group>
@@ -948,70 +944,63 @@
         <source>Member</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/membership/subscription/details/info/sections/member/member.html</context>
-          <context context-type="linenumber">9,11</context>
+          <context context-type="linenumber">14,16</context>
         </context-group>
       </trans-unit>
       <trans-unit id="membership.subscriptions.member.subtitle" datatype="html">
         <source> Subscription holder information </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/membership/subscription/details/info/sections/member/member.html</context>
-          <context context-type="linenumber">12,17</context>
+          <context context-type="linenumber">17,21</context>
         </context-group>
       </trans-unit>
       <trans-unit id="membership.subscriptions.member.fullName" datatype="html">
         <source> Full name </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/membership/subscription/details/info/sections/member/member.html</context>
-          <context context-type="linenumber">23,25</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="membership.subscriptions.member.memberId" datatype="html">
-        <source> Member ID </source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/components/membership/subscription/details/info/sections/member/member.html</context>
-          <context context-type="linenumber">34,36</context>
+          <context context-type="linenumber">32,34</context>
         </context-group>
       </trans-unit>
       <trans-unit id="membership.subscriptions.member.birthdate" datatype="html">
         <source> Birth date </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/membership/subscription/details/info/sections/member/member.html</context>
-          <context context-type="linenumber">45,47</context>
+          <context context-type="linenumber">43,45</context>
         </context-group>
       </trans-unit>
       <trans-unit id="membership.subscriptions.member.licenseNumber" datatype="html">
         <source> License number </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/membership/subscription/details/info/sections/member/member.html</context>
-          <context context-type="linenumber">56,58</context>
+          <context context-type="linenumber">54,56</context>
         </context-group>
       </trans-unit>
       <trans-unit id="common.label.email" datatype="html">
         <source> Email </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/membership/subscription/details/info/sections/member/member.html</context>
-          <context context-type="linenumber">67,69</context>
+          <context context-type="linenumber">65,67</context>
         </context-group>
       </trans-unit>
       <trans-unit id="common.label.phone" datatype="html">
         <source> Phone </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/membership/subscription/details/info/sections/member/member.html</context>
-          <context context-type="linenumber">78,80</context>
+          <context context-type="linenumber">76,78</context>
         </context-group>
       </trans-unit>
       <trans-unit id="common.label.address" datatype="html">
         <source> Address </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/membership/subscription/details/info/sections/member/member.html</context>
-          <context context-type="linenumber">89,91</context>
+          <context context-type="linenumber">87,89</context>
         </context-group>
       </trans-unit>
       <trans-unit id="membership.subscriptions.notProvided" datatype="html">
         <source>Not provided</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/membership/subscription/details/info/sections/member/member.ts</context>
-          <context context-type="linenumber">16</context>
+          <context context-type="linenumber">19</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/membership/subscription/details/info/sections/overview/overview.ts</context>
@@ -1022,7 +1011,49 @@
         <source>??</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/membership/subscription/details/info/sections/member/member.ts</context>
-          <context context-type="linenumber">17</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.subscriptions.medicalCertificate" datatype="html">
+        <source>Medical certificate</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/subscription/details/info/sections/member/member.ts</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.subscriptions.identityPhoto" datatype="html">
+        <source>Identity photo</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/subscription/details/info/sections/member/member.ts</context>
+          <context context-type="linenumber">30</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.subscriptions.licensePaid" datatype="html">
+        <source>License paid</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/subscription/details/info/sections/member/member.ts</context>
+          <context context-type="linenumber">35</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.subscriptions.doctor" datatype="html">
+        <source>Doctor</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/subscription/details/info/sections/member/member.ts</context>
+          <context context-type="linenumber">40</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.subscriptions.agreeExit" datatype="html">
+        <source>Agree exit</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/subscription/details/info/sections/member/member.ts</context>
+          <context context-type="linenumber">45</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.subscriptions.agreeImage" datatype="html">
+        <source>Agree image</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/subscription/details/info/sections/member/member.ts</context>
+          <context context-type="linenumber">50</context>
         </context-group>
       </trans-unit>
       <trans-unit id="membership.subscriptions.overview.title" datatype="html">
@@ -1141,11 +1172,19 @@
           <context context-type="linenumber">138</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="common.button.preview" datatype="html">
+        <source>Preview</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/ui/file-preview/file-preview.html</context>
+          <context context-type="linenumber">18,20</context>
+        </context-group>
+        <note priority="1" from="description">:</note>
+      </trans-unit>
       <trans-unit id="common.button.logout" datatype="html">
         <source>Logout</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/layouts/default/default.html</context>
-          <context context-type="linenumber">19,22</context>
+          <context context-type="linenumber">21,24</context>
         </context-group>
         <note priority="1" from="description">:</note>
       </trans-unit>
@@ -1203,7 +1242,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/membership/campaign/subscriptions/list/list.ts</context>
-          <context context-type="linenumber">29</context>
+          <context context-type="linenumber">33</context>
         </context-group>
       </trans-unit>
       <trans-unit id="membership.lessons.pageTitle" datatype="html">
@@ -1239,25 +1278,18 @@
           <context context-type="linenumber">16,17</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="membership.lessons.description" datatype="html">
-        <source>Description</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/pages/membership/campaign/lessons/list/list.html</context>
-          <context context-type="linenumber">44,45</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="membership.lessons.participants" datatype="html">
         <source>Participants</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/membership/campaign/lessons/list/list.html</context>
-          <context context-type="linenumber">50,51</context>
+          <context context-type="linenumber">44,45</context>
         </context-group>
       </trans-unit>
       <trans-unit id="membership.lessons.ageRange" datatype="html">
         <source>Age range</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/membership/campaign/lessons/list/list.html</context>
-          <context context-type="linenumber">56,57</context>
+          <context context-type="linenumber">50,51</context>
         </context-group>
       </trans-unit>
       <trans-unit id="membership.lessons.untitled" datatype="html">
@@ -1452,7 +1484,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/membership/campaign/subscriptions/list/list.ts</context>
-          <context context-type="linenumber">44</context>
+          <context context-type="linenumber">48</context>
         </context-group>
       </trans-unit>
       <trans-unit id="membership.periods.new.dialogTitle" datatype="html">
@@ -1586,6 +1618,20 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/membership/campaign/subscriptions/new/new.ts</context>
           <context context-type="linenumber">150</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.licenseType.hobby" datatype="html">
+        <source>Hobby</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pipes/membership/license-type-pipe.ts</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.licenseType.competition" datatype="html">
+        <source>Competition</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pipes/membership/license-type-pipe.ts</context>
+          <context context-type="linenumber">15</context>
         </context-group>
       </trans-unit>
     </body>

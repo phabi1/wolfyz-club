@@ -7,4 +7,6 @@ export class Cell<T = unknown> {
   constructor() {}
 
   value = input<T>();
+
+  row = input<any>();
 }

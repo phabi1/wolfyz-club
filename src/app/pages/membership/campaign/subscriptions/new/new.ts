@@ -118,13 +118,6 @@ export class New {
               .create(campaignId, {
                 member_id: +memberId,
                 license_type: values.license_type,
-                address: {
-                  line1: '',
-                  line2: '',
-                  city: '',
-                  zipcode: '',
-                  country: '',
-                },
                 subscribed_at: new Date(),
               })
               .pipe(

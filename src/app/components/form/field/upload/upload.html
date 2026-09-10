@@ -1,0 +1,56 @@
+<div class="mb-2 font-medium">{{ props.label }}</div>
+@if (formControl.value) {
+  <div class="flex justify-between items-center px-3 py-2 mb-4 border border-slate-200 rounded-sm">
+    <div class="flex flex-1 min-w-0 items-center gap-2">
+      @switch (filetype()) {
+        @case('image') {
+          <mat-icon class="shrink-0">image</mat-icon>
+        }
+        @case('pdf') {
+          <mat-icon class="shrink-0">picture_as_pdf</mat-icon>
+        }
+        @default {
+          <mat-icon class="shrink-0">insert_drive_file</mat-icon>
+        }
+      }
+      <span class="flex-1 min-w-0 truncate">
+        {{ filename() }}
+      </span>
+    </div>
+    <button mat-button class="shrink-0" (click)="onRemoveFile()" i18n=":@@common.form.field.upload.removeFile">
+      Remove
+    </button>
+  </div>
+} @else {
+  <div
+    class="flex flex-col gap-4 border border-dashed border-gray-300 p-4 mb-4"
+    [ngClass]="{ 'border-blue-500': dragging() }"
+    (dragover)="onDragOver($event)"
+    (dragenter)="onDragEnter($event)"
+    (drop)="onDropped($event)"
+  >
+    <p class="text-center" i18n=":@@common.form.field.upload.uploadInstruction">
+      Upload your file here or drag and drop it into this area.
+    </p>
+    @if (props.maxFileSize) {
+      <p class="text-center text-gray-300" i18n=":@@common.form.field.upload.maxFileSize">
+        Maximum file size: {{ props.maxFileSize | bites }}.
+      </p>
+    }
+    @if (props.allowedTypes && props.allowedTypes.length > 0) {
+      <p class="text-center text-gray-300" i18n=":@@common.form.field.upload.allowedTypes">
+        Allowed file types: {{ (props.allowedTypes || []).join(', ') }}
+      </p>
+    }
+    <input
+      type="file"
+      #fileInput
+      [accept]="(props.allowedTypes || []).join(',')"
+      class="hidden"
+      (change)="onSelected($event)"
+    />
+    <button mat-button (click)="fileInput.click()" i18n=":@@common.form.field.upload.selectFile">
+      Select File
+    </button>
+  </div>
+}

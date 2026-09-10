@@ -35,7 +35,7 @@ const initialState: State = {
   loading: false,
   columns: [
     { name: 'id', header: 'ID' },
-    { name: 'license', header: 'License', data: 'license_type' },
+    { name: 'avatar', header: 'Avatar', data: 'member', cell: 'avatar' },
     {
       name: 'firstname',
       header: 'First Name',
@@ -43,6 +43,7 @@ const initialState: State = {
       cell: { type: 'text', options: { featured: true } },
     },
     { name: 'lastname', header: 'Last Name', data: 'member.lastname' },
+    { name: 'license', header: 'License', data: 'license_type', cell: 'license-type' },
     { name: 'birthdate', header: 'Birth Date', data: 'member.birthdate', type: 'date' },
   ],
   items: [],
@@ -80,14 +81,11 @@ export const membershipSubscriptionListEvents = eventGroup({
 export const membershipSubscriptionList = signalStore(
   withState<State>(initialState),
   withReducer(
-    on(
-      membershipSubscriptionListEvents.load,
-      ({ payload: { campaign_id, ...options } }) => ({
-        loading: true,
-        campaign_id,
-        ...options,
-      }),
-    ),
+    on(membershipSubscriptionListEvents.load, ({ payload: { campaign_id, ...options } }) => ({
+      loading: true,
+      campaign_id,
+      ...options,
+    })),
     on(membershipSubscriptionListEvents.loadSuccess, ({ payload: { items, total } }) => ({
       loading: false,
       items,
@@ -126,7 +124,7 @@ export const membershipSubscriptionList = signalStore(
               sort: store.sort(),
               order: store.order(),
               search: store.search(),
-              fields: ['id', 'member', 'license_type']
+              fields: ['id', 'member', 'license_type'],
             })
             .pipe(
               mapResponse({

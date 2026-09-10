@@ -9,10 +9,12 @@ import {
   membershipCampaignSettings,
   membershipCampaignSettingsEvents,
 } from '../../../../stores/membership/campaign/settings';
+import { Details } from "../../../../components/ui/details/details";
+import { DetailItem } from '../../../../components/ui/details/detail-item';
 
 @Component({
   selector: 'app-pages-membership-campaign-settings',
-  imports: [Page, FormlyModule, ReactiveFormsModule],
+  imports: [Page, FormlyModule, ReactiveFormsModule, Details, DetailItem],
   providers: [membershipCampaignSettings],
   templateUrl: './settings.html',
   styleUrl: './settings.css',

@@ -1,0 +1,24 @@
+<div [formGroup]="addressForm">
+  <mat-form-field class="w-full">
+    <mat-label>Line 1</mat-label>
+    <input matInput placeholder="Enter line 1 of your address" formControlName="line1" />
+  </mat-form-field>
+  <mat-form-field  class="w-full">
+    <mat-label>Line 2</mat-label>
+    <input matInput placeholder="Enter line 2 of your address" formControlName="line2" />
+  </mat-form-field>
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <mat-form-field>
+      <mat-label>Postal Code</mat-label>
+      <input matInput placeholder="Enter your postal code" formControlName="zipcode" />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>City</mat-label>
+      <input matInput placeholder="Enter your city" formControlName="city" />
+    </mat-form-field>
+  </div>
+  <mat-form-field>
+    <mat-label>Country</mat-label>
+    <input matInput placeholder="Enter your country" formControlName="country" />
+  </mat-form-field>
+</div>

@@ -37,9 +37,9 @@ export class DefaultLayout {
 
   private sidebars: Record<string, () => Promise<Type<any>>> = {
     default: () =>
-      import('../../components/layouts/sidebars/default/default').then((m) => m.Default),
+      import('../sidebars/default/default').then((m) => m.Default),
     'membership-campaign': () =>
-      import('../../components/layouts/sidebars/campaign/campaign').then((m) => m.Campaign),
+      import('../sidebars/campaign/campaign').then((m) => m.Campaign),
   };
 
   sidenav = viewChild<MatSidenav>('sidenav');

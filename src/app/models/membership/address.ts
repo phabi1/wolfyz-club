@@ -6,7 +6,7 @@ export type Address = {
   country: string;
 };
 
-export function emptyAddress(): Address {
+export function createEmptyAddress(): Address {
   return {
     line1: "",
     line2: "",

@@ -32,6 +32,13 @@ export class MemberService {
       .pipe(map(this.unserialize));
   }
 
+  public update(id: number, member: Partial<Member>): Observable<Member> {
+    const payload = this.serialize(member);
+    return this.httpClient
+      .put<Member>(`${this.endpoint}/membership/members/${id}`, payload)
+      .pipe(map(this.unserialize));
+  }
+
   public exists(
     data: {
       firstname: string;
@@ -56,7 +63,7 @@ export class MemberService {
   private unserialize(data: any): Member {
     return {
       ...data,
-      birthdate: toDate(data.birthdate)
+      birthdate: toDate(data.birthdate),
     };
   }
 }

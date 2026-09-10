@@ -1,0 +1,13 @@
+<div class="mb-3">
+  @for (field of field.fieldGroup; track $index; let i = $index) {
+    <div class="row align-items-baseline">
+      <formly-field class="col" [field]="field"></formly-field>
+      <div class="col-1 d-flex align-items-center">
+        <button class="btn btn-danger" type="button" (click)="remove(i)">REMOVE</button>
+      </div>
+    </div>
+  }
+  <div style="margin: 30px 0">
+    <button type="button" (click)="add()">ADD</button>
+  </div>
+</div>
