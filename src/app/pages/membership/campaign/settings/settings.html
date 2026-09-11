@@ -1,6 +1,7 @@
 <app-ui-page
-	[title]="'Campaign settings'"
-	[subtitle]="'Edit each campaign setting in dedicated fields.'"
+	[title]="store.campaign()?.title || ''"
+	subtitle="Edit each campaign setting in dedicated fields."
+	i18n-subtitle=":@@membership.campaign.settings.subtitle"
 	[actions]="actions()"
 >
 	@if (store.loading()) {

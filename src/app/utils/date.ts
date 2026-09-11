@@ -80,3 +80,13 @@ export function toDate(value: Date | number | string): Date {
 
   return new Date(0);
 }
+
+export function toInput(date: Date | string): string {
+  const d = typeof date === 'string' ? new Date(date) : date;
+  const year = d.getFullYear();
+  const month = (d.getMonth() + 1).toString().padStart(2, '0');
+  const day = d.getDate().toString().padStart(2, '0');
+  const minutes = d.getMinutes().toString().padStart(2, '0');
+  const seconds = d.getSeconds().toString().padStart(2, '0');
+  return `${year}-${month}-${day} ${minutes}:${seconds}`;
+}

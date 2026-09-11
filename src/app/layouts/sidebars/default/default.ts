@@ -25,7 +25,7 @@ export class Default {
     {
       type: "link",
       label: $localize`:@@nav.default.events:Events`,
-      to: "/events"
+      to: "/event/events"
     },
     {
       type: "link",

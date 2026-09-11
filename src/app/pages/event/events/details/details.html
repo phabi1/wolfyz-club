@@ -1,0 +1,21 @@
+@if (store.loading()) {
+  <p>Loading...</p>
+} @else {
+  <app-ui-page
+    [title]="store.item().title"
+    [subtitle]="'Event Details'"
+    i18n-headingSubtitle="@@event.details.title"
+    [actions]="pageActions"
+  >
+    <div class="paper">
+      <app-ui-details>
+        <ng-template appUiDetailItem label="Start Date">
+          {{ store.item().event_start | date: 'medium' }}
+        </ng-template>
+        <ng-template appUiDetailItem label="End Date">
+          {{ store.item().event_end | date: 'medium' }}
+        </ng-template>
+      </app-ui-details>
+    </div>
+  </app-ui-page>
+}

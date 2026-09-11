@@ -14,12 +14,10 @@ import { PhoneFieldType } from './components/form/field/phone/phone';
 import { UploadFieldType } from './components/form/field/upload/upload';
 import { provideDatagrid } from './components/ui/datagrid/provider';
 import { AmountFieldType } from './components/ui/formly/fields/amount/amount-field';
-import { LicensesFieldType } from './components/ui/formly/fields/licenses/licenses-field';
-import { PaymentMethodsFieldType } from './components/ui/formly/fields/payment-methods/payment-methods-field';
 import { TabsFieldType } from './components/ui/formly/fields/tabs/tabs-field';
 import { tokenInterceptor } from './interceptors/token.interceptor';
 import { provideConfig } from './services/config.service';
-import { Collection } from './components/form/group/collection/collection';
+import { Collection } from './components/form/field/collection/collection';
 
 export function setup(config: any): ApplicationConfig {
   return {

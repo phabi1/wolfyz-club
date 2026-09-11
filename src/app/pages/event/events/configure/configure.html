@@ -1,0 +1,23 @@
+@if (store.loading()) {
+  <p>Loading...</p>
+} @else {
+  <app-ui-page
+    [title]="store.item().title"
+    subtitle="Configure Event"
+    i18n-subtitle="@@event.configure.title"
+  >
+    <form (ngSubmit)="onSubmit($event)">
+      <formly-form [form]="form" [fields]="fields" [model]="model"></formly-form>
+      <div>
+        <button
+          mat-raised-button
+          color="primary"
+          i18n="@@common.button.save"
+          [disabled]="form.invalid"
+        >
+          Save
+        </button>
+      </div>
+    </form>
+  </app-ui-page>
+}

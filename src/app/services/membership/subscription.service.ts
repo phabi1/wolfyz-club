@@ -5,6 +5,7 @@ import { map, Observable } from 'rxjs';
 import type { Lesson } from '../../models/membership/lesson';
 import type { Subscription } from '../../models/membership/subscription';
 import { toDate, toTimestamp } from '../../utils/date';
+import { PaginationOptions } from '../../models/pagination/options';
 
 @Injectable({
   providedIn: 'root',
@@ -21,15 +22,7 @@ export class SubscriptionService {
 
   public items(
     campaignId: number,
-    options?: {
-      page?: number;
-      size?: number;
-      sort?: string;
-      order?: 'asc' | 'desc';
-      search?: string;
-      filters?: Record<string, any>;
-      fields?: string[];
-    },
+    options?: PaginationOptions,
   ): Observable<{ items: Subscription[]; total: number }> {
     const params: any = {};
     if (options?.page !== undefined) params.page = options.page;

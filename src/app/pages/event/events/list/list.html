@@ -1,0 +1,19 @@
+<app-ui-page title="Events" i18n-title="@@event.events.pageTitle" [actions]="pageActions">
+  <app-ui-datagrid
+    [columns]="store.columns()"
+    [rows]="store.items()"
+    [total]="store.total()"
+    [rowActions]="rowActions"
+    [currentPage]="store.page()"
+    [quickSearch]="true"
+    [search]="store.search()"
+    (rowClick)="onRowClick($event.row)"
+    (searchChange)="onSearchChange($event)"
+    (paginationChange)="
+      onPaginationChange({
+        page: $event.page,
+        size: $event.size,
+      })
+    "
+  ></app-ui-datagrid>
+</app-ui-page>

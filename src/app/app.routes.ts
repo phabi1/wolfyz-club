@@ -159,6 +159,27 @@ export const routes: Routes = [
           },
         ],
       },
+      {
+        path: 'event/events',
+        children: [
+          {
+            path: '',
+            loadComponent: () => import('./pages/event/events/list/list').then((m) => m.List),
+          },
+          {
+            path: 'new',
+            loadComponent: () => import('./pages/event/events/new/new').then((m) => m.New),
+          },
+          {
+            path: ':eventId',
+            loadComponent: () => import('./pages/event/events/details/details').then((m) => m.Details),
+          },
+          {
+            path: ':eventId/configure',
+            loadComponent: () => import('./pages/event/events/configure/configure').then((m) => m.Configure),
+          },
+        ],
+      },
     ],
   },
   {

@@ -1,0 +1,9 @@
+<div class="mb-3">
+  @for (child of field.fieldGroup; track $index) {
+    <div class="mb-2">
+      <formly-field [field]="child"></formly-field>
+      <button mat-button (click)="remove($index)" i18n=":@@common.button.remove">Remove</button>
+    </div>
+  }
+</div>
+<button mat-button (click)="add()" i18n=":@@common.button.add">Add</button>
