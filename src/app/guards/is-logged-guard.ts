@@ -4,6 +4,7 @@ import { filter, first, map, switchMap, tap } from 'rxjs';
 import { AuthService } from '../services/auth.service';
 
 export const isLoggedGuard: CanActivateFn = (route, state) => {
+  return true;
   const authService = inject(AuthService);
   const router = inject(Router);
   

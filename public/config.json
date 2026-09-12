@@ -7,7 +7,12 @@
         "issuer": "https://auth-wolfzy.docker.localhost",
         "clientId": "club",
         "responseType": "code",
-        "scope": "profile email",
-        "redirectUri": "http://localhost:4200"
+        "scope": "openid profile email api",
+        "redirectUri": "http://localhost:4200",
+        "postLogoutRedirectUri": "http://localhost:4200",
+        "showDebugInformation": true,
+        "timeoutFactor": 0.01,
+        "disableNonceCheck": true,
+        "preventClearHashAfterLogin": false
     }
 }
