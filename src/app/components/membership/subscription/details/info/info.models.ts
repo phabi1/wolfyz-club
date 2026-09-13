@@ -3,17 +3,15 @@ import type { Subscription } from '../../../../../models/membership/subscription
 export type SubscriptionContact = Subscription['contacts'][number];
 
 export type EditableContact = {
-  key: string;
-  id: number | null;
+  id: number;
   firstname: string;
   lastname: string;
   email: string;
   phone: string;
+  owner: boolean;
 };
 
 export type EditableSession = {
-  key: string;
-  id: number | null;
-  lesson_id: number | null;
-  subscription_id: number | null;
+  id: number;
+  lesson_id: number;
 };

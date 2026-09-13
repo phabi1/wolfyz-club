@@ -4,4 +4,5 @@ export type Contact = {
   lastname: string;
   email: string;
   phone?: string;
+  owner: boolean;
 };

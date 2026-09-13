@@ -77,13 +77,7 @@ export class Details {
     );
   }
 
-  onSessionsChange(sessions: Pick<Session, 'id' | 'lesson_id' | 'subscription_id'>[]): void {
-    const campaignId = this.store.campaignId();
-    const id = this.store.id();
-    if (!campaignId || !id) {
-      return;
-    }
-
+  onSessionsChange(sessions: Pick<Session, 'id' | 'lesson_id'>[]): void {
     this.dispatcher.dispatch(
       membershipSubscriptionDetailsEvents.update({
         sessions,
