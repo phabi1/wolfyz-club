@@ -6,10 +6,13 @@ import { PageAction } from '../../../../components/ui/page/action';
 import { Page } from '../../../../components/ui/page/page';
 import { DatePipe } from '../../../../pipes/date-pipe';
 import { eventEventDetailsStore } from '../../../../stores/event/events/details';
+import { DatagridColumn } from '../../../../components/ui/datagrid/column';
+import { Datagrid } from '../../../../components/ui/datagrid/datagrid';
+import { NotProvidedPipe } from '../../../../pipes/not-provided-pipe';
 
 @Component({
   selector: 'app-details',
-  imports: [Page, UiDetails, DetailItem, DatePipe],
+  imports: [Page, UiDetails, DetailItem, DatePipe, Datagrid, NotProvidedPipe],
   providers: [eventEventDetailsStore],
   templateUrl: './details.html',
   styleUrl: './details.css',
@@ -24,6 +27,32 @@ export class Details {
       handler: () => {
         this.router.navigate(['configure'], { relativeTo: this.route });
       },
+    },
+  ];
+
+  public participantColums: DatagridColumn[] = [
+    {
+      header: 'Firstname',
+      name: 'firstname',
+    },
+    {
+      header: 'Lastname',
+      name: 'lastname',
+    },
+    {
+      header: 'Ticket',
+      name: 'ticket',
+      data: 'ticket.title',
+    },
+    {
+      header: 'Status',
+      name: 'status',
+      data: 'checkout.status',
+    },
+    {
+      header: 'Registered At',
+      name: 'registered_at',
+      data: 'checkout.created_at',
     },
   ];
 }

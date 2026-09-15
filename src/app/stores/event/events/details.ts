@@ -14,11 +14,15 @@ import { EventService } from '../../../services/event/event.service';
 import { mapResponse } from '@ngrx/operators';
 import { ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs';
+import { ParticipantService } from '../../../services/event/participant.service';
 
 type State = {
   loading: boolean;
   item: Event;
   error: any;
+  tickets: { id: number; title: string; participant_nb: number; participant_max: number }[];
+  participants: any[];
+  totalParticipants: number;
 };
 
 export const eventEventDetailsEvents = eventGroup({
@@ -27,6 +31,9 @@ export const eventEventDetailsEvents = eventGroup({
     load: type<{ id: number }>(),
     loadSuccess: type<{ item: Event }>(),
     loadFailure: type<{ error: any }>(),
+    loadParticipants: type<void>(),
+    loadParticipantsSuccess: type<{ items: any[]; total: number }>(),
+    loadParticipantsFailure: type<{ error: any }>(),
   },
 });
 
@@ -35,6 +42,9 @@ export const eventEventDetailsStore = signalStore(
     loading: false,
     item: createEmptyEvent(),
     error: null,
+    tickets: [],
+    participants: [],
+    totalParticipants: 0,
   }),
   withReducer(
     on(eventEventDetailsEvents.load, () => ({
@@ -44,24 +54,62 @@ export const eventEventDetailsStore = signalStore(
     on(eventEventDetailsEvents.loadSuccess, ({ payload: { item } }) => ({
       loading: false,
       item,
+      tickets: item.tickets || [],
     })),
     on(eventEventDetailsEvents.loadFailure, ({ payload: { error } }) => ({
       loading: false,
       error,
     })),
+    on(eventEventDetailsEvents.loadParticipants, () => ({
+      loading: true,
+      error: null,
+    })),
+    on(eventEventDetailsEvents.loadParticipantsSuccess, ({ payload: { items, total } }) => ({
+      loading: false,
+      participants: items,
+      totalParticipants: total,
+    })),
+    on(eventEventDetailsEvents.loadParticipantsFailure, ({ payload: { error } }) => ({
+      loading: false,
+      error,
+    })),
   ),
-  withEventHandlers((store, events = inject(Events), eventService = inject(EventService)) => ({
-    load$: events.on(eventEventDetailsEvents.load).pipe(
-      switchMap(({ payload: { id } }) =>
-        eventService.item(id).pipe(
-          mapResponse({
-            next: (item) => eventEventDetailsEvents.loadSuccess({ item }),
-            error: (error) => eventEventDetailsEvents.loadFailure({ error }),
-          }),
+  withEventHandlers(
+    (
+      store,
+      events = inject(Events),
+      eventService = inject(EventService),
+      participantService = inject(ParticipantService),
+    ) => ({
+      load$: events.on(eventEventDetailsEvents.load).pipe(
+        switchMap(({ payload: { id } }) =>
+          eventService.item(id).pipe(
+            mapResponse({
+              next: (item) => eventEventDetailsEvents.loadSuccess({ item }),
+              error: (error) => eventEventDetailsEvents.loadFailure({ error }),
+            }),
+          ),
         ),
       ),
-    ),
-  })),
+      loadSuccess$: events
+        .on(eventEventDetailsEvents.loadSuccess)
+        .pipe(map(() => eventEventDetailsEvents.loadParticipants())),
+      loadParticipants$: events.on(eventEventDetailsEvents.loadParticipants).pipe(
+        switchMap(() =>
+          participantService.items(store.item().id, { size: 200 }).pipe(
+            mapResponse({
+              next: (res) =>
+                eventEventDetailsEvents.loadParticipantsSuccess({
+                  items: res.items,
+                  total: res.total,
+                }),
+              error: (error) => eventEventDetailsEvents.loadParticipantsFailure({ error }),
+            }),
+          ),
+        ),
+      ),
+    }),
+  ),
   withHooks({
     onInit(store, dispatcher = inject(Dispatcher), route = inject(ActivatedRoute)) {
       const subscription = route.params

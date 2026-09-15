@@ -53,8 +53,8 @@ const initialState: State = {
   total: 0,
   filters: {},
   search: '',
-  sort: 'member.lastname,member.firstname',
-  order: 'asc',
+  sort: 'event_start',
+  order: 'desc',
   error: null,
 };
 

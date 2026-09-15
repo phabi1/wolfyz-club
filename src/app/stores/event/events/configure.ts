@@ -216,7 +216,7 @@ export function syncTickets(params: {
       ticketService.create(eventId, {
         title: ticket.title || '',
         amount: ticket.amount,
-        quantity: ticket.quantity,
+        participant_max: ticket.participant_max,
         member_only: ticket.member_only,
         event_id: eventId,
       } as any),

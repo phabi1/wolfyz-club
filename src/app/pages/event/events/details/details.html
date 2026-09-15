@@ -16,6 +16,49 @@
           {{ store.item().event_end | date: 'medium' }}
         </ng-template>
       </app-ui-details>
+      <app-ui-details>
+        <ng-template appUiDetailItem label="Registration Start">
+          @if (store.item().registration_start; as registrationStart) {
+            {{ registrationStart | date: 'medium' }}
+          } @else {
+            <span>{{ '' | notProvided }}</span>
+          }
+        </ng-template>
+        <ng-template appUiDetailItem label="Registration End">
+          @if (store.item().registration_end; as registrationEnd) {
+            {{ registrationEnd | date: 'medium' }}
+          } @else {
+            <span>{{ '' | notProvided }}</span>
+          }
+        </ng-template>
+      </app-ui-details>
+      <app-ui-details>
+        <ng-template appUiDetailItem label="Participants">
+          {{ store.item().participant_nb }}
+        </ng-template>
+        <ng-template appUiDetailItem label="Participant Max">
+          {{ store.item().participant_max }}
+        </ng-template>
+      </app-ui-details>
     </div>
+
+    <div class="paper">
+      <div class="flex">
+        @for (ticket of store.tickets(); track ticket.id) {
+          <div class="flex-1">
+            <p class="font-bold">{{ ticket.title }}</p>
+            <p>{{ ticket.participant_nb + '/' + ticket.participant_max }}</p>
+          </div>
+        }
+      </div>
+    </div>
+
+    <app-ui-datagrid
+      [columns]="participantColums"
+      [rows]="store.participants()"
+      [total]="store.totalParticipants()"
+      [currentPage]="1"
+      [pageSize]="200"
+    ></app-ui-datagrid>
   </app-ui-page>
 }
