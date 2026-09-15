@@ -21,6 +21,7 @@ export class Datagrid {
   fetching = input<boolean>(false);
   paginable = input<boolean>(true);
   currentPage = input<number>(1);
+  pageSize = input<number>(10);
   quickSearch = input<boolean>(false);
   search = input('');
 

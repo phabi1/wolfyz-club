@@ -26,7 +26,8 @@
     [count]="rows().length"
     [total]="total()"
     [currentPage]="currentPage()"
-    (pagignationChange)="onPaginationChange($event)"
+    [size]="pageSize()"
+    (paginationChange)="onPaginationChange($event)"
   ></app-ui-datagrid-pagination>
   }
 </div>
