@@ -70,7 +70,10 @@ export class New {
         required: true,
         options: [
           { label: $localize`:@@membership.subscriptions.form.licenseHobby:Hobby`, value: 'hobby' },
-          { label: $localize`:@@membership.subscriptions.form.licenseCompetition:Competition`, value: 'competition' },
+          {
+            label: $localize`:@@membership.subscriptions.form.licenseCompetition:Competition`,
+            value: 'competition',
+          },
         ],
       },
     },
@@ -118,6 +121,13 @@ export class New {
               .create(campaignId, {
                 member_id: +memberId,
                 license_type: values.license_type,
+                fields: {
+                  agree_photo: true,
+                  agree_exit: true,
+                  doctor: '',
+                  identity_photo: null,
+                  medical_certificate: null,
+                },
                 subscribed_at: new Date(),
               })
               .pipe(
