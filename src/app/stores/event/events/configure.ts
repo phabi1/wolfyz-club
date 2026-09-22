@@ -100,7 +100,16 @@ export const eventEventConfigureStore = signalStore(
           actions.push(
             eventService.update(store.item().id, eventData).pipe(
               mapResponse({
-                next: (item) => eventEventConfigureEvents.saveSuccess({ item }),
+                next: (item) =>
+                  eventEventConfigureEvents.saveSuccess({
+                    item: {
+                      ...item,
+                      tickets: item.tickets?.sort((a, b) => a.weight - b.weight),
+                      participant_fields: item.participant_fields?.sort(
+                        (a, b) => a.weight - b.weight,
+                      ),
+                    },
+                  }),
                 error: (error) => eventEventConfigureEvents.saveFailure({ error }),
               }),
             ),
@@ -150,7 +159,7 @@ export const eventEventConfigureStore = signalStore(
                     amount: ticket.amount,
                     participant_max: ticket.participant_max || 0,
                     member_only: ticket.member_only,
-                    event_id: eventId,
+                    weight: ticket.weight,
                   } as any),
                 update: (eventId, id, ticket) =>
                   ticketService.update(eventId, id, {
@@ -158,7 +167,7 @@ export const eventEventConfigureStore = signalStore(
                     amount: ticket.amount,
                     participant_max: ticket.participant_max || 0,
                     member_only: ticket.member_only,
-                    event_id: eventId,
+                    weight: ticket.weight,
                   } as any),
                 remove: (eventId, id) => ticketService.delete(eventId, id),
               }),
@@ -178,7 +187,8 @@ export const eventEventConfigureStore = signalStore(
                   currentField.required !== field.required ||
                   currentField.options !== field.options ||
                   currentField.description !== field.description ||
-                  currentField.tickets !== field.tickets,
+                  currentField.tickets !== field.tickets ||
+                  currentField.weight !== field.weight,
                 create: (eventId, field) =>
                   participantFieldService.create(eventId, {
                     label: field.label,
@@ -187,7 +197,7 @@ export const eventEventConfigureStore = signalStore(
                     options: field.options,
                     description: field.description,
                     tickets: field.tickets,
-                    event_id: eventId,
+                    weight: field.weight,
                   } as any),
                 update: (eventId, id, field) =>
                   participantFieldService.update(eventId, id, {
@@ -197,7 +207,7 @@ export const eventEventConfigureStore = signalStore(
                     options: field.options,
                     description: field.description,
                     tickets: field.tickets,
-                    event_id: eventId,
+                    weight: field.weight,
                   } as any),
                 remove: (eventId, id) => participantFieldService.delete(eventId, id),
               }),
@@ -242,7 +252,12 @@ function syncItems<T extends { id?: number }>(params: {
   const toCreate = items.filter((item) => item.id === undefined);
   const toUpdate = items
     .filter((item) => item.id !== undefined)
-    .filter((item) => isChanged(current.find((stored) => stored.id === item.id), item));
+    .filter((item) =>
+      isChanged(
+        current.find((stored) => stored.id === item.id),
+        item,
+      ),
+    );
   const toSkip = items.filter((item) => {
     const currentItem = current.find((stored) => stored.id === item.id);
     return !!currentItem && !isChanged(currentItem, item);

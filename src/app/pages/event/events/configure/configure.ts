@@ -313,17 +313,19 @@ export class Configure implements AfterViewInit {
           ? toDate(this.model.registration_start)
           : null,
         registration_end: this.model.registration_end ? toDate(this.model.registration_end) : null,
-        tickets: (this.model.tickets || []).map((ticket) => ({
+        tickets: (this.model.tickets || []).map((ticket, index) => ({
           ...ticket,
           id: ticket.id.startsWith('new-') ? undefined : ticket.id,
+          weight: index,
         })),
         sessions: (this.model.sessions || []).map((session) => ({
           ...session,
           id: session.id.startsWith('new-') ? undefined : session.id,
         })),
-        participant_fields: (this.model.participant_fields || []).map((field) => ({
+        participant_fields: (this.model.participant_fields || []).map((field, index) => ({
           ...field,
           id: field.id.startsWith('new-') ? undefined : field.id,
+          weight: index,
         })),
       };
       this.dispatcher.dispatch(eventEventConfigureEvents.save({ data }));

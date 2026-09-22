@@ -1,0 +1,71 @@
+<ng-template #dialogTpl>
+  <h1 mat-dialog-title>Participant Info</h1>
+  @if (store.loading()) {
+    <div mat-dialog-content class="dialog-content">
+      <p class="state-message">Loading participant...</p>
+    </div>
+  } @else if (store.item(); as participant) {
+    <div mat-dialog-content class="dialog-content">
+      <section class="block">
+        <h2 class="block-title">Participant</h2>
+        <app-ui-details>
+          <ng-template appUiDetailItem label="Firstname">
+            {{ participant.firstname | notProvided }}
+          </ng-template>
+          <ng-template appUiDetailItem label="Lastname">
+            {{ participant.lastname | notProvided }}
+          </ng-template>
+          <ng-template appUiDetailItem label="Ticket">
+            {{ participant.ticket?.title | notProvided }}
+          </ng-template>
+          <ng-template appUiDetailItem label="Status">
+            {{ participant.checkout?.status | notProvided }}
+          </ng-template>
+          <ng-template appUiDetailItem label="Registered At">
+            {{ participant.checkout?.created_at | notProvided }}
+          </ng-template>
+        </app-ui-details>
+      </section>
+
+      <section class="block">
+        <h2 class="block-title">Fields For This Ticket</h2>
+        @if (availableFields().length > 0) {
+          <app-ui-details>
+            @for (field of availableFields(); track field.id) {
+              <ng-template [appUiDetailItem]="''" [label]="field.label">
+                {{ fieldValue(field) | notProvided }}
+              </ng-template>
+            }
+          </app-ui-details>
+        } @else {
+          <p class="state-message">No specific fields for this ticket.</p>
+        }
+      </section>
+
+      <section class="block">
+        <h2 class="block-title">Payer</h2>
+        <app-ui-details>
+          <ng-template appUiDetailItem label="Firstname">
+            {{ participant.payer?.firstname | notProvided }}
+          </ng-template>
+          <ng-template appUiDetailItem label="Lastname">
+            {{ participant.payer?.lastname | notProvided }}
+          </ng-template>
+          <ng-template appUiDetailItem label="Email">
+            {{ participant.payer?.email | notProvided }}
+          </ng-template>
+          <ng-template appUiDetailItem label="Phone">
+            {{ participant.payer?.phone | notProvided }}
+          </ng-template>
+        </app-ui-details>
+      </section>
+    </div>
+  } @else {
+    <div mat-dialog-content class="dialog-content">
+      <p class="state-message">No participant found.</p>
+    </div>
+  }
+  <div mat-dialog-actions>
+    <button mat-button mat-dialog-close>Close</button>
+  </div>
+</ng-template>

@@ -7,6 +7,7 @@ export type ParticipantField = {
   options?: string[];
   member_only: boolean;
   tickets: string[];
+  weight: number;
 };
 
 export function createEmptyParticipantField(): ParticipantField {
@@ -19,6 +20,7 @@ export function createEmptyParticipantField(): ParticipantField {
     options: [],
     member_only: false,
     tickets: [],
+    weight: 0,
   };
 }
 
@@ -32,6 +34,7 @@ export function fromParticipantField(field: ParticipantField): any {
     options: field.options,
     member_only: field.member_only,
     tickets: field.tickets,
+    weight: field.weight,
   };
 }
 
@@ -45,5 +48,6 @@ export function toParticipantField(data: any): ParticipantField {
     options: data.options ?? [],
     member_only: data.member_only ?? false,
     tickets: data.tickets ?? [],
+    weight: data.weight ?? 0,
   };
 }

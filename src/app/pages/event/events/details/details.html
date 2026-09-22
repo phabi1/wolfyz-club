@@ -59,6 +59,8 @@
       [total]="store.totalParticipants()"
       [currentPage]="1"
       [pageSize]="200"
+      (rowClick)="onRowClick($event)"
     ></app-ui-datagrid>
   </app-ui-page>
 }
+<router-outlet></router-outlet>

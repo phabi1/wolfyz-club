@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
 import { DetailItem } from '../../../../components/ui/details/detail-item';
 import { Details as UiDetails } from '../../../../components/ui/details/details';
 import { PageAction } from '../../../../components/ui/page/action';
@@ -12,7 +12,7 @@ import { NotProvidedPipe } from '../../../../pipes/not-provided-pipe';
 
 @Component({
   selector: 'app-details',
-  imports: [Page, UiDetails, DetailItem, DatePipe, Datagrid, NotProvidedPipe],
+  imports: [Page, UiDetails, DetailItem, DatePipe, Datagrid, NotProvidedPipe, RouterOutlet],
   providers: [eventEventDetailsStore],
   templateUrl: './details.html',
   styleUrl: './details.css',
@@ -55,4 +55,9 @@ export class Details {
       data: 'checkout.created_at',
     },
   ];
+
+  public onRowClick(event: any): void {
+    console.log(event);
+    this.router.navigate(['participant', event.row.id], { relativeTo: this.route });
+  }
 }

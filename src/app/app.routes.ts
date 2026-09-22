@@ -173,6 +173,12 @@ export const routes: Routes = [
           {
             path: ':eventId',
             loadComponent: () => import('./pages/event/events/details/details').then((m) => m.Details),
+            children: [
+              {
+                path: 'participant/:participantId',
+                loadComponent: () => import('./pages/event/events/info/info').then((m) => m.Info),
+              },
+            ],
           },
           {
             path: ':eventId/configure',
