@@ -1,18 +1,16 @@
 import { AfterViewInit, Component, effect, inject, TemplateRef, viewChild } from '@angular/core';
-import { FormGroup } from '@angular/forms';
-import { FormsModule } from '@angular/forms';
+import { FormGroup, FormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
 import { Dispatcher } from '@ngrx/signals/events';
 import { FormlyFieldConfig, FormlyForm } from '@ngx-formly/core';
-import { Ticket } from '../../../../models/event/ticket';
-import { Session } from '../../../../models/event/session';
-import { ParticipantField } from '../../../../models/event/participant-field';
 import { Page } from '../../../../components/ui/page/page';
+import { AmountPipe } from '../../../../pipes/amount-pipe';
 import {
   eventEventConfigureEvents,
   eventEventConfigureStore,
 } from '../../../../stores/event/events/configure';
-import { MatButtonModule } from '@angular/material/button';
 import { toDate, toInput } from '../../../../utils/date';
+import { FieldType } from '../../../../components/ui/field-type/field-type';
 
 type EventModel = {
   title: string;
@@ -29,7 +27,7 @@ type EventModel = {
 
 @Component({
   selector: 'app-configure',
-  imports: [Page, FormlyForm, FormsModule, MatButtonModule],
+  imports: [Page, FormlyForm, FormsModule, MatButtonModule, AmountPipe, FieldType],
   providers: [eventEventConfigureStore],
   templateUrl: './configure.html',
   styleUrl: './configure.css',
@@ -37,9 +35,9 @@ type EventModel = {
 export class Configure implements AfterViewInit {
   public readonly store = inject(eventEventConfigureStore);
   private readonly dispatcher = inject(Dispatcher);
-  public readonly ticketTpl = viewChild<TemplateRef<any>>('ticketTpl');
-  public readonly fieldTpl = viewChild<TemplateRef<any>>('fieldTpl');
-  public readonly sessionTpl = viewChild<TemplateRef<any>>('sessionTpl');
+  public readonly ticketTpl = viewChild<TemplateRef<any>>('ticketItemTpl');
+  public readonly fieldTpl = viewChild<TemplateRef<any>>('fieldItemTpl');
+  public readonly sessionTpl = viewChild<TemplateRef<any>>('sessionItemTpl');
   public readonly form = new FormGroup({});
   public fields: FormlyFieldConfig[] = [];
   public model: EventModel = {
@@ -66,13 +64,20 @@ export class Configure implements AfterViewInit {
         registration_start: item.registration_start ? toInput(item.registration_start) : '',
         registration_end: item.registration_end ? toInput(item.registration_end) : '',
         participant_max: item.participant_max ?? 0,
-        tickets: item.tickets ? item.tickets.map((ticket) => ({ ...ticket })) : [],
+        tickets: item.tickets
+          ? item.tickets.map((ticket) => ({ ...ticket, id: ticket.id.toString() }))
+          : [],
         participant_fields: item.participant_fields
-          ? item.participant_fields.map((field) => ({ ...field }))
+          ? item.participant_fields.map((field) => ({
+              ...field,
+              id: field.id.toString(),
+              tickets: (field.tickets || []).map((ticketId) => ticketId.toString()),
+            }))
           : [],
         sessions: item.sessions
           ? item.sessions.map((session) => ({
               ...session,
+              id: session.id.toString(),
               session_start: toInput(session.session_start),
               session_end: toInput(session.session_end),
             }))
@@ -176,9 +181,12 @@ export class Configure implements AfterViewInit {
                       props: { type: 'number', label: 'Amount', required: true },
                     },
                     {
-                      key: 'quantity',
+                      key: 'participant_max',
                       type: 'input',
-                      props: { type: 'number', label: 'Quantity' },
+                      props: {
+                        type: 'number',
+                        label: 'Participant Max',
+                      },
                     },
                     {
                       key: 'member_only',
@@ -199,11 +207,6 @@ export class Configure implements AfterViewInit {
                 props: { label: 'Fields', itemTpl: this.fieldTpl() },
                 fieldArray: {
                   fieldGroup: [
-                    {
-                      key: 'label',
-                      type: 'input',
-                      props: { label: 'Field Label', required: true },
-                    },
                     {
                       key: 'type',
                       type: 'select',
@@ -233,16 +236,34 @@ export class Configure implements AfterViewInit {
                           },
                           {
                             label: 'Checkbox',
-                            value: 'checkbox',
+                            value: 'boolean',
+                          },
+                          {
+                            label: 'Phone',
+                            value: 'phone',
+                          },
+                          {
+                            label: 'File',
+                            value: 'file',
+                          },
+                          {
+                            label: 'Options',
+                            value: 'options',
                           },
                         ],
                       },
+                    },
+                    {
+                      key: 'label',
+                      type: 'input',
+                      props: { label: 'Field Label', required: true },
                     },
                     {
                       key: 'required',
                       type: 'toggle',
                       props: { label: 'Required' },
                       wrappers: [],
+                      className: 'pb-4',
                     },
                     { key: 'description', type: 'textarea', props: { label: 'Description' } },
                     {
@@ -250,17 +271,17 @@ export class Configure implements AfterViewInit {
                       type: 'multicheckbox',
                       props: {
                         label: 'Tickets',
+                        type: 'array',
                         options: [],
                       },
                       hooks: {
                         onInit: (field) => {
-                          // Initialize the tickets options dynamically
-                          const tickets: { name: string; price: number }[] =
-                            field.form?.get('tickets')?.value || [];
+                          const tickets: { id: string; title: string; price: number }[] =
+                            this.model.tickets || [];
                           if (field.props) {
                             field.props.options = tickets.map((ticket) => ({
-                              label: ticket.name,
-                              value: ticket.name,
+                              label: ticket.title,
+                              value: ticket.id,
                             }));
                           }
                         },
@@ -292,12 +313,30 @@ export class Configure implements AfterViewInit {
           ? toDate(this.model.registration_start)
           : null,
         registration_end: this.model.registration_end ? toDate(this.model.registration_end) : null,
-        tickets: this.model.tickets || [],
-        sessions: this.model.sessions || [],
-        participant_fields: this.model.participant_fields || [],
+        tickets: (this.model.tickets || []).map((ticket) => ({
+          ...ticket,
+          id: ticket.id.startsWith('new-') ? undefined : ticket.id,
+        })),
+        sessions: (this.model.sessions || []).map((session) => ({
+          ...session,
+          id: session.id.startsWith('new-') ? undefined : session.id,
+        })),
+        participant_fields: (this.model.participant_fields || []).map((field) => ({
+          ...field,
+          id: field.id.startsWith('new-') ? undefined : field.id,
+        })),
       };
-      console.log(data);
       this.dispatcher.dispatch(eventEventConfigureEvents.save({ data }));
     }
+  }
+
+  public getTicketNames(tickets: string[]): string {
+    return tickets
+      .map((ticketId) => {
+        const ticket = this.model.tickets?.find((t) => t.id == ticketId);
+        return ticket ? ticket.title : null;
+      })
+      .filter((ticket) => ticket)
+      .join(', ');
   }
 }

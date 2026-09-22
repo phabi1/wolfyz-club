@@ -21,3 +21,51 @@
     </form>
   </app-ui-page>
 }
+<ng-template #ticketItemTpl let-item let-index="index">
+  <div class="flex justify-between items-center">
+    <div>
+      <div class="font-bold">
+        {{ item.title }}
+      </div>
+      <div>
+        @if (item.member_only) {
+          <span i18n="@@event.configure.memberOnly">Member Only</span>
+        }
+      </div>
+    </div>
+    <div>
+      {{ item.amount | amount }}
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #fieldItemTpl let-item let-index="index">
+  <div class="flex justify-between items-center">
+    <div class="flex items-center gap-2">
+      <div class="flex-1">
+        <app-ui-field-type [type]="item.type"></app-ui-field-type>
+      </div>
+      <div>
+        <div class="font-bold">
+          {{ item.label }}
+        </div>
+        <div>
+          {{ item.description }}
+        </div>
+      </div>
+    </div>
+    <div class="shrink-0">
+      {{ item.required ? 'Required' : 'Optional' }}
+    </div>
+    <div class="shrink-0">
+      @if(item.tickets.length === 0) {
+        <span i18n="@@event.configure.tickets">All tickets</span>
+      } @else {
+        <span>{{ getTicketNames(item.tickets) }}</span>
+      }
+    </div>
+  </div>
+</ng-template>
+<ng-template #sessionItemTpl let-item let-index="index">
+  <pre class="m-0 text-sm">{{ item.session_start }} - {{ item.session_end }}</pre>
+</ng-template>

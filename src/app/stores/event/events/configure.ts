@@ -108,33 +108,98 @@ export const eventEventConfigureStore = signalStore(
 
           if (Array.isArray(sessions)) {
             actions.push(
-              syncSessions({
+              syncItems({
                 eventId: store.item().id,
-                sessions: sessions,
+                items: sessions,
                 current: store.item().sessions || [],
-                sessionService,
+                isChanged: (currentSession, session) =>
+                  !currentSession ||
+                  currentSession.session_start !== session.session_start ||
+                  currentSession.session_end !== session.session_end,
+                create: (eventId, session) =>
+                  sessionService.create(eventId, {
+                    session_start: session.session_start,
+                    session_end: session.session_end,
+                    event_id: eventId,
+                  } as any),
+                update: (eventId, id, session) =>
+                  sessionService.update(eventId, id, {
+                    session_start: session.session_start,
+                    session_end: session.session_end,
+                  } as any),
+                remove: (eventId, id) => sessionService.delete(eventId, id),
               }),
             );
           }
 
           if (Array.isArray(tickets)) {
             actions.push(
-              syncTickets({
+              syncItems({
                 eventId: store.item().id,
-                tickets: tickets,
+                items: tickets,
                 current: store.item().tickets || [],
-                ticketService,
+                isChanged: (currentTicket, ticket) =>
+                  !currentTicket ||
+                  currentTicket.title !== ticket.title ||
+                  currentTicket.amount !== ticket.amount ||
+                  currentTicket.participant_max !== ticket.participant_max ||
+                  currentTicket.member_only !== ticket.member_only,
+                create: (eventId, ticket) =>
+                  ticketService.create(eventId, {
+                    title: ticket.title || '',
+                    amount: ticket.amount,
+                    participant_max: ticket.participant_max || 0,
+                    member_only: ticket.member_only,
+                    event_id: eventId,
+                  } as any),
+                update: (eventId, id, ticket) =>
+                  ticketService.update(eventId, id, {
+                    title: ticket.title || '',
+                    amount: ticket.amount,
+                    participant_max: ticket.participant_max || 0,
+                    member_only: ticket.member_only,
+                    event_id: eventId,
+                  } as any),
+                remove: (eventId, id) => ticketService.delete(eventId, id),
               }),
             );
           }
 
           if (Array.isArray(participant_fields)) {
             actions.push(
-              syncParticipantFields({
+              syncItems({
                 eventId: store.item().id,
-                participantFields: participant_fields,
+                items: participant_fields,
                 current: store.item().participant_fields || [],
-                participantFieldService,
+                isChanged: (currentField, field) =>
+                  !currentField ||
+                  currentField.label !== field.label ||
+                  currentField.type !== field.type ||
+                  currentField.required !== field.required ||
+                  currentField.options !== field.options ||
+                  currentField.description !== field.description ||
+                  currentField.tickets !== field.tickets,
+                create: (eventId, field) =>
+                  participantFieldService.create(eventId, {
+                    label: field.label,
+                    type: field.type,
+                    required: field.required,
+                    options: field.options,
+                    description: field.description,
+                    tickets: field.tickets,
+                    event_id: eventId,
+                  } as any),
+                update: (eventId, id, field) =>
+                  participantFieldService.update(eventId, id, {
+                    label: field.label,
+                    type: field.type,
+                    required: field.required,
+                    options: field.options,
+                    description: field.description,
+                    tickets: field.tickets,
+                    event_id: eventId,
+                  } as any),
+                remove: (eventId, id) => participantFieldService.delete(eventId, id),
               }),
             );
           }
@@ -156,121 +221,60 @@ export const eventEventConfigureStore = signalStore(
   }),
 );
 
-function syncSessions(params: {
+type SyncOperation = 'create' | 'update' | 'delete' | 'skip';
+
+function syncItems<T extends { id?: number }>(params: {
   eventId: number;
-  sessions: Partial<Session>[];
-  current: Partial<Session>[];
-  sessionService: SessionService;
+  items: Partial<T>[];
+  current: Partial<T>[];
+  isChanged: (currentItem: Partial<T> | undefined, item: Partial<T>) => boolean;
+  create: (eventId: number, item: Partial<T>) => Observable<unknown>;
+  update: (eventId: number, id: number, item: Partial<T>) => Observable<unknown>;
+  remove: (eventId: number, id: number) => Observable<unknown>;
 }): Observable<unknown[]> {
-  const { eventId, sessions, current, sessionService } = params;
+  const { eventId, items, current, isChanged, create, update, remove } = params;
 
   const requestedExistingIds = new Set(
-    sessions.filter((session) => Number(session.id) > 0).map((session) => Number(session.id)),
+    items.filter((item) => item.id !== undefined).map((item) => Number(item.id)),
   );
 
-  const toDelete = current.filter((session) => !requestedExistingIds.has(Number(session.id)));
-  const toCreate = sessions.filter((session) => session.id === undefined || Number(session.id) <= 0);
+  const toDelete = current.filter((item) => !requestedExistingIds.has(Number(item.id)));
+  const toCreate = items.filter((item) => item.id === undefined);
+  const toUpdate = items
+    .filter((item) => item.id !== undefined)
+    .filter((item) => isChanged(current.find((stored) => stored.id === item.id), item));
+  const toSkip = items.filter((item) => {
+    const currentItem = current.find((stored) => stored.id === item.id);
+    return !!currentItem && !isChanged(currentItem, item);
+  });
 
   const operations: Observable<unknown>[] = [];
 
-  for (const session of toCreate) {
-    operations.push(
-      sessionService.create(eventId, {
-        session_start: session.session_start,
-        session_end: session.session_end,
-        event_id: eventId,
-      } as any),
-    );
-  }
+  for (const operation of ['update', 'delete', 'create', 'skip'] as SyncOperation[]) {
+    if (operation === 'create') {
+      for (const item of toCreate) {
+        operations.push(create(eventId, item));
+      }
+      continue;
+    }
 
-  for (const session of toDelete) {
-    operations.push(sessionService.delete(eventId, Number(session.id)));
-  }
+    if (operation === 'update') {
+      for (const item of toUpdate) {
+        operations.push(update(eventId, Number(item.id), item));
+      }
+      continue;
+    }
 
-  if (!operations.length) {
-    return of([]);
-  }
+    if (operation === 'delete') {
+      for (const item of toDelete) {
+        operations.push(remove(eventId, Number(item.id)));
+      }
+      continue;
+    }
 
-  return forkJoin(operations);
-}
-
-export function syncTickets(params: {
-  eventId: number;
-  tickets: Partial<Ticket>[];
-  current: Partial<Ticket>[];
-  ticketService: TicketService;
-}): Observable<unknown[]> {
-  const { eventId, tickets, current, ticketService } = params;
-
-  const requestedExistingIds = new Set(
-    tickets.filter((ticket) => Number(ticket.id) > 0).map((ticket) => Number(ticket.id)),
-  );
-
-  const toDelete = current.filter((ticket) => !requestedExistingIds.has(Number(ticket.id)));
-  const toCreate = tickets.filter((ticket) => ticket.id === undefined || Number(ticket.id) <= 0);
-
-  const operations: Observable<unknown>[] = [];
-
-  for (const ticket of toCreate) {
-    operations.push(
-      ticketService.create(eventId, {
-        title: ticket.title || '',
-        amount: ticket.amount,
-        participant_max: ticket.participant_max,
-        member_only: ticket.member_only,
-        event_id: eventId,
-      } as any),
-    );
-  }
-
-  for (const ticket of toDelete) {
-    operations.push(ticketService.delete(eventId, Number(ticket.id)));
-  }
-
-  if (!operations.length) {
-    return of([]);
-  }
-
-  return forkJoin(operations);
-}
-
-export function syncParticipantFields(params: {
-  eventId: number;
-  participantFields: Partial<ParticipantField>[];
-  current: Partial<ParticipantField>[];
-  participantFieldService: ParticipantFieldService;
-}): Observable<unknown[]> {
-  const { eventId, participantFields, current, participantFieldService } = params;
-
-  const requestedExistingIds = new Set(
-    participantFields.filter((field) => Number(field.id) > 0).map((field) => Number(field.id)),
-  );
-
-  const toDelete = current.filter((field) => !requestedExistingIds.has(Number(field.id)));
-  const toCreate = participantFields.filter((field) => field.id === undefined || Number(field.id) <= 0);
-
-  const operations: Observable<unknown>[] = [];
-
-  for (const field of toCreate) {
-    operations.push(
-      participantFieldService.create(eventId, {
-        label: field.label,
-        type: field.type,
-        required: field.required,
-        options: field.options,
-        description: field.description,
-        tickets: field.tickets,
-        event_id: eventId,
-      } as any),
-    );
-  }
-
-  for (const field of toDelete) {
-    operations.push(participantFieldService.delete(eventId, Number(field.id)));
-  }
-
-  if (!operations.length) {
-    return of([]);
+    for (const item of toSkip) {
+      operations.push(of(item));
+    }
   }
 
   return forkJoin(operations);
