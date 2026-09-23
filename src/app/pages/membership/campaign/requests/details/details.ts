@@ -21,4 +21,14 @@ export class Details {
   onDiscountChange(discountAmount: number) {
     this.dispatcher.dispatch(membershipRequestDetailsEvents.setDiscountAmount({ discountAmount }));
   }
+
+  onSendInvoiceEmail() {
+    const campaignId = this.store.campaignId();
+    const id = this.store.id();
+    if (campaignId == null || id == null) {
+      return;
+    }
+
+    this.dispatcher.dispatch(membershipRequestDetailsEvents.sendInvoiceEmail({ campaignId, id }));
+  }
 }

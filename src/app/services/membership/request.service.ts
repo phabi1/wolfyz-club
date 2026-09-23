@@ -99,6 +99,15 @@ export class RequestService {
       .pipe(map(() => undefined));
   }
 
+  public sendInvoiceEmail(campaignId: number, id: number): Observable<void> {
+    return this.httpClient
+      .post<{ success: boolean }>(
+        `${this.endpoint}/membership/campaigns/${campaignId}/requests/${id}/invoice/send-email`,
+        {},
+      )
+      .pipe(map(() => undefined));
+  }
+
   public calculatePay(
     campaignId: number,
     data: any,

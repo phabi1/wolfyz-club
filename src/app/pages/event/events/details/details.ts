@@ -28,6 +28,12 @@ export class Details {
         this.router.navigate(['configure'], { relativeTo: this.route });
       },
     },
+    {
+      label: 'Copy',
+      handler: () => {
+        this.router.navigate(['copy'], { relativeTo: this.route });
+      },
+    },
   ];
 
   public participantColums: DatagridColumn[] = [

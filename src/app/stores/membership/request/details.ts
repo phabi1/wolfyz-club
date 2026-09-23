@@ -26,6 +26,8 @@ type State = {
   pay: RequestPay;
   discountAmount: number;
   calculating: boolean;
+  sendingInvoiceEmail: boolean;
+  invoiceEmailSent: boolean;
   loading: boolean;
   error: any | null;
 };
@@ -38,6 +40,8 @@ const initialState: State = {
   pay: { pricing_breakdown: [], total_amount: 0, currency: '' },
   discountAmount: 0,
   calculating: true,
+  sendingInvoiceEmail: false,
+  invoiceEmailSent: false,
   loading: false,
   error: null,
 };
@@ -67,6 +71,9 @@ export const membershipRequestDetailsEvents = eventGroup({
       pay: RequestPay;
     }>(),
     calculatePayFailure: type<{ error: any }>(),
+    sendInvoiceEmail: type<{ campaignId: number; id: number }>(),
+    sendInvoiceEmailSuccess: type<void>(),
+    sendInvoiceEmailFailure: type<{ error: any }>(),
   },
 });
 
@@ -106,6 +113,7 @@ export const membershipRequestDetails = signalStore(
     ),
     on(membershipRequestDetailsEvents.setDiscountAmount, ({ payload: { discountAmount } }) => ({
       discountAmount,
+      invoiceEmailSent: false,
     })),
     on(membershipRequestDetailsEvents.changeStatus, () => ({ loading: true, error: null })),
     on(membershipRequestDetailsEvents.calculatePay, () => ({ calculating: true, error: null })),
@@ -117,6 +125,20 @@ export const membershipRequestDetails = signalStore(
       calculating: false,
       error,
     })),
+    on(membershipRequestDetailsEvents.sendInvoiceEmail, () => ({
+      sendingInvoiceEmail: true,
+      invoiceEmailSent: false,
+      error: null,
+    })),
+    on(membershipRequestDetailsEvents.sendInvoiceEmailSuccess, () => ({
+      sendingInvoiceEmail: false,
+      invoiceEmailSent: true,
+    })),
+    on(membershipRequestDetailsEvents.sendInvoiceEmailFailure, ({ payload: { error } }) => ({
+      sendingInvoiceEmail: false,
+      invoiceEmailSent: false,
+      error,
+    })),
     on(
       membershipRequestDetailsEvents.loadSuccess,
       ({ payload: { item, discountAmount, history } }) => ({
@@ -124,6 +146,7 @@ export const membershipRequestDetails = signalStore(
         item,
         discountAmount,
         history,
+        invoiceEmailSent: false,
       }),
     ),
     on(membershipRequestDetailsEvents.loadFailure, ({ payload: { error } }) => ({
@@ -284,6 +307,16 @@ export const membershipRequestDetails = signalStore(
               }),
             );
           }),
+        ),
+        sendInvoiceEmail$: events.on(membershipRequestDetailsEvents.sendInvoiceEmail).pipe(
+          switchMap(({ payload: { campaignId, id } }) =>
+            requestService.sendInvoiceEmail(campaignId, +id).pipe(
+              mapResponse({
+                next: () => membershipRequestDetailsEvents.sendInvoiceEmailSuccess(),
+                error: (error) => membershipRequestDetailsEvents.sendInvoiceEmailFailure({ error }),
+              }),
+            ),
+          ),
         ),
       };
     },

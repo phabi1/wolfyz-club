@@ -1,0 +1,19 @@
+<h2 mat-dialog-title i18n="@@event.events.copy.dialog.title">Copy event</h2>
+<mat-dialog-content>
+  <mat-form-field appearance="outline" class="w-full">
+    <mat-label i18n="@@event.events.copy.dialog.nameLabel">New event name</mat-label>
+    <input
+      matInput
+      type="text"
+      [formControl]="titleControl"
+      i18n-placeholder="@@event.events.copy.dialog.namePlaceholder"
+      placeholder="Event title"
+    />
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button type="button" (click)="onCancel()" i18n="@@common.button.cancel">Cancel</button>
+  <button mat-raised-button color="primary" type="button" (click)="onSubmit()" i18n="@@common.button.copy">
+    Copy
+  </button>
+</mat-dialog-actions>

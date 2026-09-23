@@ -172,17 +172,23 @@ export const routes: Routes = [
           },
           {
             path: ':eventId',
-            loadComponent: () => import('./pages/event/events/details/details').then((m) => m.Details),
+            loadComponent: () =>
+              import('./pages/event/events/details/details').then((m) => m.Details),
             children: [
               {
                 path: 'participant/:participantId',
                 loadComponent: () => import('./pages/event/events/info/info').then((m) => m.Info),
               },
+              {
+                path: 'copy',
+                loadComponent: () => import('./pages/event/events/copy/copy').then((m) => m.Copy),
+              },
             ],
           },
           {
             path: ':eventId/configure',
-            loadComponent: () => import('./pages/event/events/configure/configure').then((m) => m.Configure),
+            loadComponent: () =>
+              import('./pages/event/events/configure/configure').then((m) => m.Configure),
           },
         ],
       },

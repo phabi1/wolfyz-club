@@ -34,6 +34,8 @@ const initialState: State = {
   columns: [
     { name: 'id', header: 'ID' },
     { name: 'title', header: 'Title', data: 'title' },
+    { name: 'event_start', header: 'Start Date', data: 'event_start', type: 'date' },
+    { name: 'event_end', header: 'End Date', data: 'event_end', type: 'date' },
     {
       name: 'participant_nb',
       header: 'Participants',
@@ -145,8 +147,8 @@ export const eventEventList = signalStore(
 
             const page = store.page();
             const size = store.size();
-            const sort = store.sort();
-            const order = store.order();
+            let sort = store.sort();
+            let order = store.order();
             const search = store.search();
 
             params['page'] = page;

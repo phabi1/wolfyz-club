@@ -15,12 +15,20 @@
     }
   </div>
   @if (!calculating()) {
-    <div class="flex justify-between items-center mb-4">
-      <mat-form-field>
-        <input matInput type="number" [placeholder]="enterAmountLabel" [value]="value()" (input)="onValueChange($event.target.value)" />
-      </mat-form-field>
-      <button type="button" mat-button (click)="applyDiscount()">{{ applyLabel }}</button>
-    </div>
+    @if (status() === 'pending') {
+      <div class="flex justify-between items-center mb-4">
+        <mat-form-field>
+          <input
+            matInput
+            type="number"
+            [placeholder]="enterAmountLabel"
+            [value]="value()"
+            (input)="onValueChange($event.target.value)"
+          />
+        </mat-form-field>
+        <button type="button" mat-button (click)="applyDiscount()">{{ applyLabel }}</button>
+      </div>
+    }
   }
   <div class="flex justify-between">
     <span i18n="@@membership.requests.pay.totalToPay">Total to pay</span>
@@ -30,4 +38,17 @@
       <span class="font-bold">{{ totalAmount() | amount }}</span>
     }
   </div>
+  @if (status() === 'approved' || status() === 'paid') {
+    <div class="mt-4 flex items-center gap-3">
+      <button
+        type="button"
+        mat-flat-button
+        color="primary"
+        [disabled]="sendingInvoiceEmail()"
+        (click)="onSendInvoiceEmail()"
+      >
+        {{ sendingInvoiceEmail() ? sendingInvoiceEmailLabel : sendInvoiceEmailLabel }}
+      </button>
+    </div>
+  }
 </div>

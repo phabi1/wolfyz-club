@@ -43,6 +43,16 @@ export class List {
         ]);
       },
     },
+    {
+      label: $localize`:@@common.button.copy:Copy`,
+      handler: (row: Event) => {
+        this.router.navigate([
+          '/event/events',
+          row.id,
+          'copy',
+        ]);
+      },
+    },
   ];
 
   onRowClick(row: Event) {

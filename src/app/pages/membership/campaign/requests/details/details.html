@@ -14,7 +14,7 @@
     </div>
     <aside class="request-layout-side" aria-label="Actions and history" i18n-aria-label="@@membership.requests.details.actionsAndHistory">
         <app-membership-request-details-status-switcher></app-membership-request-details-status-switcher>
-        <app-membership-request-details-request-pay [pay]="store.pay()" [calculating]="store.calculating()" (discountChange)="onDiscountChange($event)"></app-membership-request-details-request-pay>
+        <app-membership-request-details-request-pay [status]="item.status" [pay]="store.pay()" [calculating]="store.calculating()" [sendingInvoiceEmail]="store.sendingInvoiceEmail()" [invoiceEmailSent]="store.invoiceEmailSent()" (discountChange)="onDiscountChange($event)" (sendInvoiceEmail)="onSendInvoiceEmail()"></app-membership-request-details-request-pay>
         <app-membership-request-details-status-history [history]="store.history()"></app-membership-request-details-status-history>
       </aside>
     </div>
