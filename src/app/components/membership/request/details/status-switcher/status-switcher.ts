@@ -4,9 +4,12 @@ import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { Dispatcher } from '@ngrx/signals/events';
-import { membershipRequestDetails, membershipRequestDetailsEvents } from '../../../../../stores/membership/request/details';
+import {
+  membershipRequestDetails,
+  membershipRequestDetailsEvents,
+} from '../../../../../stores/membership/request/details';
 import { ConfirmDialogService } from '../../../../../services/ui/confirm-dialog.service';
-import { firstValueFrom } from 'rxjs';
+import { firstValueFrom, Subject } from 'rxjs';
 
 type StatusChangeAction = 'approved' | 'rejected' | 'canceled' | 'paid';
 
@@ -22,6 +25,8 @@ export class StatusSwitcher {
   private readonly confirmDialogService = inject(ConfirmDialogService);
   private readonly snackBar = inject(MatSnackBar);
 
+  private _availableStatusesSubject = new Subject<{ value: StatusChangeAction; label: string }[]>();
+
   readonly store = inject(membershipRequestDetails);
   readonly submitError = signal<string | null>(null);
   readonly submitInProgress = signal(false);
@@ -35,6 +40,10 @@ export class StatusSwitcher {
     paid: $localize`:@@membership.requests.statusSwitcher.labelPaid:marked as paid`,
   };
 
+  get availableStatuses() {
+    return this._availableStatusesSubject.asObservable();
+  }
+
   form = new FormGroup({});
   model: { status: StatusChangeAction | ''; reason: string } = { status: '', reason: '' };
   fields: FormlyFieldConfig[] = [
@@ -45,21 +54,7 @@ export class StatusSwitcher {
         label: $localize`:@@membership.requests.statusSwitcher.newStatus:New status`,
         placeholder: $localize`:@@membership.requests.statusSwitcher.statusPlaceholder:Select a status`,
         required: true,
-        options: [
-          {
-            value: 'approved',
-            label: $localize`:@@membership.requests.status.approved:Approved`,
-          },
-          {
-            value: 'rejected',
-            label: $localize`:@@membership.requests.status.rejected:Rejected`,
-          },
-          {
-            value: 'canceled',
-            label: $localize`:@@membership.requests.status.canceled:Canceled`,
-          },
-          { value: 'paid', label: $localize`:@@membership.requests.status.paid:Paid` },
-        ],
+        options: this.availableStatuses,
       },
     },
     {
@@ -74,6 +69,7 @@ export class StatusSwitcher {
   ];
 
   constructor() {
+    effect(() => this.updateStatuses(this.store.item()?.status || 'pending'));
     effect(() => {
       if (!this.submitInProgress()) {
         return;
@@ -95,7 +91,7 @@ export class StatusSwitcher {
           $localize`:@@membership.requests.statusSwitcher.changeError:Error while changing status.`,
           $localize`:@@common.button.close:Close`,
           {
-          duration: 5000,
+            duration: 5000,
           },
         );
       } else {
@@ -107,7 +103,7 @@ export class StatusSwitcher {
           `${$localize`:@@membership.requests.statusSwitcher.changeSuccess:Status`} ${label} ${$localize`:@@membership.requests.statusSwitcher.successSuffix:successfully.`}`,
           $localize`:@@common.button.close:Close`,
           {
-          duration: 3000,
+            duration: 3000,
           },
         );
         this.form.reset();
@@ -164,7 +160,9 @@ export class StatusSwitcher {
     );
   }
 
-  private async confirmSensitiveAction(status: Extract<StatusChangeAction, 'rejected' | 'canceled'>): Promise<boolean> {
+  private async confirmSensitiveAction(
+    status: Extract<StatusChangeAction, 'rejected' | 'canceled'>,
+  ): Promise<boolean> {
     const result = await firstValueFrom(
       this.confirmDialogService.confirm({
         title:
@@ -182,5 +180,30 @@ export class StatusSwitcher {
     );
 
     return result === true;
+  }
+
+  private updateStatuses(currentStatus: string) {
+    switch (currentStatus) {
+      case 'pending':
+        this._availableStatusesSubject.next([
+          { value: 'approved', label: 'Approuvé' },
+          { value: 'rejected', label: 'Rejeté' },
+          { value: 'canceled', label: 'Annulé' },
+        ]);
+        break;
+      case 'approved':
+        this._availableStatusesSubject.next([
+          { value: 'paid', label: 'Payé' },
+          { value: 'canceled', label: 'Annulé' },
+        ]);
+        break;
+      case 'rejected':
+      case 'canceled':
+      case 'paid':
+        this._availableStatusesSubject.next([{ value: 'approved', label: 'Approuvé' }]);
+        break;
+      default:
+        this._availableStatusesSubject.next([]);
+    }
   }
 }
