@@ -11,10 +11,22 @@ import {
   withEventHandlers,
   withReducer,
 } from '@ngrx/signals/events';
-import { combineLatest, forkJoin, map, merge, Observable, of, switchMap, tap } from 'rxjs';
+import {
+  combineLatest,
+  distinctUntilChanged,
+  forkJoin,
+  map,
+  merge,
+  Observable,
+  of,
+  switchMap,
+  tap,
+} from 'rxjs';
 import { RequestService } from '../../../services/membership/request.service';
 import { RequestDetails } from '../../../models/membership/request-details';
 import { MemberService } from '../../../services/membership/member.service';
+import { Lesson } from '../../../models/membership/lesson';
+import { LessonService } from '../../../services/membership/lesson.service';
 
 type StatusChangeAction = 'approved' | 'rejected' | 'canceled' | 'paid';
 
@@ -28,8 +40,10 @@ type State = {
   calculating: boolean;
   sendingInvoiceEmail: boolean;
   invoiceEmailSent: boolean;
+  initializing: boolean;
   loading: boolean;
   error: any | null;
+  lessons: Lesson[];
 };
 
 const initialState: State = {
@@ -39,17 +53,22 @@ const initialState: State = {
   history: [],
   pay: { pricing_breakdown: [], total_amount: 0, currency: '' },
   discountAmount: 0,
+  initializing: true,
   calculating: true,
   sendingInvoiceEmail: false,
   invoiceEmailSent: false,
   loading: false,
   error: null,
+  lessons: [],
 };
 
 export const membershipRequestDetailsEvents = eventGroup({
   source: 'Membership Request Details',
   events: {
-    load: type<{ campaignId: number; id: number }>(),
+    init: type<{ campaignId: number }>(),
+    initSuccess: type<{ lessons: Lesson[] }>(),
+    initFailure: type<{ error: any }>(),
+    load: type<{ id: number }>(),
     loadSuccess: type<{ item: RequestDetails; discountAmount: number; history: any[] }>(),
     loadFailure: type<{ error: any }>(),
     setStatusOfMember: type<{
@@ -80,9 +99,22 @@ export const membershipRequestDetailsEvents = eventGroup({
 export const membershipRequestDetails = signalStore(
   withState(initialState),
   withReducer(
-    on(membershipRequestDetailsEvents.load, ({ payload: { campaignId, id } }) => ({
-      loading: true,
+    on(membershipRequestDetailsEvents.init, ({ payload: { campaignId } }) => ({
       campaignId,
+      initializing: true,
+      error: null,
+    })),
+    on(membershipRequestDetailsEvents.initSuccess, ({ payload: { lessons } }) => ({
+      lessons,
+      initializing: false,
+      error: null,
+    })),
+    on(membershipRequestDetailsEvents.initFailure, ({ payload: { error } }) => ({
+      initializing: false,
+      error,
+    })),
+    on(membershipRequestDetailsEvents.load, ({ payload: { id } }) => ({
+      loading: true,
       id,
       error: null,
     })),
@@ -160,6 +192,7 @@ export const membershipRequestDetails = signalStore(
       events = inject(Events),
       requestService = inject(RequestService),
       memberService = inject(MemberService),
+      lessonService = inject(LessonService),
     ) => {
       // Keep this helper local so both `load$` and `changeStatus$` refresh with identical logic.
       const refreshDetails = ({ campaignId, id }: { campaignId: number; id: number }) =>
@@ -194,9 +227,32 @@ export const membershipRequestDetails = signalStore(
         );
 
       return {
+        init$: events.on(membershipRequestDetailsEvents.init).pipe(
+          switchMap(({ payload: { campaignId } }) =>
+            lessonService
+              .items(campaignId, {
+                size: 200,
+                fields: [
+                  'id',
+                  'title',
+                  'day',
+                  'lesson_start',
+                  'lesson_end',
+                  'participant_max',
+                  'participant_nb',
+                ],
+              })
+              .pipe(
+                mapResponse({
+                  next: (res) => membershipRequestDetailsEvents.initSuccess({ lessons: res.items }),
+                  error: (error) => membershipRequestDetailsEvents.initFailure({ error }),
+                }),
+              ),
+          ),
+        ),
         load$: events.on(membershipRequestDetailsEvents.load).pipe(
-          switchMap(({ payload: { campaignId, id } }) =>
-            refreshDetails({ campaignId, id }).pipe(
+          switchMap(({ payload: { id } }) =>
+            refreshDetails({ campaignId: state.campaignId() || 0, id }).pipe(
               mapResponse({
                 next: (event) => event,
                 error: (error) => membershipRequestDetailsEvents.loadFailure({ error }),
@@ -323,11 +379,21 @@ export const membershipRequestDetails = signalStore(
   ),
   withHooks({
     onInit(store, dispatcher = inject(Dispatcher), route = inject(ActivatedRoute)) {
-      const subscription = combineLatest([of(2), route.params]).subscribe(([value, params]) => {
+      console.log(route.snapshot.params);
+      const subscription = combineLatest([
+        route.params.pipe(
+          map((params) => params['campaignId']),
+          distinctUntilChanged(),
+        ),
+        route.params.pipe(
+          map((params) => params['requestId']),
+          distinctUntilChanged(),
+        ),
+      ]).subscribe(([campaignId, requestId]) => {
+        dispatcher.dispatch(membershipRequestDetailsEvents.init({ campaignId }));
         dispatcher.dispatch(
           membershipRequestDetailsEvents.load({
-            campaignId: value,
-            id: params['requestId'],
+            id: requestId,
           }),
         );
       });

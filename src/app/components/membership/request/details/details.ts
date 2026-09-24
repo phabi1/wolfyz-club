@@ -2,17 +2,21 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { RequestDetails } from '../../../../models/membership/request-details';
 import { Participants } from "./info/participants/participants";
 import { Badge } from '../../../ui/badge/badge';
+import { Lesson } from '../../../../models/membership/lesson';
+import { NotProvidedPipe } from '../../../../pipes/not-provided-pipe';
+import { Details as UiDetails } from '../../../ui/details/details';
+import { DetailItem } from '../../../ui/details/detail-item';
 
 @Component({
   selector: 'app-membership-request-details',
-  imports: [Participants, Badge],
+  imports: [Participants, Badge, NotProvidedPipe, UiDetails, DetailItem],
   templateUrl: './details.html',
   styleUrls: ['./details.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Details {
   item = input.required<RequestDetails>();
-  readonly notProvidedLabel = $localize`:@@membership.requests.notProvided:Not provided`;
+  lessons = input.required<Lesson[]>();
 
   readonly statusLabels: Record<RequestDetails['status'], string> = {
     pending: $localize`:@@membership.requests.status.pending:Pending`,
@@ -25,12 +29,12 @@ export class Details {
 
   formatDate(value: Date | string | null | undefined): string {
     if (!value) {
-      return this.notProvidedLabel;
+      return  '';
     }
 
     const parsed = value instanceof Date ? value : new Date(value);
     if (Number.isNaN(parsed.getTime())) {
-      return this.notProvidedLabel;
+      return  '';
     }
 
     return new Intl.DateTimeFormat('fr-FR').format(parsed);

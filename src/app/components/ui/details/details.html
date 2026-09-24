@@ -1,4 +1,10 @@
-<dl class="grid grid-cols-1 gap-x-5 gap-y-4 md:grid-cols-2 xl:grid-cols-3">
+<dl
+  [class]="
+    oneColumn()
+      ? 'grid grid-cols-1 gap-x-5 gap-y-4'
+      : 'grid grid-cols-1 gap-x-5 gap-y-4 md:grid-cols-2 xl:grid-cols-3'
+  "
+>
   @for (item of items(); track $index) {
     <div>
       <dt

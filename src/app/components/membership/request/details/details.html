@@ -4,40 +4,20 @@
       <span i18n="@@membership.requests.summary.title">Request summary</span>
     </h2>
 
-    <dl class="grid grid-cols-1 gap-x-5 gap-y-4 md:grid-cols-2">
-      <div>
-        <dt class="m-0 text-xs uppercase tracking-[0.04em] text-slate-500" i18n="@@membership.requests.summary.identifier">Identifier</dt>
-        <dd class="mt-1 text-[0.95rem] font-medium text-slate-900 wrap-break-word">{{ item().id }}</dd>
-      </div>
-      <div>
-        <dt class="m-0 text-xs uppercase tracking-[0.04em] text-slate-500" i18n="@@membership.requests.summary.campaign">Campaign</dt>
-        <dd class="mt-1 text-[0.95rem] font-medium text-slate-900 wrap-break-word">
-          <app-ui-badge [label]="'#' + item().campaign_id"></app-ui-badge>
-        </dd>
-      </div>
-      <div>
-        <dt class="m-0 text-xs uppercase tracking-[0.04em] text-slate-500" i18n="@@membership.requests.summary.status">Status</dt>
-        <dd class="mt-1 inline-flex items-center rounded-full border border-slate-300 px-2.5 py-0.5 text-[0.82rem] font-semibold text-slate-900">
-          {{ statusLabels[item().status] }}
-        </dd>
-      </div>
-      <div>
-        <dt class="m-0 text-xs uppercase tracking-[0.04em] text-slate-500" i18n="@@membership.requests.summary.requester">Requester</dt>
-        <dd class="mt-1 text-[0.95rem] font-medium text-slate-900 wrap-break-word">
-          {{ item().firstname }} {{ item().lastname }}
-        </dd>
-      </div>
-      <div>
-        <dt class="m-0 text-xs uppercase tracking-[0.04em] text-slate-500" i18n="@@membership.requests.summary.primaryEmail">Primary email</dt>
-        <dd class="mt-1 text-[0.95rem] font-medium text-slate-900 wrap-break-word">
-          {{ item().email || notProvidedLabel }}
-        </dd>
-      </div>
-      <div>
-        <dt class="m-0 text-xs uppercase tracking-[0.04em] text-slate-500" i18n="@@membership.requests.summary.paymentDate">Payment date</dt>
-        <dd class="mt-1 text-[0.95rem] font-medium text-slate-900 wrap-break-word">{{ formatDate(item().payed_at) }}</dd>
-      </div>
-    </dl>
+    <app-ui-details>
+      <ng-template appUiDetailItem label="Identifier" i18n-label="@@membership.requests.summary.identifier">
+        {{ item().id }}
+      </ng-template>
+      <ng-template appUiDetailItem label="Status" i18n-label="@@membership.requests.summary.status">
+        {{ statusLabels[item().status] }}
+      </ng-template>
+      <ng-template appUiDetailItem label="Creation date" i18n-label="@@membership.requests.summary.creationDate">
+        {{ formatDate(item().created_at) | notProvided }}
+      </ng-template>
+      <ng-template appUiDetailItem label="Payment date" i18n-label="@@membership.requests.summary.paymentDate">
+        {{ formatDate(item().payed_at) }}
+      </ng-template>
+    </app-ui-details>
   </section>
 
   <section class="paper" aria-labelledby="request-contact-title">
@@ -45,30 +25,23 @@
       <span i18n="@@membership.requests.contact.title">Primary contact</span>
     </h2>
 
-    <dl class="grid grid-cols-1 gap-x-5 gap-y-4 md:grid-cols-2">
-      <div>
-        <dt class="m-0 text-xs uppercase tracking-[0.04em] text-slate-500" i18n="@@membership.requests.contact.firstName">First name</dt>
-        <dd class="mt-1 text-[0.95rem] font-medium text-slate-900 wrap-break-word">{{ item().data.contact.firstname || item().firstname }}</dd>
-      </div>
-      <div>
-        <dt class="m-0 text-xs uppercase tracking-[0.04em] text-slate-500" i18n="@@membership.requests.contact.lastName">Last name</dt>
-        <dd class="mt-1 text-[0.95rem] font-medium text-slate-900 wrap-break-word">{{ item().data.contact.lastname || item().lastname }}</dd>
-      </div>
-      <div>
-        <dt class="m-0 text-xs uppercase tracking-[0.04em] text-slate-500" i18n="@@membership.requests.contact.email">Email</dt>
-        <dd class="mt-1 text-[0.95rem] font-medium text-slate-900 wrap-break-word">
-          {{ item().data.contact.email || item().email || notProvidedLabel }}
-        </dd>
-      </div>
-      <div>
-        <dt class="m-0 text-xs uppercase tracking-[0.04em] text-slate-500" i18n="@@membership.requests.contact.phone">Phone</dt>
-        <dd class="mt-1 text-[0.95rem] font-medium text-slate-900 wrap-break-word">
-          {{ item().data.contact.phone || notProvidedLabel }}
-        </dd>
-      </div>
-    </dl>
+    <app-ui-details>
+      <ng-template appUiDetailItem label="First name" i18n-label="@@membership.requests.contact.firstName">
+        {{ item().data.contact.firstname || item().firstname }}
+      </ng-template>
+      <ng-template appUiDetailItem label="Last name" i18n-label="@@membership.requests.contact.lastName">
+        {{ item().data.contact.lastname || item().lastname }}
+      </ng-template>
+      <ng-template appUiDetailItem label="Email" i18n-label="@@membership.requests.contact.email">
+        {{ (item().data.contact.email || item().email) | notProvided }}
+      </ng-template>
+      <ng-template appUiDetailItem label="Phone" i18n-label="@@membership.requests.contact.phone">
+        {{ item().data.contact.phone | notProvided }}
+      </ng-template>
+    </app-ui-details>
   </section>
   <app-membership-request-details-info-participants
     [participants]="item().data.participants"
+    [lessons]="lessons()"
   ></app-membership-request-details-info-participants>
 </div>

@@ -156,6 +156,7 @@ export class RequestService {
     return {
       ...data,
       payed_at: new Date(data['payed_at']),
+      created_at: new Date(data['created_at']),
     } as Request;
   }
 }

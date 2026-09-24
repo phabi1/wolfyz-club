@@ -1,5 +1,5 @@
 import { NgTemplateOutlet } from "@angular/common";
-import { Component, contentChildren } from '@angular/core';
+import { Component, contentChildren, input } from '@angular/core';
 import { DetailItem } from './detail-item';
 
 @Component({
@@ -10,4 +10,5 @@ import { DetailItem } from './detail-item';
 })
 export class Details {
   items = contentChildren<DetailItem>(DetailItem);
+  oneColumn = input(false);
 }
