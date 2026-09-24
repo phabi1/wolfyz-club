@@ -198,10 +198,8 @@ export class StatusSwitcher {
         ]);
         break;
       case 'rejected':
-      case 'canceled':
-      case 'paid':
         this._availableStatusesSubject.next([{ value: 'approved', label: 'Approuvé' }]);
-        break;
+        break;  
       default:
         this._availableStatusesSubject.next([]);
     }
