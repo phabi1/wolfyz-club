@@ -4,6 +4,7 @@ import { map, Observable } from 'rxjs';
 import type { Request } from '../../models/membership/request';
 import { ConfigService } from '../config.service';
 import type { RequestPay } from '../../models/membership/request-pay';
+import { PaginationOptions } from '../../models/pagination/options';
 
 @Injectable({
   providedIn: 'root',
@@ -18,10 +19,35 @@ export class RequestService {
     this.endpoint = this.configService.get('api.endpoint');
   }
 
-  public items(campaignId: number): Observable<{ items: Request[]; total: number }> {
+  public items(
+    campaignId: number,
+    options?: PaginationOptions,
+  ): Observable<{ items: Request[]; total: number }> {
+    const params: any = {};
+    if (options?.page !== undefined) params.page = options.page;
+    if (options?.size !== undefined) params.size = options.size;
+    if (options?.sort) params.sort = options.sort;
+    if (options?.search) params.search = options.search;
+    if (options?.filters) {
+      let filters: string[] = [];
+      Object.entries(options.filters).forEach(([key, value]) => {
+        if (typeof value === 'object' && value !== null) {
+          Object.entries(value).forEach(([operator, subValue]) => {
+            filters.push(`${key}:${operator}:${subValue}`);
+          });
+        } else if (value !== '') {
+          filters.push(`${key}:like:${value}`);
+        }
+      });
+      params.filters = filters.join(';');
+    }
+    if (options?.fields) {
+      params.fields = options.fields.join(',');
+    }
     return this.httpClient
       .get<{ items: Request[]; total: number }>(
         `${this.endpoint}/membership/campaigns/${campaignId}/requests`,
+        { params },
       )
       .pipe(
         map((response) => ({
