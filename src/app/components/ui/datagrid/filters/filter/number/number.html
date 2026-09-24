@@ -1,0 +1,27 @@
+<div class="range-filter">
+  <p class="range-filter-label">{{ label() }}</p>
+
+  <div class="number-range-fields">
+    <mat-form-field class="w-full compact-field">
+      <mat-label>Min</mat-label>
+      <input
+        matInput
+        id="datagrid-filter-{{ name() }}-min"
+        type="number"
+        [value]="parsedMin()"
+        (input)="onMinChange($any($event.target).value)"
+      />
+    </mat-form-field>
+
+    <mat-form-field class="w-full compact-field">
+      <mat-label>Max</mat-label>
+      <input
+        matInput
+        id="datagrid-filter-{{ name() }}-max"
+        type="number"
+        [value]="parsedMax()"
+        (input)="onMaxChange($any($event.target).value)"
+      />
+    </mat-form-field>
+  </div>
+</div>

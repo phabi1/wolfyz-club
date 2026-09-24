@@ -24,10 +24,12 @@ export class Datagrid {
   pageSize = input<number>(10);
   quickSearch = input<boolean>(false);
   search = input('');
+  filters = input<any>({});
 
   rowClick = output<{row: any}>();
   paginationChange = output<{page: number, size: number}>();
   searchChange = output<string>();
+  filtersChange = output<any>();
 
   hasBulkActions = computed(() => this.bulkActions().length > 0); 
 
@@ -37,6 +39,10 @@ export class Datagrid {
 
   onSearchChange(event: string) {
     this.searchChange.emit(event);
+  }
+  
+  onFiltersChange(event: any) {
+    this.filtersChange.emit(event);
   }
   
   onPaginationChange(event: {page: number, size: number}) {

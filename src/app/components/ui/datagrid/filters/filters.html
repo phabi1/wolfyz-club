@@ -1,43 +1,95 @@
-<div class="grid gap-3 lg:grid-cols-2">
-  @if (quickSearch()) {
-    <section class="filter-block" aria-label="Recherche rapide">
-      <p class="filter-block-title">Recherche rapide</p>
-      <div class="relative w-full">
-        <label for="datagrid-search" class="sr-only">Recherche</label>
-        <input
-          id="datagrid-search"
-          type="search"
-          [value]="search()"
-          (input)="onValueChange($event.target.value)"
-          placeholder="Rechercher dans le tableau"
-          class="w-full rounded-xl border border-slate-300 bg-white px-3 py-2 text-sm text-slate-800 shadow-sm outline-none transition focus:border-sky-400 focus:ring-2 focus:ring-sky-100"
-        />
+<div class="flex flex-col gap-4">
+  @if (quickSearch() || hasAdvancedFilters()) {
+    <section class="filter-block" aria-label="Recherche et filtres">
+      <div class="filters-header">
+        <p class="filter-block-title">Recherche</p>
       </div>
-    </section>
-  }
-
-  @if (hasAdvancedFilters()) {
-    <section class="filter-block" aria-label="Filtres avancés">
-      <p class="filter-block-title">Filtres avancés</p>
-      <div class="flex flex-col gap-2 sm:flex-row sm:items-center">
-        <label for="datagrid-status" class="sr-only">Filtre statut</label>
-        <select
-          id="datagrid-status"
-          class="rounded-xl border border-slate-300 bg-white px-3 py-2 text-sm font-medium text-slate-700 shadow-sm outline-none transition focus:border-sky-400 focus:ring-2 focus:ring-sky-100"
-        >
-          <option>Tous statuts</option>
-          <option>Actif</option>
-          <option>En attente</option>
-          <option>Archivé</option>
-        </select>
-
-        <button
-          type="button"
-          class="rounded-xl border border-slate-300 bg-white px-3 py-2 text-sm font-semibold text-slate-700 transition-colors hover:border-slate-400 hover:bg-slate-50"
-        >
-          Réinitialiser
-        </button>
+      <div class="flex flex-row justify-between items-center gap-4">
+        <div class="flex-1">
+          @if (quickSearch()) {
+            <mat-form-field class="w-full">
+              <input
+                matInput
+                id="datagrid-search"
+                type="search"
+                [value]="search()"
+                (input)="onValueChange($any($event.target).value)"
+                placeholder="Rechercher dans le tableau"
+              />
+            </mat-form-field>
+          }
+        </div>
+        <div class="shrink-0 pb-4">
+          @if (hasAdvancedFilters()) {
+            <button
+              mat-icon-button
+              type="button"
+              [attr.aria-expanded]="showAdvancedFilters()"
+              [attr.aria-label]="
+                showAdvancedFilters() ? 'Masquer les filtres' : 'Afficher les filtres'
+              "
+              [attr.title]="showAdvancedFilters() ? 'Masquer les filtres' : 'Afficher les filtres'"
+              aria-controls="advanced-filters-panel"
+              (click)="toggleAdvancedFilters()"
+            >
+              <mat-icon aria-hidden="true">filter_list</mat-icon>
+            </button>
+          }
+        </div>
       </div>
+
+      @if (hasAdvancedFilters() && showAdvancedFilters()) {
+        <div
+          id="advanced-filters-panel"
+          class="filters-rows"
+          role="group"
+          aria-label="Liste des filtres avancés"
+        >
+          @for (row of advancedFilterRows(); track row.row) {
+            <div class="filters-row" [attr.data-row]="row.row">
+              @for (filter of row.filters; track filter.name) {
+                <div class="filter-row-item">
+                  @switch (filter.type) {
+                    @case ('select') {
+                      <app-ui-datagrid-filters-filter-select
+                        [name]="filter.name"
+                        [label]="filter.label"
+                        [value]="filters()[filter.name]"
+                        [values]="$any(filter.options).values"
+                        (valueChange)="onFilterChange(filter.name, $event)"
+                      ></app-ui-datagrid-filters-filter-select>
+                    }
+                    @case ('text') {
+                      <app-ui-datagrid-filters-filter-text
+                        [name]="filter.name"
+                        [label]="filter.label"
+                        [value]="filters()[filter.name]"
+                        (valueChange)="onFilterChange(filter.name, $event)"
+                      ></app-ui-datagrid-filters-filter-text>
+                    }
+                    @case ('date') {
+                      <app-ui-datagrid-filters-filter-date
+                        [name]="filter.name"
+                        [label]="filter.label"
+                        [value]="filters()[filter.name]"
+                        (valueChange)="onFilterChange(filter.name, $event)"
+                      ></app-ui-datagrid-filters-filter-date>
+                    }
+                    @case ('number') {
+                      <app-ui-datagrid-filters-filter-number
+                        [name]="filter.name"
+                        [label]="filter.label"
+                        [value]="filters()[filter.name]"
+                        (valueChange)="onFilterChange(filter.name, $event)"
+                      ></app-ui-datagrid-filters-filter-number>
+                    }
+                  }
+                </div>
+              }
+            </div>
+          }
+        </div>
+      }
     </section>
   }
 </div>

@@ -1,0 +1,16 @@
+.range-filter {
+	display: flex;
+	flex-direction: column;
+	gap: 0.25rem;
+}
+
+.range-filter-label {
+	margin: 0;
+	font-size: 0.75rem;
+	font-weight: 600;
+	color: #475569;
+}
+
+.compact-field {
+	font-size: 0.875rem;
+}

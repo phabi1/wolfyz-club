@@ -2,7 +2,10 @@
   <app-ui-datagrid-filters
     [quickSearch]="quickSearch()"
     [search]="search()"
+    [columns]="columns()"
     (searchChange)="onSearchChange($event)"
+    [filters]="filters()"
+    (filtersChange)="onFiltersChange($event)"
   ></app-ui-datagrid-filters>
 
   @if (hasBulkActions()) {

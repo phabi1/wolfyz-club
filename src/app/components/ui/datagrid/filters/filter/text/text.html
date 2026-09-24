@@ -1,0 +1,13 @@
+<div class="range-filter">
+  <p class="range-filter-label">{{ label() }}</p>
+
+  <mat-form-field class="w-full compact-field">
+    <input
+      matInput
+      id="datagrid-filter-{{ name() }}"
+      type="text"
+      [value]="value() ?? ''"
+      (input)="onChange($any($event.target).value)"
+    />
+  </mat-form-field>
+</div>

@@ -4,9 +4,12 @@
     [rows]="store.items()"
     [total]="store.total()"
     [rowActions]="rowActions"
-    [search]="store.search()"
     [quickSearch]="true"
+    [search]="store.search()"
+    [filters]="store.filters()"
+    (rowClick)="onRowClick($event)"
     (searchChange)="onSearchChange($event)"
+    (filtersChange)="onFiltersChange($event)"
     (paginationChange)="
       onPaginationChange({
         page: $event.page,
