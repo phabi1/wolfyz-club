@@ -1,5 +1,5 @@
 import { Component, effect, inject, signal } from '@angular/core';
-import { TotalWidget } from '../../../../ui/dashboard/widgets/total-widget/total-widget';
+import { TotalWidget } from '../../../../ui/dashboard/widgets/total/total-widget';
 import { PeriodService } from '../../../../../services/membership/period.service';
 @Component({
   selector: 'app-membership-dashboard-widget-total-periods',

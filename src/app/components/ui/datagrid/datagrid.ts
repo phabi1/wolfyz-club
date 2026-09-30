@@ -1,4 +1,4 @@
-import { Component, computed, input, output } from '@angular/core';
+import { Component, computed, input, output, signal } from '@angular/core';
 import type { DatagridAction, DatagridBulkAction } from './action';
 import { BulkActions } from './bulk-actions/bulk-actions';
 import type { DatagridColumn } from './column';
@@ -32,6 +32,12 @@ export class Datagrid {
   filtersChange = output<any>();
 
   hasBulkActions = computed(() => this.bulkActions().length > 0); 
+
+  selectedRows = signal<unknown[]>([]);
+
+  onSelectedRowsChange(event: unknown[]) {
+    this.selectedRows.set(event);
+  }
 
   onRowClick(event: {row: any}) {
     this.rowClick.emit({row: event.row});

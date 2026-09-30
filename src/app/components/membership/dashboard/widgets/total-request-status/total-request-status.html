@@ -1,0 +1,9 @@
+<app-ui-dashboard-widget-total-widget
+  [routerLink]="['/membership/campaign', campaignId(), 'requests']"
+  [queryParams]="{ filters: 'status:' + status() }"
+  [loading]="loading()"
+  [count]="value()"
+  [title]="status() | requestStatus"
+  subtitle="Requests"
+  i18n-subtitle="@@membership.campaign.dashboard.widget.totalRequests.subtitle"
+></app-ui-dashboard-widget-total-widget>

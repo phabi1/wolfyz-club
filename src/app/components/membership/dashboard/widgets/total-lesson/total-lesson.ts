@@ -1,5 +1,5 @@
 import { Component, effect, inject, signal } from '@angular/core';
-import { TotalWidget } from '../../../../ui/dashboard/widgets/total-widget/total-widget';
+import { TotalWidget } from '../../../../ui/dashboard/widgets/total/total-widget';
 import { LessonService } from '../../../../../services/membership/lesson.service';
 
 @Component({

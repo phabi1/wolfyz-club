@@ -3,13 +3,37 @@
     <ng-container [matColumnDef]="column.name">
       <th mat-header-cell *matHeaderCellDef class="datagrid-header-cell">{{ column.header }}</th>
       <td mat-cell *matCellDef="let row" class="datagrid-cell">
-        <app-ui-datagrid-table-cell-outlet [row]="row" [column]="column"></app-ui-datagrid-table-cell-outlet>
+        <app-ui-datagrid-table-cell-outlet
+          [row]="row"
+          [column]="column"
+        ></app-ui-datagrid-table-cell-outlet>
       </td>
     </ng-container>
   }
 
+  <ng-container matColumnDef="checkbox">
+    <th mat-header-cell *matHeaderCellDef class="datagrid-header-cell datagrid-header-checkbox">
+      <mat-checkbox
+        (change)="$event ? toggleAllRows() : null"
+        [checked]="selection.hasValue() && isAllSelected()"
+        [indeterminate]="selection.hasValue() && !isAllSelected()"
+      >
+      </mat-checkbox>
+    </th>
+    <td mat-cell *matCellDef="let row" class="datagrid-cell datagrid-cell-checkbox">
+      <mat-checkbox
+        (click)="$event.stopPropagation()"
+        (change)="$event ? selection.toggle(row) : null"
+        [checked]="selection.isSelected(row)"
+      >
+      </mat-checkbox>
+    </td>
+  </ng-container>
+
   <ng-container matColumnDef="actions">
-    <th mat-header-cell *matHeaderCellDef class="datagrid-header-cell datagrid-header-actions">Actions</th>
+    <th mat-header-cell *matHeaderCellDef class="datagrid-header-cell datagrid-header-actions">
+      Actions
+    </th>
     <td mat-cell *matCellDef="let row" class="datagrid-cell datagrid-cell-actions">
       <app-ui-datagrid-table-cell-actions
         [row]="row"

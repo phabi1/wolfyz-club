@@ -1,4 +1,9 @@
-<app-ui-page headingTitle="Request details" i18n-headingTitle="@@membership.requests.details.pageTitle">
+<app-ui-page
+  [headingTitle]="title()"
+  headingSubtitle="Request details"
+  i18n-headingSubtitle="@@membership.requests.details.pageSubtitle"
+  [backLink]="backLink() || ''"
+>
   @if (store.error(); as error) {
     <p
       class="mb-3 rounded-lg border border-red-200 bg-red-50 px-2.5 py-2 text-[0.8rem] text-red-700"

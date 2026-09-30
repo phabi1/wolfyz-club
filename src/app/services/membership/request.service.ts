@@ -5,6 +5,7 @@ import type { Request } from '../../models/membership/request';
 import { ConfigService } from '../config.service';
 import type { RequestPay } from '../../models/membership/request-pay';
 import { PaginationOptions } from '../../models/pagination/options';
+import { toDate, toTimestamp } from '../../utils/date';
 
 @Injectable({
   providedIn: 'root',
@@ -81,6 +82,12 @@ export class RequestService {
     );
   }
 
+  public countByStatus(campaignId: number): Observable<{ [status: string]: number }> {
+    return this.httpClient.get<{ [status: string]: number }>(
+      `${this.endpoint}/membership/campaigns/${campaignId}/requests/status/count`,
+    );
+  }
+
   public history(campaignId: number, id: number): Observable<any[]> {
     return this.httpClient
       .get<{ items: any[] }>(
@@ -89,7 +96,7 @@ export class RequestService {
       .pipe(map((response) => response.items));
   }
 
-  public approve(campaignId: number, id: number): Observable<void> {
+  public markAsApprove(campaignId: number, id: number): Observable<void> {
     return this.httpClient
       .post<{ success: boolean }>(
         `${this.endpoint}/membership/campaigns/${campaignId}/requests/${id}/approve`,
@@ -98,7 +105,7 @@ export class RequestService {
       .pipe(map(() => undefined));
   }
 
-  public reject(campaignId: number, id: number, reason: string): Observable<void> {
+  public markAsReject(campaignId: number, id: number, reason: string): Observable<void> {
     return this.httpClient
       .post<{ success: boolean }>(
         `${this.endpoint}/membership/campaigns/${campaignId}/requests/${id}/reject`,
@@ -107,7 +114,7 @@ export class RequestService {
       .pipe(map(() => undefined));
   }
 
-  public cancel(campaignId: number, id: number): Observable<void> {
+  public markAsCancel(campaignId: number, id: number): Observable<void> {
     return this.httpClient
       .post<{ success: boolean }>(
         `${this.endpoint}/membership/campaigns/${campaignId}/requests/${id}/cancel`,
@@ -146,7 +153,7 @@ export class RequestService {
   }
 
   protected serializeItem(item: Partial<Request>): Record<string, any> {
-    return { ...item, payed_at: item.payed_at ? item.payed_at.getTime() / 1000 : null } as Record<
+    return { ...item, payed_at: item.payed_at ? toTimestamp(item.payed_at) : null } as Record<
       string,
       any
     >;
@@ -155,8 +162,9 @@ export class RequestService {
   protected unserializeItem(data: Record<string, any>): Request {
     return {
       ...data,
-      payed_at: new Date(data['payed_at']),
-      created_at: new Date(data['created_at']),
+      payed_at: toDate(data['payed_at']),
+      created_at: toDate(data['created_at']),
+      updated_at: toDate(data['updated_at']),
     } as Request;
   }
 }

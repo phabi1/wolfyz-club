@@ -343,13 +343,13 @@ export const membershipRequestDetails = signalStore(
             let action$: Observable<any>;
             switch (true) {
               case status === 'approved':
-                action$ = requestService.approve(campaignId, +id);
+                action$ = requestService.markAsApprove(campaignId, +id);
                 break;
               case status === 'rejected':
-                action$ = requestService.reject(campaignId, +id, reason);
+                action$ = requestService.markAsReject(campaignId, +id, reason);
                 break;
               case status === 'canceled':
-                action$ = requestService.cancel(campaignId, +id);
+                action$ = requestService.markAsCancel(campaignId, +id);
                 break;
               default:
                 action$ = requestService.markAsPaid(campaignId, +id);

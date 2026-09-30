@@ -9,11 +9,20 @@ import { Datagrid } from '../../../../../components/ui/datagrid/datagrid';
 import type { DatagridAction } from '../../../../../components/ui/datagrid/action';
 import { Payment } from '../../../../../models/billing/payment';
 import { Dispatcher } from '@ngrx/signals/events';
+import { provideDatagrid } from '../../../../../components/ui/datagrid/provider';
 
 @Component({
   selector: 'app-pages-membership-campaign-requests-list',
   imports: [Page, Datagrid],
-  providers: [membershipRequestList],
+  providers: [
+    membershipRequestList,
+    provideDatagrid({
+      'request-status': () =>
+        import('../../../../../components/membership/request/list/columns/request-status/request-status').then(
+          (m) => m.RequestStatus,
+        ),
+    }),
+  ],
   templateUrl: './list.html',
   styleUrl: './list.css',
 })
@@ -25,7 +34,7 @@ export class List {
 
   rowActions: DatagridAction<Payment>[] = [];
 
-  onRowClick({row}: {row: Payment}) {
+  onRowClick({ row }: { row: Payment }) {
     this.router.navigate([
       '/membership/campaign',
       this.route.snapshot.paramMap.get('campaignId'),

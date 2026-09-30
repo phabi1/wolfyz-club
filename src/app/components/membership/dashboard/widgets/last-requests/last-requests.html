@@ -1,0 +1,19 @@
+<app-ui-dashboard-widget-list heading="Requests" title="Last Requests">
+  @for (item of items(); track item.id) {
+    <div
+      app-ui-dashboard-widget-list-item
+      [routerLink]="['/membership/campaign', campaignId(), 'requests', item.id]"
+      class="cursor-pointer"
+    >
+      <div class="flex justify-between items-center">
+        <div>
+          <p class="text-sm font-medium text-slate-800">{{ item.firstname }} {{ item.lastname }}</p>
+          <p class="text-sm text-slate-500">{{ item.updated_at | date:'short' }}</p>
+        </div>
+        <div>
+          <app-membership-request-status [status]="item.status"></app-membership-request-status>
+        </div>
+      </div>
+    </div>
+  }
+</app-ui-dashboard-widget-list>

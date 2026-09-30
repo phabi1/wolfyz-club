@@ -1,39 +1,65 @@
 <div class="flex flex-col gap-4">
   <section class="paper" aria-labelledby="request-summary-title">
-    <h2 id="request-summary-title" class="mb-4 text-base font-bold tracking-[0.01em] text-slate-900">
+    <h2
+      id="request-summary-title"
+      class="mb-4 text-base font-bold tracking-[0.01em] text-slate-900"
+    >
       <span i18n="@@membership.requests.summary.title">Request summary</span>
     </h2>
 
     <app-ui-details>
-      <ng-template appUiDetailItem label="Identifier" i18n-label="@@membership.requests.summary.identifier">
+      <ng-template
+        appUiDetailItem
+        label="Identifier"
+        i18n-label="@@membership.requests.summary.identifier"
+      >
         {{ item().id }}
       </ng-template>
       <ng-template appUiDetailItem label="Status" i18n-label="@@membership.requests.summary.status">
-        {{ statusLabels[item().status] }}
+        <app-membership-request-status [status]="item().status"></app-membership-request-status>
       </ng-template>
-      <ng-template appUiDetailItem label="Creation date" i18n-label="@@membership.requests.summary.creationDate">
+      <ng-template
+        appUiDetailItem
+        label="Creation date"
+        i18n-label="@@membership.requests.summary.creationDate"
+      >
         {{ formatDate(item().created_at) | notProvided }}
       </ng-template>
-      <ng-template appUiDetailItem label="Payment date" i18n-label="@@membership.requests.summary.paymentDate">
+      <ng-template
+        appUiDetailItem
+        label="Payment date"
+        i18n-label="@@membership.requests.summary.paymentDate"
+      >
         {{ formatDate(item().payed_at) }}
       </ng-template>
     </app-ui-details>
   </section>
 
   <section class="paper" aria-labelledby="request-contact-title">
-    <h2 id="request-contact-title" class="mb-4 text-base font-bold tracking-[0.01em] text-slate-900">
+    <h2
+      id="request-contact-title"
+      class="mb-4 text-base font-bold tracking-[0.01em] text-slate-900"
+    >
       <span i18n="@@membership.requests.contact.title">Primary contact</span>
     </h2>
 
     <app-ui-details>
-      <ng-template appUiDetailItem label="First name" i18n-label="@@membership.requests.contact.firstName">
+      <ng-template
+        appUiDetailItem
+        label="First name"
+        i18n-label="@@membership.requests.contact.firstName"
+      >
         {{ item().data.contact.firstname || item().firstname }}
       </ng-template>
-      <ng-template appUiDetailItem label="Last name" i18n-label="@@membership.requests.contact.lastName">
+      <ng-template
+        appUiDetailItem
+        label="Last name"
+        i18n-label="@@membership.requests.contact.lastName"
+      >
         {{ item().data.contact.lastname || item().lastname }}
       </ng-template>
       <ng-template appUiDetailItem label="Email" i18n-label="@@membership.requests.contact.email">
-        {{ (item().data.contact.email || item().email) | notProvided }}
+        {{ item().data.contact.email || item().email | notProvided }}
       </ng-template>
       <ng-template appUiDetailItem label="Phone" i18n-label="@@membership.requests.contact.phone">
         {{ item().data.contact.phone | notProvided }}

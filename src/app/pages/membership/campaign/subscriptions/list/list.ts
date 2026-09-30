@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Dispatcher } from '@ngrx/signals/events';
-import type { DatagridAction } from '../../../../../components/ui/datagrid/action';
+import type { DatagridAction, DatagridBulkAction } from '../../../../../components/ui/datagrid/action';
 import { Datagrid } from '../../../../../components/ui/datagrid/datagrid';
 import { PageAction } from '../../../../../components/ui/page/action';
 import { Page } from '../../../../../components/ui/page/page';
@@ -69,6 +69,15 @@ export class List {
       },
     },
   ];
+
+  // bulkActions: DatagridBulkAction<Subscription>[] = [
+  //   {
+  //     label: $localize`:@@common.button.delete:Delete`,
+  //     handler: (rows: Subscription[]) => {
+  //       // Implement bulk delete logic here
+  //     },
+  //   },
+  // ];
 
   onRowClick(row: Subscription) {
     this.router.navigate([

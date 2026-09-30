@@ -1,15 +1,15 @@
 import { Component, effect, inject, signal } from '@angular/core';
 import { TotalWidget } from '../../../../ui/dashboard/widgets/total/total-widget';
-import { SubscriptionService } from '../../../../../services/membership/subscription.service';
+import { RequestService } from '../../../../../services/membership/request.service';
 
 @Component({
-  selector: 'app-total-subscriptions',
+  selector: 'app-membership-dashboard-widget-total-requests',
   imports: [TotalWidget],
-  templateUrl: './total-subscriptions.html',
-  styleUrls: ['./total-subscriptions.css'],
+  templateUrl: './total-requests.html',
+  styleUrls: ['./total-requests.css'],
 })
-export class TotalSubscriptions {
-  private readonly subscriptionService = inject(SubscriptionService);
+export class TotalRequests {
+  private readonly requestService = inject(RequestService);
 
   readonly value = signal(0);
   readonly loading = signal(true);
@@ -17,7 +17,7 @@ export class TotalSubscriptions {
   constructor() {
     effect(() => {
       this.loading.set(true);
-      this.subscriptionService.items(2).subscribe({
+      this.requestService.items(2).subscribe({
         next: ({ total }) => {
           this.value.set(total);
           this.loading.set(false);

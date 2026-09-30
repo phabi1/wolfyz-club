@@ -191,6 +191,7 @@ const initialState: State = {
         },
         row: 1,
       },
+      cell: 'request-status',
     },
     {
       name: 'created_at',

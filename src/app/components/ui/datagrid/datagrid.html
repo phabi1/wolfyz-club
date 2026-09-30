@@ -10,8 +10,8 @@
 
   @if (hasBulkActions()) {
     <app-ui-datagrid-bulk-actions
-      [count]="rows().length"
-      [total]="total()"
+      [selectedRows]="selectedRows()"
+      [actions]="bulkActions()"
     ></app-ui-datagrid-bulk-actions>
   }
 
@@ -20,7 +20,9 @@
       [columns]="columns()"
       [rows]="rows()"
       [actions]="rowActions()"
+      [bulkActions]="bulkActions()"
       (rowClick)="onRowClick($event)"
+      (selectedRowsChange)="onSelectedRowsChange($event)"
     ></app-ui-datagrid-table>
   </div>
 

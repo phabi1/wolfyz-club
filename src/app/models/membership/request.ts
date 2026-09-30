@@ -20,4 +20,5 @@ export type Request = {
   discount_amount: number;
   campaign_id: number;
   created_at: Date;
+  updated_at: Date;
 };
