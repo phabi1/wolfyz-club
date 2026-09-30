@@ -70,14 +70,14 @@ export class List {
     },
   ];
 
-  // bulkActions: DatagridBulkAction<Subscription>[] = [
+  bulkActions: DatagridBulkAction<Subscription>[] = [
   //   {
   //     label: $localize`:@@common.button.delete:Delete`,
   //     handler: (rows: Subscription[]) => {
   //       // Implement bulk delete logic here
   //     },
   //   },
-  // ];
+  ];
 
   onRowClick(row: Subscription) {
     this.router.navigate([
