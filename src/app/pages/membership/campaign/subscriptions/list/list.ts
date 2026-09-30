@@ -15,10 +15,23 @@ import { provideDatagrid } from '../../../../../components/ui/datagrid/provider'
 @Component({
   selector: 'app-pages-membership-campaign-subscriptions-list',
   imports: [Page, Datagrid],
-  providers: [membershipSubscriptionList, provideDatagrid({
-    'avatar': () => import('../../../../../components/membership/subscription/list/columns/avatar/avatar').then(m => m.Avatar),
-    'license-type': () => import('../../../../../components/membership/subscription/list/columns/license-type/license-type').then(m => m.LicenseType)
-  })],
+  providers: [
+    membershipSubscriptionList,
+    provideDatagrid({
+      avatar: () =>
+        import('../../../../../components/membership/subscription/list/columns/avatar/avatar').then(
+          (m) => m.Avatar,
+        ),
+      'license-type': () =>
+        import('../../../../../components/membership/subscription/list/columns/license-type/license-type').then(
+          (m) => m.LicenseType,
+        ),
+      'license-taken': () =>
+        import('../../../../../components/membership/subscription/list/columns/license-taken/license-taken').then(
+          (m) => m.LicenseTaken,
+        ),
+    }),
+  ],
   templateUrl: './list.html',
   styleUrl: './list.css',
 })
@@ -40,7 +53,7 @@ export class List {
           'new',
         ]);
       },
-    }
+    },
   ];
 
   rowActions: DatagridAction<Subscription>[] = [

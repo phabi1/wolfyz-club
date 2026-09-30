@@ -9,6 +9,7 @@ import { Details } from '../../../../../ui/details/details';
 import { FilePreview } from '../../../../../ui/file-preview/file-preview';
 import { YesNo } from '../../../../../ui/yes-no/yes-no';
 import { License as LicenseForm } from '../../form/license/license';
+import { toDate } from '../../../../../../utils/date';
 
 @Component({
   selector: 'app-membership-subscription-details-license-section',
@@ -66,7 +67,7 @@ export class License {
             license_type: item?.license_type ?? '',
             medical_certificate: item.fields['medical_certificate'] ?? '',
             identity_photo: item.fields['identity_photo'] ?? '',
-            license_paid: item.fields['license_paid'] ?? false,
+            license_taken_at: item.license_taken_at ?? null,
             doctor: item.fields['doctor'] ?? '',
             agree_exit: item.fields['agree_exit'] ?? false,
             agree_image: item.fields['agree_image'] ?? false,

@@ -5,7 +5,7 @@ import { formatDate } from '../utils/date';
   name: 'date',
 })
 export class DatePipe implements PipeTransform {
-  transform(value: string | Date | number, ...args: unknown[]): unknown {
+  transform(value: string | Date | number, ...args: unknown[]): string {
     return formatDate(value);
   }
 }

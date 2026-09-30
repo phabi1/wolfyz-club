@@ -6,6 +6,7 @@ import { Contact } from "./contact";
 export type Subscription = {
   id: number;
   license_type: string;
+  license_taken_at: Date | null;
   member_id: number;
   member: Member;
   subscribed_at: Date;
@@ -19,6 +20,7 @@ export function createEmptySubscription(): Subscription {
   return {
     id: 0,
     license_type: '',
+    license_taken_at: null,
     member_id: 0,
     member: {} as Member,
     subscribed_at: new Date(),

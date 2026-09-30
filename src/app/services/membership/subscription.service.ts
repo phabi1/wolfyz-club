@@ -96,15 +96,18 @@ export class SubscriptionService {
   }
 
   private serialize(data: Partial<Subscription>): any {
+    console.log('Serializing data:', data);
     return {
       ...data,
-      subscribed_at: data.subscribed_at ? toTimestamp(data.subscribed_at) : undefined,
+      license_taken_at: data.license_taken_at ? toTimestamp(data.license_taken_at) : null,
+      subscribed_at: data.subscribed_at ? toTimestamp(data.subscribed_at) : null,
     };
   }
 
   private unserialize(data: any): Subscription {
     return {
       ...data,
+      license_taken_at: data.license_taken_at ? toDate(data.license_taken_at) : null,
       subscribed_at: data.subscribed_at ? toDate(data.subscribed_at) : null,
       member: {
         ...data.member,

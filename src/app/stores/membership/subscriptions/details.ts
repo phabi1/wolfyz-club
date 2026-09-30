@@ -132,6 +132,7 @@ export const membershipSubscriptionDetails = signalStore(
       }
       if (license) {
         newItem.license_type = license?.license_type ?? item.license_type;
+        newItem.license_taken_at = license?.license_taken_at ?? null;
         newItem.fields = license?.fields ?? item.fields;
         updated.push('license');
       }
@@ -196,12 +197,15 @@ export const membershipSubscriptionDetails = signalStore(
             );
           }
           if (license) {
+            const { license_taken_at, ...fields } = license;
+
             actions.push(
               subscriptionService
                 .update(state.campaignId() || 0, state.id() || 0, {
+                  license_taken_at: license_taken_at,
                   fields: {
                     ...state.item()?.fields,
-                    ...license,
+                    ...fields,
                   },
                 })
                 .pipe(map((item) => ({ license: item }))),
