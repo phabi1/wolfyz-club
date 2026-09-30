@@ -1,4 +1,9 @@
-<app-ui-page title="Campaigns">
+<app-ui-page
+  headingTitle="Campaigns"
+  headingSubtitle="View all campaigns"
+  i18n-headingTitle="@@membership.campaigns.pageTitle"
+  i18n-headingSubtitle="@@membership.campaigns.pageSubtitle"
+>
   <div class="grid grid-cols-1 gap-4 md:grid-cols-4">
     @for (item of items(); track $index) {
       <a [routerLink]="['/membership/campaign', item.id]" class="paper">

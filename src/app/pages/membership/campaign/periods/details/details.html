@@ -1,10 +1,16 @@
-<app-ui-page title="Period details" i18n-title="@@membership.periods.details.pageTitle" [actions]="pageActions">
+<app-ui-page
+  headingTitle="Period details"
+  i18n-headingTitle="@@membership.periods.details.pageTitle"
+  [actions]="pageActions"
+>
   @if (store.loading()) {
     <p i18n="@@common.label.loading">Loading...</p>
   }
 
   @if (store.error(); as error) {
-    <p class="mb-3 rounded-lg border border-red-200 bg-red-50 px-2.5 py-2 text-[0.8rem] text-red-700">
+    <p
+      class="mb-3 rounded-lg border border-red-200 bg-red-50 px-2.5 py-2 text-[0.8rem] text-red-700"
+    >
       {{ error?.message || error }}
     </p>
   }
@@ -14,7 +20,12 @@
       <section class="paper accent-card" aria-labelledby="period-overview-title">
         <div class="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
           <div>
-            <p class="m-0 text-xs uppercase tracking-widest text-slate-500" i18n="@@membership.periods.details.period">Period</p>
+            <p
+              class="m-0 text-xs uppercase tracking-widest text-slate-500"
+              i18n="@@membership.periods.details.period"
+            >
+              Period
+            </p>
             <h2 id="period-overview-title" class="mt-1 text-xl font-bold text-slate-900">
               {{ item.title || untitledPeriodLabel }}
             </h2>
@@ -25,28 +36,50 @@
           </div>
 
           <div class="flex flex-wrap items-center gap-2">
-            <span class="chip"><span i18n="@@membership.periods.details.campaign">Campaign</span> <app-ui-badge [label]="'#' + item.campaign_id"></app-ui-badge></span>
-            <span class="chip chip-primary">{{ periodDays(item.start_date, item.end_date) }} <span i18n="@@membership.periods.details.days">days</span></span>
+            <span class="chip"
+              ><span i18n="@@membership.periods.details.campaign">Campaign</span>
+              <app-ui-badge [label]="'#' + item.campaign_id"></app-ui-badge
+            ></span>
+            <span class="chip chip-primary"
+              >{{ periodDays(item.start_date, item.end_date) }}
+              <span i18n="@@membership.periods.details.days">days</span></span
+            >
           </div>
         </div>
 
         <dl class="mt-6 grid grid-cols-1 gap-x-5 gap-y-4 md:grid-cols-2 xl:grid-cols-3">
           <div>
-            <dt class="m-0 text-xs uppercase tracking-[0.04em] text-slate-500" i18n="@@membership.periods.details.startDate">Start date</dt>
+            <dt
+              class="m-0 text-xs uppercase tracking-[0.04em] text-slate-500"
+              i18n="@@membership.periods.details.startDate"
+            >
+              Start date
+            </dt>
             <dd class="mt-1 text-[0.95rem] font-medium text-slate-900">
               {{ formatDate(item.start_date) }}
             </dd>
           </div>
           <div>
-            <dt class="m-0 text-xs uppercase tracking-[0.04em] text-slate-500" i18n="@@membership.periods.details.endDate">End date</dt>
+            <dt
+              class="m-0 text-xs uppercase tracking-[0.04em] text-slate-500"
+              i18n="@@membership.periods.details.endDate"
+            >
+              End date
+            </dt>
             <dd class="mt-1 text-[0.95rem] font-medium text-slate-900">
               {{ formatDate(item.end_date) }}
             </dd>
           </div>
           <div>
-            <dt class="m-0 text-xs uppercase tracking-[0.04em] text-slate-500" i18n="@@membership.periods.details.duration">Duration</dt>
+            <dt
+              class="m-0 text-xs uppercase tracking-[0.04em] text-slate-500"
+              i18n="@@membership.periods.details.duration"
+            >
+              Duration
+            </dt>
             <dd class="mt-1 text-[0.95rem] font-medium text-slate-900">
-              {{ periodDays(item.start_date, item.end_date) }} <span i18n="@@membership.periods.details.days">days</span>
+              {{ periodDays(item.start_date, item.end_date) }}
+              <span i18n="@@membership.periods.details.days">days</span>
             </dd>
           </div>
         </dl>
@@ -58,13 +91,23 @@
         </h3>
         <dl class="mt-4 grid grid-cols-1 gap-x-5 gap-y-4 md:grid-cols-2">
           <div>
-            <dt class="m-0 text-xs uppercase tracking-[0.04em] text-slate-500" i18n="@@membership.periods.details.periodId">Period ID</dt>
+            <dt
+              class="m-0 text-xs uppercase tracking-[0.04em] text-slate-500"
+              i18n="@@membership.periods.details.periodId"
+            >
+              Period ID
+            </dt>
             <dd class="mt-1 text-[0.95rem] font-medium text-slate-900">
               <app-ui-badge [label]="'#' + item.id"></app-ui-badge>
             </dd>
           </div>
           <div>
-            <dt class="m-0 text-xs uppercase tracking-[0.04em] text-slate-500" i18n="@@membership.periods.details.campaignId">Campaign ID</dt>
+            <dt
+              class="m-0 text-xs uppercase tracking-[0.04em] text-slate-500"
+              i18n="@@membership.periods.details.campaignId"
+            >
+              Campaign ID
+            </dt>
             <dd class="mt-1 text-[0.95rem] font-medium text-slate-900">
               <app-ui-badge [label]="'#' + item.campaign_id"></app-ui-badge>
             </dd>

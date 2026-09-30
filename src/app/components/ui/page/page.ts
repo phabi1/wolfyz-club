@@ -10,7 +10,8 @@ import type { PageAction } from './action';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Page {
-  title = input('');
-  subtitle = input('');
+  headingTitle = input('');
+  headingSubtitle = input('');
   actions = input<PageAction[]>([]);
+  backLink = input<string>('');
 }

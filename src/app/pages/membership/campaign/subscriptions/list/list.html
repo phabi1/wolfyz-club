@@ -1,4 +1,8 @@
-<app-ui-page title="Subscriptions" i18n-title="@@membership.subscriptions.pageTitle" [actions]="pageActions">
+<app-ui-page
+  headingTitle="Subscriptions"
+  i18n-headingTitle="@@membership.subscriptions.pageTitle"
+  [actions]="pageActions"
+>
   <app-ui-datagrid
     [columns]="store.columns()"
     [rows]="store.items()"

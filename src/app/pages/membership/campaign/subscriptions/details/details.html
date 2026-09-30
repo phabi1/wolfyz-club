@@ -1,8 +1,11 @@
-<app-ui-page title="Subscription details" i18n-title="@@membership.subscriptions.details.pageTitle">
+<app-ui-page
+  headingTitle="Subscription details"
+  [backLink]="backLink()"
+  i18n-headingTitle="@@membership.subscriptions.details.pageTitle"
+>
   @if (store.loading()) {
     <p i18n="@@common.label.loading">Loading...</p>
-  }
-  @else  {
+  } @else {
     <div class="flex flex-col gap-4">
       <app-membership-subscription-details-overview-section
         [item]="store.item()"

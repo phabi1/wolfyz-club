@@ -1,18 +1,22 @@
-<app-ui-page title="Periods" i18n-title="@@membership.periods.pageTitle" [actions]="actions">
-	<app-ui-datagrid
-		[columns]="store.columns()"
-		[rows]="store.items()"
-		[total]="store.total()"
-		[rowActions]="rowActions"
-		[currentPage]="store.page()"
-		[search]="store.search()"
-		(searchChange)="onSearchChange($event)"
-		(paginationChange)="
-			onPaginationChange({
-				page: $event.page,
-				size: $event.size,
-			})
-		"
-	></app-ui-datagrid>
+<app-ui-page
+  headingTitle="Periods"
+  i18n-headingTitle="@@membership.periods.pageTitle"
+  [actions]="actions"
+>
+  <app-ui-datagrid
+    [columns]="store.columns()"
+    [rows]="store.items()"
+    [total]="store.total()"
+    [rowActions]="rowActions"
+    [currentPage]="store.page()"
+    [search]="store.search()"
+    (searchChange)="onSearchChange($event)"
+    (paginationChange)="
+      onPaginationChange({
+        page: $event.page,
+        size: $event.size,
+      })
+    "
+  ></app-ui-datagrid>
 </app-ui-page>
 <router-outlet></router-outlet>

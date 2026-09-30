@@ -2,8 +2,8 @@
   <p>Loading...</p>
 } @else {
   <app-ui-page
-    [title]="store.item().title"
-    [subtitle]="'Event Details'"
+    [headingTitle]="store.item().title"
+    [headingSubtitle]="'Event Details'"
     i18n-headingSubtitle="@@event.details.title"
     [actions]="pageActions"
   >

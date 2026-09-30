@@ -1,16 +1,20 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
-import { Actions } from '../actions/actions';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 import type { PageAction } from '../action';
+import { Actions } from '../actions/actions';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-ui-page-header',
-  imports: [Actions],
+  imports: [Actions, MatIconModule, MatButtonModule, RouterLink],
   templateUrl: './header.html',
   styleUrls: ['./header.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Header {
-  title = input('');
-  subtitle = input('');
+  headingTitle = input('');
+  headingSubtitle = input('');
   actions = input<PageAction[]>([]);
+  backLink = input<string>('');
 }

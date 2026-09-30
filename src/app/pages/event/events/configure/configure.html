@@ -2,9 +2,9 @@
   <p>Loading...</p>
 } @else {
   <app-ui-page
-    [title]="store.item().title"
-    subtitle="Configure Event"
-    i18n-subtitle="@@event.configure.title"
+    [headingTitle]="store.item().title"
+    [headingSubtitle]="'Configure Event'"
+    i18n-headingSubtitle="@@event.configure.title"
   >
     <form (ngSubmit)="onSubmit($event)">
       <formly-form [form]="form" [fields]="fields" [model]="model"></formly-form>
