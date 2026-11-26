@@ -1,7 +1,11 @@
 import { Component, inject } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Dispatcher } from '@ngrx/signals/events';
-import type { DatagridAction, DatagridBulkAction } from '../../../../../components/ui/datagrid/action';
+import type {
+  DatagridAction,
+  DatagridBulkAction,
+} from '../../../../../components/ui/datagrid/action';
 import { Datagrid } from '../../../../../components/ui/datagrid/datagrid';
 import { PageAction } from '../../../../../components/ui/page/action';
 import { Page } from '../../../../../components/ui/page/page';
@@ -11,6 +15,8 @@ import {
   membershipSubscriptionListEvents,
 } from '../../../../../stores/membership/subscriptions/list';
 import { provideDatagrid } from '../../../../../components/ui/datagrid/provider';
+import { SelectedRows } from '../../../../../components/ui/datagrid/selected-rows';
+import { Export } from '../../../../../components/membership/subscription/list/actions/export/export';
 
 @Component({
   selector: 'app-pages-membership-campaign-subscriptions-list',
@@ -40,6 +46,7 @@ export class List {
   readonly router = inject(Router);
   readonly route = inject(ActivatedRoute);
   readonly dispatcher = inject(Dispatcher);
+  readonly dialog = inject(MatDialog);
 
   pageActions: PageAction[] = [
     {
@@ -70,13 +77,20 @@ export class List {
     },
   ];
 
-  bulkActions: DatagridBulkAction<Subscription>[] = [
-  //   {
-  //     label: $localize`:@@common.button.delete:Delete`,
-  //     handler: (rows: Subscription[]) => {
-  //       // Implement bulk delete logic here
-  //     },
-  //   },
+  bulkActions: DatagridBulkAction[] = [
+    {
+      name: 'export',
+      label: $localize`:@@common.button.export:Export`,
+      handler: ({ ids, reverse }: SelectedRows) => {
+        this.dialog.open(Export, {
+          data: {
+            campaignId: this.route.snapshot.paramMap.get('campaignId'),
+            ids,
+            reverse,
+          },
+        });
+      },
+    },
   ];
 
   onRowClick(row: Subscription) {

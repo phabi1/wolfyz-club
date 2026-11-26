@@ -5,6 +5,7 @@ import type { DatagridColumn } from './column';
 import { Filters } from './filters/filters';
 import { Pagination } from './pagination/pagination';
 import { Table } from './table/table';
+import { SelectedRows } from './selected-rows';
 
 @Component({
   selector: 'app-ui-datagrid',
@@ -17,7 +18,7 @@ export class Datagrid {
   rows = input.required<unknown[]>();
   total = input.required<number>();
   rowActions = input<DatagridAction<any>[]>([]);
-  bulkActions = input<DatagridBulkAction<any>[]>([]);
+  bulkActions = input<DatagridBulkAction[]>([]);
   fetching = input<boolean>(false);
   paginable = input<boolean>(true);
   currentPage = input<number>(1);
@@ -33,9 +34,9 @@ export class Datagrid {
 
   hasBulkActions = computed(() => this.bulkActions().length > 0); 
 
-  selectedRows = signal<unknown[]>([]);
+  selectedRows = signal<SelectedRows>({ reverse: false, ids: [] });
 
-  onSelectedRowsChange(event: unknown[]) {
+  onSelectedRowsChange(event: SelectedRows) {
     this.selectedRows.set(event);
   }
 

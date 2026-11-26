@@ -1,8 +1,9 @@
 import { Component, computed, input, output } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-ui-datagrid-pagination',
-  imports: [],
+  imports: [MatButtonModule],
   templateUrl: './pagination.html',
   styleUrls: ['./pagination.css'],
 })
