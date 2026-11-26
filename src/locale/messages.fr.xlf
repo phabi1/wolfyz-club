@@ -902,6 +902,22 @@
           <context context-type="linenumber">2,3</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="membership.subscriptions.disciplines" datatype="html">
+        <source>Disciplines</source>
+        <target>Disciplines</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/subscription/details/info/license/license.ts</context>
+          <context context-type="linenumber">31</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="membership.subscriptions.disciplines.multipleNotAllowed" datatype="html">
+        <source>Multiple disciplines are only allowed for a competition license</source>
+        <target>Plusieurs disciplines ne sont autorisées que pour une licence compétition</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/membership/subscription/details/form/license/license.ts</context>
+          <context context-type="linenumber">55</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="membership.subscriptions.contacts.empty" datatype="html">
         <source>No contact linked to this subscription.</source>
         <target>Aucun contact n'est lié à cet abonnement.</target>

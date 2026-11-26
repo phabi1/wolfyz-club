@@ -1,0 +1,47 @@
+<h1 mat-dialog-title i18n="@@membership.subscriptions.licenseTaken.title">License taken</h1>
+<div mat-dialog-content>
+  <p class="mb-4">
+    @if (selectionCount === null) {
+      <span i18n="@@membership.subscriptions.licenseTaken.allSelected">
+        Update all subscriptions of the campaign (except unselected ones).
+      </span>
+    } @else {
+      <span i18n="@@membership.subscriptions.licenseTaken.selected">
+        Update {{ selectionCount }} selected subscription(s).
+      </span>
+    }
+  </p>
+
+  <mat-radio-group class="flex flex-col gap-2 mb-4" [(ngModel)]="taken">
+    <mat-radio-button [value]="true" i18n="@@membership.subscriptions.licenseTaken.markTaken">
+      Mark license as taken
+    </mat-radio-button>
+    <mat-radio-button [value]="false" i18n="@@membership.subscriptions.licenseTaken.markNotTaken">
+      Mark license as not taken
+    </mat-radio-button>
+  </mat-radio-group>
+
+  @if (taken) {
+    <mat-form-field class="w-full">
+      <mat-label i18n="@@membership.subscriptions.licenseTakenAt">License taken at</mat-label>
+      <input matInput type="date" required [(ngModel)]="takenAt" />
+      <mat-hint i18n="@@membership.subscriptions.licenseTaken.hint">
+        Subscriptions that already have a date are left unchanged.
+      </mat-hint>
+    </mat-form-field>
+  }
+
+  @if (errorMessage()) {
+    <p class="text-red-600 mt-2">{{ errorMessage() }}</p>
+  }
+</div>
+<div mat-dialog-actions>
+  <button mat-button mat-dialog-close [disabled]="saving()" i18n="@@common.button.cancel">Cancel</button>
+  <button mat-button [disabled]="!canSubmit" (click)="submit()">
+    @if (saving()) {
+      <mat-progress-spinner mode="indeterminate" diameter="18"></mat-progress-spinner>
+    } @else {
+      <span i18n="@@common.button.save">Save</span>
+    }
+  </button>
+</div>

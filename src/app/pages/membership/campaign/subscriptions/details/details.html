@@ -19,6 +19,7 @@
       ></app-membership-subscription-details-member-section>
       <app-membership-subscription-details-license-section
         [item]="store.item()"
+        [disciplines]="store.disciplines()"
         [busy]="isLicenseUpdating()"
         (change)="onLicenseChange($event)"
       >

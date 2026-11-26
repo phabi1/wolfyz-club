@@ -60,15 +60,17 @@ export class Details {
     );
   }
 
-  onLicenseChange(license: any): void {
+  onLicenseChange(result: any): void {
     const campaignId = this.store.campaignId();
     const id = this.store.id();
     if (!campaignId || !id) {
       return;
     }
+    const { disciplines, ...license } = result;
     this.dispatcher.dispatch(
       membershipSubscriptionDetailsEvents.update({
         license,
+        disciplines,
       }),
     );
   }

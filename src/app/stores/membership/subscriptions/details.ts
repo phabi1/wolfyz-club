@@ -12,22 +12,29 @@ import {
 } from '@ngrx/signals/events';
 import { combineLatest, concatMap, forkJoin, map, Observable, of, switchMap, tap } from 'rxjs';
 import type { Contact } from '../../../models/membership/contact';
+import type { Discipline } from '../../../models/membership/discipline';
 import { Lesson } from '../../../models/membership/lesson';
 import type { Session } from '../../../models/membership/session';
+import type { SubscriptionDiscipline } from '../../../models/membership/subscription-discipline';
 import {
   createEmptySubscription,
   type Subscription,
+  type SubscriptionLicense,
 } from '../../../models/membership/subscription';
 import { ContactService } from '../../../services/membership/contact.service';
+import { DisciplineService } from '../../../services/membership/discipline.service';
 import { LessonService } from '../../../services/membership/lesson.service';
 import { MemberService } from '../../../services/membership/member.service';
 import { SessionService } from '../../../services/membership/session.service';
+import { SubscriptionDisciplineService } from '../../../services/membership/subscription-discipline.service';
 import { SubscriptionService } from '../../../services/membership/subscription.service';
 import { EntityServiceWithCampaign } from '../../../services/membership/entity-service-with-campaign.interface';
+import { campaignId$, campaignIdSnapshot } from '../../../utils/route';
 
 type State = {
   campaignId: number | null;
   lessons: Lesson[];
+  disciplines: Discipline[];
   id: number | null;
   item: Subscription;
   loading: boolean;
@@ -41,6 +48,7 @@ const initialState: State = {
   item: createEmptySubscription(),
   loading: false,
   lessons: [],
+  disciplines: [],
   updating: [],
   error: null,
 };
@@ -49,22 +57,24 @@ export const membershipSubscriptionDetailsEvents = eventGroup({
   source: 'Membership Subscription Details',
   events: {
     init: type<{ campaignId: number }>(),
-    initSuccess: type<{ lessons: Lesson[] }>(),
+    initSuccess: type<{ lessons: Lesson[]; disciplines: Discipline[] }>(),
     initFailure: type<{ error: any }>(),
     load: type<{ id: number }>(),
     loadSuccess: type<{ item: Subscription }>(),
     loadFailure: type<{ error: any }>(),
     update: type<{
       member?: Partial<Subscription['member']>;
-      license?: Partial<Omit<Subscription, 'member' | 'contacts' | 'sessions'>>;
+      license?: Partial<SubscriptionLicense>;
       contacts?: Partial<Contact>[];
       sessions?: Partial<Session>[];
+      disciplines?: Partial<SubscriptionDiscipline>[];
     }>(),
     updateSuccess: type<{
       member?: Partial<Subscription['member']>;
-      license?: Partial<Omit<Subscription, 'member' | 'contacts' | 'sessions'>>;
+      license?: Subscription;
       contacts?: Contact[];
       sessions?: Session[];
+      disciplines?: SubscriptionDiscipline[];
     }>(),
     updateFailure: type<{ error: any }>(),
   },
@@ -76,9 +86,13 @@ export const membershipSubscriptionDetails = signalStore(
     on(membershipSubscriptionDetailsEvents.init, ({ payload: { campaignId } }) => ({
       campaignId,
     })),
-    on(membershipSubscriptionDetailsEvents.initSuccess, ({ payload: { lessons } }) => ({
-      lessons,
-    })),
+    on(
+      membershipSubscriptionDetailsEvents.initSuccess,
+      ({ payload: { lessons, disciplines } }) => ({
+        lessons,
+        disciplines,
+      }),
+    ),
     on(membershipSubscriptionDetailsEvents.initFailure, ({ payload: { error } }) => ({
       error,
     })),
@@ -111,6 +125,9 @@ export const membershipSubscriptionDetails = signalStore(
       if (payload.sessions) {
         updates.push('sessions');
       }
+      if (payload.disciplines) {
+        updates.push('disciplines');
+      }
 
       return {
         updating: [...state.updating, ...updates],
@@ -120,7 +137,7 @@ export const membershipSubscriptionDetails = signalStore(
     on(membershipSubscriptionDetailsEvents.updateSuccess, ({ payload }, state) => {
       const item = state.item as Subscription;
 
-      const { member, license, contacts, sessions } = payload;
+      const { member, license, contacts, sessions, disciplines } = payload;
 
       const updated: string[] = [];
 
@@ -131,9 +148,16 @@ export const membershipSubscriptionDetails = signalStore(
         updated.push('member');
       }
       if (license) {
-        newItem.license_type = license?.license_type ?? item.license_type;
-        newItem.license_taken_at = license?.license_taken_at ?? null;
-        newItem.fields = license?.fields ?? item.fields;
+        newItem.license_type = license.license_type;
+        newItem.license_taken_at = license.license_taken_at;
+        newItem.doctor = license.doctor;
+        newItem.medical_certificate = license.medical_certificate;
+        newItem.medical_certificate_date = license.medical_certificate_date;
+        newItem.medical_form = license.medical_form;
+        newItem.identity_photo = license.identity_photo;
+        newItem.agree_exit = license.agree_exit;
+        newItem.agree_image = license.agree_image;
+        newItem.fields = license.fields ?? item.fields;
         updated.push('license');
       }
       if (contacts) {
@@ -143,6 +167,10 @@ export const membershipSubscriptionDetails = signalStore(
       if (sessions) {
         newItem.sessions = sessions;
         updated.push('sessions');
+      }
+      if (disciplines) {
+        newItem.disciplines = disciplines;
+        updated.push('disciplines');
       }
 
       return {
@@ -160,17 +188,25 @@ export const membershipSubscriptionDetails = signalStore(
       state,
       events = inject(Events),
       lessonService = inject(LessonService),
+      disciplineService = inject(DisciplineService),
       subscriptionService = inject(SubscriptionService),
       contactService = inject(ContactService),
       sessionService = inject(SessionService),
+      subscriptionDisciplineService = inject(SubscriptionDisciplineService),
       memberService = inject(MemberService),
     ) => ({
       init$: events.on(membershipSubscriptionDetailsEvents.init).pipe(
         switchMap(({ payload: { campaignId } }) =>
-          lessonService.items(campaignId).pipe(
+          forkJoin({
+            lessons: lessonService.items(campaignId),
+            disciplines: disciplineService.items(),
+          }).pipe(
             mapResponse({
-              next: ({ items }) =>
-                membershipSubscriptionDetailsEvents.initSuccess({ lessons: items }),
+              next: ({ lessons, disciplines }) =>
+                membershipSubscriptionDetailsEvents.initSuccess({
+                  lessons: lessons.items,
+                  disciplines: disciplines.items,
+                }),
               error: (error) => membershipSubscriptionDetailsEvents.initFailure({ error }),
             }),
           ),
@@ -187,7 +223,7 @@ export const membershipSubscriptionDetails = signalStore(
         ),
       ),
       update$: events.on(membershipSubscriptionDetailsEvents.update).pipe(
-        concatMap(({ payload: { member, license, sessions, contacts } }) => {
+        concatMap(({ payload: { member, license, sessions, contacts, disciplines } }) => {
           const actions: any[] = [];
           if (member) {
             actions.push(
@@ -196,19 +232,42 @@ export const membershipSubscriptionDetails = signalStore(
                 .pipe(map((item) => ({ member: item }))),
             );
           }
-          if (license) {
-            const { license_taken_at, ...fields } = license;
+          // License and disciplines are validated against each other by the API
+          // (several disciplines require a competition license), so they are
+          // saved one after the other in the order that keeps the data valid
+          const saveLicense$: Observable<{ license?: Subscription }> = license
+            ? subscriptionService
+                .update(state.campaignId() || 0, state.id() || 0, license)
+                .pipe(map((item) => ({ license: item })))
+            : of({});
+          const saveDisciplines$: Observable<{ disciplines?: SubscriptionDiscipline[] }> =
+            disciplines
+              ? syncItems(
+                  disciplines,
+                  state.item()?.disciplines || [],
+                  subscriptionDisciplineService,
+                  {
+                    campaignId: state.campaignId() || 0,
+                    subscription_id: state.id() || 0,
+                  },
+                ).pipe(map((item) => ({ disciplines: item as SubscriptionDiscipline[] })))
+              : of({});
+
+          if (license || disciplines) {
+            // Downgrading from competition: reduce disciplines first
+            const disciplinesFirst =
+              !!license?.license_type &&
+              license.license_type !== 'competition' &&
+              state.item().license_type === 'competition';
 
             actions.push(
-              subscriptionService
-                .update(state.campaignId() || 0, state.id() || 0, {
-                  license_taken_at: license_taken_at,
-                  fields: {
-                    ...state.item()?.fields,
-                    ...fields,
-                  },
-                })
-                .pipe(map((item) => ({ license: item }))),
+              disciplinesFirst
+                ? saveDisciplines$.pipe(
+                    concatMap((d) => saveLicense$.pipe(map((l) => ({ ...d, ...l })))),
+                  )
+                : saveLicense$.pipe(
+                    concatMap((l) => saveDisciplines$.pipe(map((d) => ({ ...l, ...d })))),
+                  ),
             );
           }
           if (sessions) {
@@ -253,10 +312,10 @@ export const membershipSubscriptionDetails = signalStore(
     onInit(store, dispatcher = inject(Dispatcher), route = inject(ActivatedRoute)) {
       dispatcher.dispatch(
         membershipSubscriptionDetailsEvents.init({
-          campaignId: 2,
+          campaignId: campaignIdSnapshot(route),
         }),
       );
-      const subscription = combineLatest([of(2), route.params]).subscribe(([value, params]) => {
+      const subscription = combineLatest([campaignId$(route), route.params]).subscribe(([value, params]) => {
         dispatcher.dispatch(
           membershipSubscriptionDetailsEvents.load({
             id: params['subscriptionId'],

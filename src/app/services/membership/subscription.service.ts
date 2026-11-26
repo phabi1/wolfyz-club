@@ -101,24 +101,47 @@ export class SubscriptionService {
     );
   }
 
+  /** Marks the license as taken (or not taken when `takenAt` is null) for a selection */
+  public licenseTaken(
+    campaignId: number | string,
+    selection: { ids: (string | number)[]; reverse: boolean },
+    takenAt: Date | null,
+  ): Observable<{ updated: number }> {
+    return this.httpClient.post<{ updated: number }>(
+      `${this.endpoint}/membership/campaigns/${campaignId}/subscriptions/license-taken`,
+      {
+        ids: selection.ids.map((id) => +id),
+        reverse: selection.reverse,
+        taken_at: takenAt ? toTimestamp(takenAt) : null,
+      },
+    );
+  }
+
   private serialize(data: Partial<Subscription>): any {
-    console.log('Serializing data:', data);
-    return {
-      ...data,
-      license_taken_at: data.license_taken_at ? toTimestamp(data.license_taken_at) : null,
-      subscribed_at: data.subscribed_at ? toTimestamp(data.subscribed_at) : null,
-    };
+    // Only convert keys that are present so partial updates do not clear other dates
+    const payload: any = { ...data };
+    for (const key of DATE_FIELDS) {
+      if (key in data) {
+        const value = data[key] as Date | null | undefined;
+        payload[key] = value ? toTimestamp(value) : null;
+      }
+    }
+    return payload;
   }
 
   private unserialize(data: any): Subscription {
-    return {
+    const item: any = {
       ...data,
-      license_taken_at: data.license_taken_at ? toDate(data.license_taken_at) : null,
-      subscribed_at: data.subscribed_at ? toDate(data.subscribed_at) : null,
       member: {
         ...data.member,
         birthdate: data.member?.birthdate ? toDate(data.member.birthdate) : null,
       },
     };
+    for (const key of DATE_FIELDS) {
+      item[key] = data[key] ? toDate(data[key]) : null;
+    }
+    return item;
   }
 }
+
+const DATE_FIELDS = ['license_taken_at', 'subscribed_at', 'medical_certificate_date'] as const;

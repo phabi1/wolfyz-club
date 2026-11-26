@@ -16,6 +16,7 @@ import {
 } from '../../../../../stores/membership/subscriptions/list';
 import { provideDatagrid } from '../../../../../components/ui/datagrid/provider';
 import { SelectedRows } from '../../../../../components/ui/datagrid/selected-rows';
+import { LicenseTaken } from '../../../../../components/membership/subscription/list/actions/license-taken/license-taken';
 import { Export } from '../../../../../components/membership/subscription/list/actions/export/export';
 
 @Component({
@@ -78,6 +79,28 @@ export class List {
   ];
 
   bulkActions: DatagridBulkAction[] = [
+    {
+      name: 'take-license',
+      label: $localize`:@@membership.subscription.list.bulkAction.takeLicense:License Taken`,
+      handler: ({ ids, reverse }: SelectedRows) => {
+        this.dialog
+          .open(LicenseTaken, {
+            data: {
+              campaignId: this.route.snapshot.paramMap.get('campaignId'),
+              ids,
+              reverse,
+            },
+          })
+          .afterClosed()
+          .subscribe((result) => {
+            if (result) {
+              this.dispatcher.dispatch(
+                membershipSubscriptionListEvents.load({ campaign_id: this.store.campaign_id() }),
+              );
+            }
+          });
+      },
+    },
     {
       name: 'export',
       label: $localize`:@@common.button.export:Export`,

@@ -121,13 +121,9 @@ export class New {
               .create(campaignId, {
                 member_id: +memberId,
                 license_type: values.license_type,
-                fields: {
-                  agree_photo: true,
-                  agree_exit: true,
-                  doctor: '',
-                  identity_photo: null,
-                  medical_certificate: null,
-                },
+                agree_image: true,
+                agree_exit: true,
+                fields: {},
                 subscribed_at: new Date(),
               })
               .pipe(

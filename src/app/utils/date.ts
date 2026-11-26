@@ -90,3 +90,32 @@ export function toInput(date: Date | string): string {
   const seconds = d.getSeconds().toString().padStart(2, '0');
   return `${year}-${month}-${day} ${minutes}:${seconds}`;
 }
+/** Formats a date for an `<input type="date">` (YYYY-MM-DD, local time) */
+export function toDateInput(value: Date | number | string | null | undefined): string {
+  if (value === null || value === undefined || value === '') {
+    return '';
+  }
+  const d = toDate(value);
+  if (Number.isNaN(d.getTime()) || d.getTime() === 0) {
+    return '';
+  }
+  const year = d.getFullYear();
+  const month = (d.getMonth() + 1).toString().padStart(2, '0');
+  const day = d.getDate().toString().padStart(2, '0');
+  return `${year}-${month}-${day}`;
+}
+
+/**
+ * Parses an `<input type="date">` value. The date is set at local noon so
+ * that it stays on the same day whatever the server timezone.
+ */
+export function fromDateInput(value: string | null | undefined): Date | null {
+  if (!value) {
+    return null;
+  }
+  const match = /^(\d{4})-(\d{2})-(\d{2})/.exec(value);
+  if (!match) {
+    return null;
+  }
+  return new Date(Number(match[1]), Number(match[2]) - 1, Number(match[3]), 12, 0, 0);
+}
