@@ -95,6 +95,12 @@ export class SubscriptionService {
     );
   }
 
+  public countByGender(campaignId: number): Observable<Record<string, number>> {
+    return this.httpClient.get<Record<string, number>>(
+      `${this.endpoint}/membership/campaigns/${campaignId}/subscriptions/count/gender`,
+    );
+  }
+
   private serialize(data: Partial<Subscription>): any {
     console.log('Serializing data:', data);
     return {

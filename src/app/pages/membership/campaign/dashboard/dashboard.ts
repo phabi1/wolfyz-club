@@ -40,6 +40,10 @@ import { provideDashboardWidgets } from '../../../../components/ui/dashboard/wid
         import('../../../../components/membership/dashboard/widgets/last-requests/last-requests').then(
           (m) => m.LastRequests,
         ),
+        'gender-distribution': () =>
+        import('../../../../components/membership/dashboard/widgets/gender-distribution/gender-distribution').then(
+          (m) => m.GenderDistribution,
+        ),
     }),
   ],
   templateUrl: './dashboard.html',
@@ -79,6 +83,15 @@ export class CampaignDashboard {
       x: 0,
       type: 'latest-requests',
       settings: {},
-    }
+    },
+    {
+      id: '10',
+      cols: 2,
+      rows: 3,
+      y: 2,
+      x: 2,
+      type: 'gender-distribution',
+      settings: {},
+    },
   ]);
 }
