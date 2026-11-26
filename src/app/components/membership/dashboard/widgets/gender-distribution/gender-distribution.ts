@@ -8,8 +8,10 @@ import {
   signal,
   viewChild,
 } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { ArcElement, Chart, Legend, PieController, Tooltip } from 'chart.js';
 import { SubscriptionService } from '../../../../../services/membership/subscription.service';
+import { campaignIdSnapshot } from '../../../../../utils/route';
 
 Chart.register(PieController, ArcElement, Tooltip, Legend);
 
@@ -39,6 +41,7 @@ const GENDERS: { key: string; label: string; color: string }[] = [
 })
 export class GenderDistribution {
   private readonly subscriptionService = inject(SubscriptionService);
+  private readonly campaignId = campaignIdSnapshot(inject(ActivatedRoute));
   private readonly canvas = viewChild<ElementRef<HTMLCanvasElement>>('canvas');
   private chart: Chart<'pie'> | null = null;
 
@@ -49,7 +52,7 @@ export class GenderDistribution {
   );
 
   constructor() {
-    this.subscriptionService.countByGender(2).subscribe({
+    this.subscriptionService.countByGender(this.campaignId).subscribe({
       next: (counts) => {
         this.counts.set(counts);
         this.loading.set(false);

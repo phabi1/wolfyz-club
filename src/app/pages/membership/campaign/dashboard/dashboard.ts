@@ -44,6 +44,10 @@ import { provideDashboardWidgets } from '../../../../components/ui/dashboard/wid
         import('../../../../components/membership/dashboard/widgets/gender-distribution/gender-distribution').then(
           (m) => m.GenderDistribution,
         ),
+      'age-distribution': () =>
+        import('../../../../components/membership/dashboard/widgets/age-distribution/age-distribution').then(
+          (m) => m.AgeDistribution,
+        ),
     }),
   ],
   templateUrl: './dashboard.html',
@@ -91,6 +95,15 @@ export class CampaignDashboard {
       y: 2,
       x: 2,
       type: 'gender-distribution',
+      settings: {},
+    },
+    {
+      id: '11',
+      cols: 4,
+      rows: 3,
+      y: 5,
+      x: 2,
+      type: 'age-distribution',
       settings: {},
     },
   ]);

@@ -101,6 +101,13 @@ export class SubscriptionService {
     );
   }
 
+  /** Number of members by age (in years) at the start of the campaign */
+  public countByAge(campaignId: number): Observable<AgeDistribution> {
+    return this.httpClient.get<AgeDistribution>(
+      `${this.endpoint}/membership/campaigns/${campaignId}/subscriptions/count/age`,
+    );
+  }
+
   /** Marks the license as taken (or not taken when `takenAt` is null) for a selection */
   public licenseTaken(
     campaignId: number | string,
@@ -145,3 +152,12 @@ export class SubscriptionService {
 }
 
 const DATE_FIELDS = ['license_taken_at', 'subscribed_at', 'medical_certificate_date'] as const;
+
+export type AgeDistribution = {
+  /** Date the ages are computed at (YYYY-MM-DD) */
+  reference_date: string;
+  /** age -> number of members */
+  ages: Record<string, number>;
+  /** members without a usable birthdate */
+  unknown: number;
+};
