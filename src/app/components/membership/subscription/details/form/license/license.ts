@@ -16,6 +16,15 @@ const COMPETITION_ONLY = {
     field.model?.license_type === COMPETITION_LICENSE,
 };
 
+// Only shown (and required) for a hobby (non-competition) license: a health
+// questionnaire is enough, the medical certificate replaces it in competition
+const HOBBY_ONLY = {
+  hide: (field: FormlyFieldConfig) =>
+    !field.model?.license_type || field.model.license_type === COMPETITION_LICENSE,
+  'props.required': (field: FormlyFieldConfig) =>
+    !!field.model?.license_type && field.model.license_type !== COMPETITION_LICENSE,
+};
+
 @Component({
   selector: 'app-membership-subscription-details-form-license',
   imports: [FormlyForm, MatDialogModule, MatButtonModule],
@@ -66,6 +75,16 @@ export class License {
       },
     },
 
+    {
+      key: 'medical_form',
+      type: 'upload',
+      props: {
+        label: $localize`:@@membership.subscriptions.medicalForm:Health questionnaire`,
+        uploadUrl: '/membership/file/upload',
+        removeUrl: '/membership/file/remove',
+      },
+      expressions: HOBBY_ONLY,
+    },
     {
       key: 'identity_photo',
       type: 'upload',

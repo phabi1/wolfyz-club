@@ -47,7 +47,15 @@ export class License {
 
   /** Fields relevant for the current license type */
   readonly visibleFields = computed(() =>
-    this.fields.filter((field) => !field.competitionOnly || this.isCompetition()),
+    this.fields.filter((field) => {
+      if (field.competitionOnly) {
+        return this.isCompetition();
+      }
+      if (field.hobbyOnly) {
+        return !!this.item().license_type && !this.isCompetition();
+      }
+      return true;
+    }),
   );
 
   fields: LicenseField[] = [
@@ -73,6 +81,7 @@ export class License {
     },
     {
       name: 'medical_form',
+      hobbyOnly: true,
       label: $localize`:@@membership.subscriptions.medicalForm:Health questionnaire`,
       type: 'file',
       value: (item) => item.medical_form,
@@ -174,4 +183,6 @@ type LicenseField = {
   value: (item: Subscription) => unknown;
   /** Only relevant for a competition license */
   competitionOnly?: boolean;
+  /** Only relevant for a hobby (non-competition) license */
+  hobbyOnly?: boolean;
 };
