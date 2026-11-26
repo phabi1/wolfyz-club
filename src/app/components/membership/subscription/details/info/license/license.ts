@@ -10,7 +10,7 @@ import { DetailItem } from '../../../../../ui/details/detail-item';
 import { Details } from '../../../../../ui/details/details';
 import { FilePreview } from '../../../../../ui/file-preview/file-preview';
 import { YesNo } from '../../../../../ui/yes-no/yes-no';
-import { License as LicenseForm } from '../../form/license/license';
+import { COMPETITION_LICENSE, License as LicenseForm } from '../../form/license/license';
 import { DatePipe } from '../../../../../../pipes/date-pipe';
 
 @Component({
@@ -43,6 +43,13 @@ export class License {
       .join(', ');
   });
 
+  readonly isCompetition = computed(() => this.item().license_type === COMPETITION_LICENSE);
+
+  /** Fields relevant for the current license type */
+  readonly visibleFields = computed(() =>
+    this.fields.filter((field) => !field.competitionOnly || this.isCompetition()),
+  );
+
   fields: LicenseField[] = [
     {
       name: 'license_taken_at',
@@ -52,12 +59,14 @@ export class License {
     },
     {
       name: 'medical_certificate',
+      competitionOnly: true,
       label: $localize`:@@membership.subscriptions.medicalCertificate:Medical certificate`,
       type: 'file',
       value: (item) => item.medical_certificate,
     },
     {
       name: 'medical_certificate_date',
+      competitionOnly: true,
       label: $localize`:@@membership.subscriptions.medicalCertificateTakenAt:Medical certificate taken at`,
       type: 'date',
       value: (item) => item.medical_certificate_date,
@@ -70,6 +79,7 @@ export class License {
     },
     {
       name: 'identity_photo',
+      competitionOnly: true,
       label: $localize`:@@membership.subscriptions.identityPhoto:Identity photo`,
       type: 'file',
       value: (item) => item.identity_photo,
@@ -82,6 +92,7 @@ export class License {
     },
     {
       name: 'doctor',
+      competitionOnly: true,
       label: $localize`:@@membership.subscriptions.doctor:Doctor`,
       type: 'text',
       value: (item) => item.doctor,
@@ -161,4 +172,6 @@ type LicenseField = {
   label: string;
   type: 'file' | 'bool' | 'date' | 'text';
   value: (item: Subscription) => unknown;
+  /** Only relevant for a competition license */
+  competitionOnly?: boolean;
 };

@@ -6,6 +6,16 @@ import { FormlyFieldConfig, FormlyForm } from '@ngx-formly/core';
 import type { Discipline } from '../../../../../../models/membership/discipline';
 import { fromDateInput, toDateInput } from '../../../../../../utils/date';
 
+/** License types for which the medical documents and identity photo are needed */
+export const COMPETITION_LICENSE = 'competition';
+
+// Only shown (and required) for a competition license
+const COMPETITION_ONLY = {
+  hide: (field: FormlyFieldConfig) => field.model?.license_type !== COMPETITION_LICENSE,
+  'props.required': (field: FormlyFieldConfig) =>
+    field.model?.license_type === COMPETITION_LICENSE,
+};
+
 @Component({
   selector: 'app-membership-subscription-details-form-license',
   imports: [FormlyForm, MatDialogModule, MatButtonModule],
@@ -64,10 +74,7 @@ export class License {
         uploadUrl: '/membership/file/upload',
         removeUrl: '/membership/file/remove',
       },
-      expressions: {
-        'props.hide': 'model.license_type !== "competition"',
-        'props.required': 'model.license_type === "competition"',
-      },
+      expressions: COMPETITION_ONLY,
     },
     {
       key: 'medical_certificate',
@@ -77,10 +84,7 @@ export class License {
         uploadUrl: '/membership/file/upload',
         removeUrl: '/membership/file/remove',
       },
-      expressions: {
-        'props.hide': 'model.license_type !== "competition"',
-        'props.required': 'model.license_type === "competition"',
-      },
+      expressions: COMPETITION_ONLY,
     },
     {
       key: 'medical_certificate_date',
@@ -89,10 +93,7 @@ export class License {
         type: 'date',
         label: $localize`:@@membership.subscriptions.medicalCertificateTakenAt:Medical certificate taken at`,
       },
-      expressions: {
-        'props.hide': 'model.license_type !== "competition"',
-        'props.required': 'model.license_type === "competition"',
-      },
+      expressions: COMPETITION_ONLY,
     },
     {
       key: 'doctor',
@@ -100,10 +101,7 @@ export class License {
       props: {
         label: $localize`:@@membership.subscriptions.doctor:Doctor`,
       },
-      expressions: {
-        'props.hide': 'model.license_type !== "competition"',
-        'props.required': 'model.license_type === "competition"',
-      },
+      expressions: COMPETITION_ONLY,
     },
     {
       key: 'agree_image',
@@ -172,12 +170,17 @@ export class License {
     if (!this.form.valid) {
       return;
     }
+    // Medical certificate, its date, doctor and identity photo only apply to
+    // a competition license: they are cleared for any other license type
+    const isCompetition = this.model.license_type === COMPETITION_LICENSE;
     const data = {
       license_type: this.model.license_type,
-      identity_photo: this.model.identity_photo || null,
-      medical_certificate: this.model.medical_certificate || null,
-      medical_certificate_date: fromDateInput(this.model.medical_certificate_date),
-      doctor: this.model.doctor || null,
+      identity_photo: isCompetition ? this.model.identity_photo || null : null,
+      medical_certificate: isCompetition ? this.model.medical_certificate || null : null,
+      medical_certificate_date: isCompetition
+        ? fromDateInput(this.model.medical_certificate_date)
+        : null,
+      doctor: isCompetition ? this.model.doctor || null : null,
       medical_form: this.model.medical_form || null,
       agree_image: !!this.model.agree_image,
       agree_exit: !!this.model.agree_exit,

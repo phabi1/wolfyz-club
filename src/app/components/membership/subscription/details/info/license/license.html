@@ -32,7 +32,7 @@
       <span>{{ disciplineNames() | notProvided }}</span>
     </ng-template>
 
-    @for (field of fields; track field.name) {
+    @for (field of visibleFields(); track field.name) {
       @let fieldValue = field.value(item());
       <ng-template appUiDetailItem [label]="field.label">
         @if (fieldValue !== undefined && fieldValue !== null && fieldValue !== '') {
