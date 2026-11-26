@@ -7,12 +7,22 @@ import type { FormlyFieldConfig } from '@ngx-formly/core';
 import { forkJoin, of, switchMap } from 'rxjs';
 import type { Campaign } from '../../../models/membership/campaign';
 import { CampaignService } from '../../../services/membership/campaign.service';
+import { toDate } from '../../../utils/date';
 
 const CAMPAIGN_TITLE_KEY = '__campaign_title';
 const CAMPAIGN_START_DATE_KEY = '__campaign_start_date';
 const CAMPAIGN_END_DATE_KEY = '__campaign_end_date';
 const CAMPAIGN_REGISTRATION_START_KEY = '__campaign_registration_start';
 const CAMPAIGN_REGISTRATION_END_KEY = '__campaign_registration_end';
+const CUSTOM_FIELDS_KEY = 'participant_fields';
+
+export type CampaignCustomField = {
+  name: string;
+  label: string;
+  type: string;
+  required: boolean;
+  options?: string;
+};
 
 type FieldKind = 'string' | 'number' | 'boolean' | 'json' | 'custom';
 
@@ -268,7 +278,15 @@ function toFormlyFields(settings: Record<string, unknown>): {
   const paymentFields: FormlyFieldConfig[] = [];
   const fieldKinds: Record<string, FieldKind> = {};
 
+  // Custom fields are always editable, even when the setting key does not exist yet.
+  fieldKinds[CUSTOM_FIELDS_KEY] = 'custom';
+  const customFieldsFields: FormlyFieldConfig[] = [toCustomFieldsCollectionField()];
+
   for (const key of Object.keys(settings)) {
+    if (key === CUSTOM_FIELDS_KEY) {
+      continue;
+    }
+
     const value = settings[key];
     const label = humanizeKey(key);
 
@@ -406,6 +424,10 @@ function toFormlyFields(settings: Record<string, unknown>): {
       props: { label: 'Payment methods' },
       fieldGroup: paymentFields,
     },
+    {
+      props: { label: 'Custom fields' },
+      fieldGroup: customFieldsFields,
+    },
   ].filter((tab) => tab.fieldGroup.length > 0);
 
   if (!tabs.length) {
@@ -420,6 +442,68 @@ function toFormlyFields(settings: Record<string, unknown>): {
       },
     ],
     fieldKinds,
+  };
+}
+
+function toCustomFieldsCollectionField(): FormlyFieldConfig {
+  return {
+    key: CUSTOM_FIELDS_KEY,
+    type: 'collection',
+    props: {
+      label: 'Custom fields',
+      description: 'Extra fields collected for each subscription of this campaign.',
+      addText: 'Add custom field',
+    },
+    fieldArray: {
+      fieldGroup: [
+        {
+          key: 'label',
+          type: 'input',
+          props: { label: 'Field label', required: true },
+        },
+        {
+          key: 'name',
+          type: 'input',
+          props: {
+            label: 'Field name',
+            description: 'Technical name (generated from the label when left empty).',
+          },
+        },
+        {
+          key: 'type',
+          type: 'select',
+          defaultValue: 'text',
+          props: {
+            label: 'Field type',
+            required: true,
+            options: [
+              { label: 'Text', value: 'text' },
+              { label: 'Number', value: 'number' },
+              { label: 'Email', value: 'email' },
+              { label: 'Date', value: 'date' },
+              { label: 'Checkbox', value: 'boolean' },
+              { label: 'Phone', value: 'phone' },
+              { label: 'Options', value: 'options' },
+            ],
+          },
+        },
+        {
+          key: 'required',
+          type: 'toggle',
+          props: { label: 'Required' },
+          wrappers: [],
+          className: 'pb-4',
+        },
+        {
+          key: 'options',
+          type: 'input',
+          props: { label: 'Options (comma separated)' },
+          expressions: {
+            hide: (field) => field.model?.type !== 'options',
+          },
+        },
+      ],
+    },
   };
 }
 
@@ -440,6 +524,10 @@ function toFormModel(campaign: Campaign): Record<string, unknown> {
     } else {
       model[key] = value;
     }
+  }
+
+  if (!Array.isArray(model[CUSTOM_FIELDS_KEY])) {
+    model[CUSTOM_FIELDS_KEY] = [];
   }
 
   return model;
@@ -500,6 +588,15 @@ function toSettingsPayload(
     const kind = fieldKinds[key];
     const value = model[key];
 
+    if (key === CUSTOM_FIELDS_KEY) {
+      const result = toCustomFieldsPayload(value);
+      if ('errorMessage' in result) {
+        return result;
+      }
+      payload[key] = result.payload;
+      continue;
+    }
+
     if (kind === 'json') {
       const raw = String(value ?? '').trim();
       if (!raw) {
@@ -545,17 +642,74 @@ function humanizeKey(key: string): string {
   return key.replace(/[_-]+/g, ' ').replace(/\b\w/g, (char) => char.toUpperCase());
 }
 
+function toCustomFieldsPayload(
+  value: unknown,
+): { payload: CampaignCustomField[] } | { errorMessage: string } {
+  const items = Array.isArray(value) ? value : [];
+  const payload: CampaignCustomField[] = [];
+  const names = new Set<string>();
+
+  for (const item of items) {
+    if (item === null || typeof item !== 'object') {
+      continue;
+    }
+
+    const raw = item as Record<string, unknown>;
+    const label = String(raw['label'] ?? '').trim();
+    if (!label) {
+      return { errorMessage: 'Each custom field needs a label.' };
+    }
+
+    const name = slugifyFieldName(String(raw['name'] ?? '').trim() || label);
+    if (!name) {
+      return { errorMessage: `Invalid name for custom field "${label}".` };
+    }
+    if (names.has(name)) {
+      return { errorMessage: `Duplicate custom field name "${name}".` };
+    }
+    names.add(name);
+
+    const customField: CampaignCustomField = {
+      name,
+      label,
+      type: String(raw['type'] ?? 'text') || 'text',
+      required: Boolean(raw['required']),
+    };
+
+    const options = String(raw['options'] ?? '').trim();
+    if (customField.type === 'options' && options) {
+      customField.options = options;
+    }
+
+    payload.push(customField);
+  }
+
+  return { payload };
+}
+
+function slugifyFieldName(value: string): string {
+  return value
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '_')
+    .replace(/^_+|_+$/g, '');
+}
+
 function toDateInputValue(value: unknown): string {
   if (!value) {
     return '';
   }
 
-  const date = value instanceof Date ? value : new Date(value as string | number);
-  if (Number.isNaN(date.getTime())) {
+  const date = toDate(value as Date | number | string);
+  if (Number.isNaN(date.getTime()) || date.getTime() === 0) {
     return '';
   }
 
-  return date.toISOString().slice(0, 10);
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
 }
 
 function fromDateInputValue(value: unknown, _label: string): Date | null | undefined {
