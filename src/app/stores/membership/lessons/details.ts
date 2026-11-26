@@ -15,6 +15,7 @@ import type { Lesson } from '../../../models/membership/lesson';
 import { LessonService } from '../../../services/membership/lesson.service';
 import { Subscription } from '../../../models/membership/subscription';
 import { toDate } from '../../../utils/date';
+import { campaignId$, campaignIdSnapshot } from '../../../utils/route';
 
 type Participant = Subscription & { age: number };
 
@@ -119,11 +120,11 @@ export const membershipLessonDetails = signalStore(
     onInit(store, dispatcher = inject(Dispatcher), route = inject(ActivatedRoute)) {
       dispatcher.dispatch(
         membershipLessonDetailsEvents.init({
-          campaignId: 2,
+          campaignId: campaignIdSnapshot(route),
         }),
       );
 
-      const subscription = combineLatest([of(2), route.params]).subscribe(([, params]) => {
+      const subscription = combineLatest([campaignId$(route), route.params]).subscribe(([, params]) => {
         dispatcher.dispatch(
           membershipLessonDetailsEvents.load({
             id: +(params['lessonId'] || 0),

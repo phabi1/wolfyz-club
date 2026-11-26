@@ -14,6 +14,7 @@ import { combineLatest, of, switchMap, tap } from 'rxjs';
 import type { DatagridColumn } from '../../../components/ui/datagrid/column';
 import type { Request } from '../../../models/membership/request';
 import { RequestService } from '../../../services/membership/request.service';
+import { campaignId$ } from '../../../utils/route';
 
 type DateRangeFilterValue = {
   from?: string;
@@ -376,7 +377,7 @@ export const membershipRequestList = signalStore(
   ),
   withHooks({
     onInit: (store, dispatcher = inject(Dispatcher), route = inject(ActivatedRoute)) => {
-      const subscription = combineLatest([of(2), route.queryParamMap]).subscribe(
+      const subscription = combineLatest([campaignId$(route), route.queryParamMap]).subscribe(
         ([campaignId, params]) => {
           const page = +(params.get('page') || 1);
           const size = +(params.get('size') || 10);

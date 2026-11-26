@@ -14,6 +14,7 @@ import { combineLatest, of, switchMap, tap } from 'rxjs';
 import type { DatagridColumn } from '../../../components/ui/datagrid/column';
 import type { Lesson } from '../../../models/membership/lesson';
 import { LessonService } from '../../../services/membership/lesson.service';
+import { campaignId$ } from '../../../utils/route';
 
 type State = {
   campaign_id: number;
@@ -159,7 +160,7 @@ export const membershipLessonList = signalStore(
   })),
   withHooks({
     onInit: (store, dispatcher = inject(Dispatcher), route = inject(ActivatedRoute)) => {
-      const subscription = combineLatest([of(2), route.queryParamMap]).subscribe(
+      const subscription = combineLatest([campaignId$(route), route.queryParamMap]).subscribe(
         ([campaignId, params]) => {
           const payload: any = {};
 
