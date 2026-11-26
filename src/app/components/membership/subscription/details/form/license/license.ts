@@ -35,6 +35,9 @@ export class License {
   private readonly data = inject(MAT_DIALOG_DATA);
   private readonly dialogRef = inject(MatDialogRef<License>);
 
+  /** Minor at the campaign start (unknown birthdate counts as minor) */
+  private readonly isMinor: boolean = this.data?.isMinor ?? true;
+
   form = new FormGroup({});
   fields: FormlyFieldConfig[] = [
     {
@@ -137,6 +140,8 @@ export class License {
       props: {
         label: $localize`:@@membership.subscriptions.agreeExit:Agree exit`,
       },
+      // Exit authorization only concerns minors
+      hide: !this.isMinor,
       className: 'block mb-3',
       wrappers: [],
     },
@@ -202,7 +207,7 @@ export class License {
       doctor: isCompetition ? this.model.doctor || null : null,
       medical_form: this.model.medical_form || null,
       agree_image: !!this.model.agree_image,
-      agree_exit: !!this.model.agree_exit,
+      agree_exit: this.isMinor ? !!this.model.agree_exit : null,
       license_taken_at: this.model.license_taken ? fromDateInput(this.model.license_taken_at) : null,
       discipline_ids: this.model.discipline_ids ?? [],
     };

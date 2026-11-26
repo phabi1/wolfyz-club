@@ -12,6 +12,7 @@ import { FilePreview } from '../../../../../ui/file-preview/file-preview';
 import { YesNo } from '../../../../../ui/yes-no/yes-no';
 import { COMPETITION_LICENSE, License as LicenseForm } from '../../form/license/license';
 import { DatePipe } from '../../../../../../pipes/date-pipe';
+import { ageAt, MAJORITY_AGE } from '../../../../../../utils/date';
 
 @Component({
   selector: 'app-membership-subscription-details-license-section',
@@ -27,6 +28,15 @@ export class License {
   disciplines = input<Discipline[]>([]);
 
   busy = input<boolean>(false);
+
+  /** Date the member age is computed at (campaign start), today when null */
+  referenceDate = input<Date | null>(null);
+
+  /** Minor at the reference date; unknown birthdates are treated as minors */
+  readonly isMinor = computed(() => {
+    const age = ageAt(this.item().member?.birthdate, this.referenceDate());
+    return age === null || age < MAJORITY_AGE;
+  });
 
   change = output<any>();
 
@@ -50,6 +60,9 @@ export class License {
     this.fields.filter((field) => {
       if (field.competitionOnly) {
         return this.isCompetition();
+      }
+      if (field.minorOnly && !this.isMinor()) {
+        return false;
       }
       if (field.hobbyOnly) {
         return !!this.item().license_type && !this.isCompetition();
@@ -108,6 +121,7 @@ export class License {
     },
     {
       name: 'agree_exit',
+      minorOnly: true,
       label: $localize`:@@membership.subscriptions.agreeExit:Agree exit`,
       type: 'bool',
       value: (item) => item.agree_exit,
@@ -140,6 +154,7 @@ export class License {
             ),
           },
           disciplines: this.disciplines(),
+          isMinor: this.isMinor(),
         },
       })
       .afterClosed()
@@ -185,4 +200,6 @@ type LicenseField = {
   competitionOnly?: boolean;
   /** Only relevant for a hobby (non-competition) license */
   hobbyOnly?: boolean;
+  /** Only relevant for a minor member */
+  minorOnly?: boolean;
 };

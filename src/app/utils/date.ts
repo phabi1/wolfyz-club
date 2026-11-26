@@ -90,6 +90,31 @@ export function toInput(date: Date | string): string {
   const seconds = d.getSeconds().toString().padStart(2, '0');
   return `${year}-${month}-${day} ${minutes}:${seconds}`;
 }
+/** Age in whole years at the reference date (today by default), null when unknown */
+export function ageAt(
+  birthdate: Date | number | string | null | undefined,
+  reference: Date | number | string | null | undefined = new Date(),
+): number | null {
+  if (birthdate === null || birthdate === undefined || birthdate === '') {
+    return null;
+  }
+  const birth = toDate(birthdate);
+  const ref = reference ? toDate(reference) : new Date();
+  if (Number.isNaN(birth.getTime()) || birth.getTime() === 0 || birth > ref) {
+    return null;
+  }
+  let age = ref.getFullYear() - birth.getFullYear();
+  const beforeBirthday =
+    ref.getMonth() < birth.getMonth() ||
+    (ref.getMonth() === birth.getMonth() && ref.getDate() < birth.getDate());
+  if (beforeBirthday) {
+    age--;
+  }
+  return age;
+}
+
+export const MAJORITY_AGE = 18;
+
 /** Formats a date for an `<input type="date">` (YYYY-MM-DD, local time) */
 export function toDateInput(value: Date | number | string | null | undefined): string {
   if (value === null || value === undefined || value === '') {

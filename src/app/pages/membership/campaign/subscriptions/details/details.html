@@ -20,6 +20,7 @@
       <app-membership-subscription-details-license-section
         [item]="store.item()"
         [disciplines]="store.disciplines()"
+        [referenceDate]="store.campaign()?.start_date ?? null"
         [busy]="isLicenseUpdating()"
         (change)="onLicenseChange($event)"
       >

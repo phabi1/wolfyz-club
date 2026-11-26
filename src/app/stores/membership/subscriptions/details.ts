@@ -10,7 +10,9 @@ import {
   withEventHandlers,
   withReducer,
 } from '@ngrx/signals/events';
-import { combineLatest, concatMap, forkJoin, map, Observable, of, switchMap, tap } from 'rxjs';
+import { catchError, combineLatest, concatMap, forkJoin, map, Observable, of, switchMap, tap } from 'rxjs';
+import type { Campaign } from '../../../models/membership/campaign';
+import { CampaignService } from '../../../services/membership/campaign.service';
 import type { Contact } from '../../../models/membership/contact';
 import type { Discipline } from '../../../models/membership/discipline';
 import { Lesson } from '../../../models/membership/lesson';
@@ -33,6 +35,7 @@ import { campaignId$, campaignIdSnapshot } from '../../../utils/route';
 
 type State = {
   campaignId: number | null;
+  campaign: Campaign | null;
   lessons: Lesson[];
   disciplines: Discipline[];
   id: number | null;
@@ -48,6 +51,7 @@ const initialState: State = {
   item: createEmptySubscription(),
   loading: false,
   lessons: [],
+  campaign: null,
   disciplines: [],
   updating: [],
   error: null,
@@ -57,7 +61,7 @@ export const membershipSubscriptionDetailsEvents = eventGroup({
   source: 'Membership Subscription Details',
   events: {
     init: type<{ campaignId: number }>(),
-    initSuccess: type<{ lessons: Lesson[]; disciplines: Discipline[] }>(),
+    initSuccess: type<{ lessons: Lesson[]; disciplines: Discipline[]; campaign: Campaign | null }>(),
     initFailure: type<{ error: any }>(),
     load: type<{ id: number }>(),
     loadSuccess: type<{ item: Subscription }>(),
@@ -88,9 +92,10 @@ export const membershipSubscriptionDetails = signalStore(
     })),
     on(
       membershipSubscriptionDetailsEvents.initSuccess,
-      ({ payload: { lessons, disciplines } }) => ({
+      ({ payload: { lessons, disciplines, campaign } }) => ({
         lessons,
         disciplines,
+        campaign,
       }),
     ),
     on(membershipSubscriptionDetailsEvents.initFailure, ({ payload: { error } }) => ({
@@ -188,6 +193,7 @@ export const membershipSubscriptionDetails = signalStore(
       state,
       events = inject(Events),
       lessonService = inject(LessonService),
+      campaignService = inject(CampaignService),
       disciplineService = inject(DisciplineService),
       subscriptionService = inject(SubscriptionService),
       contactService = inject(ContactService),
@@ -200,12 +206,17 @@ export const membershipSubscriptionDetails = signalStore(
           forkJoin({
             lessons: lessonService.items(campaignId),
             disciplines: disciplineService.items(),
+            // Only used for its start date (minors), never blocks the page
+            campaign: campaignService
+              .item(String(campaignId))
+              .pipe(catchError(() => of(null))),
           }).pipe(
             mapResponse({
-              next: ({ lessons, disciplines }) =>
+              next: ({ lessons, disciplines, campaign }) =>
                 membershipSubscriptionDetailsEvents.initSuccess({
                   lessons: lessons.items,
                   disciplines: disciplines.items,
+                  campaign,
                 }),
               error: (error) => membershipSubscriptionDetailsEvents.initFailure({ error }),
             }),
