@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { Details } from './details';
+import { provideTestDefaults } from '../../../../../testing/test-providers';
 
 describe('Details', () => {
   let component: Details;
@@ -9,6 +10,7 @@ describe('Details', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [Details],
+      providers: [provideTestDefaults()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(Details);

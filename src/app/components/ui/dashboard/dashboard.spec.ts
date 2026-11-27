@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { Dashboard } from './dashboard';
+import { provideTestDefaults } from '../../../../testing/test-providers';
 
 describe('Dashboard', () => {
   let component: Dashboard;
@@ -9,10 +10,12 @@ describe('Dashboard', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [Dashboard],
+      providers: [provideTestDefaults()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(Dashboard);
     component = fixture.componentInstance;
+    fixture.componentRef.setInput('widgets', []);
     await fixture.whenStable();
   });
 

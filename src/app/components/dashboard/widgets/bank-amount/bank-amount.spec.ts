@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { BankAmount } from './bank-amount';
+import { provideTestDefaults } from '../../../../../testing/test-providers';
 
 describe('BankAmount', () => {
   let component: BankAmount;
@@ -9,6 +10,7 @@ describe('BankAmount', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [BankAmount],
+      providers: [provideTestDefaults()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(BankAmount);
