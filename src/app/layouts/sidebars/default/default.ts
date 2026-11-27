@@ -1,10 +1,11 @@
 import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
 import type { NavItem } from '../../../components/ui/navbar/nav-item';
 import { Navbar } from "../../../components/ui/navbar/navbar";
-import type { Permission } from '../../../models/user/permission';
+import { MEMBERSHIP_VIEW, type Permission } from '../../../models/user/permission';
 import { AuthService } from '../../../services/auth.service';
 
-type Link = { item: NavItem; permission?: Permission };
+/** The link is shown when the user has at least one of the permissions. */
+type Link = { item: NavItem; permissions?: Permission[] };
 
 @Component({
   selector: 'app-layout-sidebar-default',
@@ -26,7 +27,7 @@ export class Default {
       },
     },
     {
-      permission: 'billing.view',
+      permissions: ['billing.view'],
       item: {
         type: "link",
         label: $localize`:@@nav.default.billing:Billing`,
@@ -34,7 +35,7 @@ export class Default {
       },
     },
     {
-      permission: 'event.view',
+      permissions: ['event.view'],
       item: {
         type: "link",
         label: $localize`:@@nav.default.events:Events`,
@@ -42,7 +43,7 @@ export class Default {
       },
     },
     {
-      permission: 'membership.view',
+      permissions: MEMBERSHIP_VIEW,
       item: {
         type: "link",
         label: $localize`:@@nav.default.membership:Memberships`,
@@ -50,7 +51,7 @@ export class Default {
       },
     },
     {
-      permission: 'users.manage',
+      permissions: ['users.manage'],
       item: {
         type: "link",
         label: $localize`:@@nav.default.users:Users`,
@@ -58,7 +59,7 @@ export class Default {
       },
     },
     {
-      permission: 'roles.manage',
+      permissions: ['roles.manage'],
       item: {
         type: "link",
         label: $localize`:@@nav.default.roles:Roles`,
@@ -71,7 +72,7 @@ export class Default {
   readonly links = computed<NavItem[]>(() => {
     this.authService.permissions();
     return this.allLinks
-      .filter((link) => !link.permission || this.authService.hasPermission(link.permission))
+      .filter((link) => !link.permissions || this.authService.hasPermission(...link.permissions))
       .map((link) => link.item);
   });
 }

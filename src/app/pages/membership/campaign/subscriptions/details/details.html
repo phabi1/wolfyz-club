@@ -13,11 +13,13 @@
         [sessionsCount]="store.item().sessions?.length || 0"
       ></app-membership-subscription-details-overview-section>
       <app-membership-subscription-details-member-section
+        [canEdit]="canEdit"
         [item]="store.item()"
         [busy]="isMemberUpdating()"
         (change)="onMemberChange($event)"
       ></app-membership-subscription-details-member-section>
       <app-membership-subscription-details-license-section
+        [canEdit]="canEdit"
         [item]="store.item()"
         [disciplines]="store.disciplines()"
         [referenceDate]="store.campaign()?.start_date ?? null"
@@ -26,12 +28,14 @@
       >
       </app-membership-subscription-details-license-section>
       <app-membership-subscription-details-sessions-section
+        [canEdit]="canEdit"
         [lessons]="store.lessons()"
         [busy]="isSessionsUpdating()"
         [sessions]="store.item().sessions || []"
         (sessionsChange)="onSessionsChange($event)"
       ></app-membership-subscription-details-sessions-section>
       <app-membership-subscription-details-contacts-section
+        [canEdit]="canEdit"
         [contacts]="store.item().contacts || []"
         [busy]="isContactsUpdating()"
         (contactsChange)="onContactsChange($event)"

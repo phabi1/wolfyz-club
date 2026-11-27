@@ -5,9 +5,11 @@
     </h3>
     <div class="flex items-center gap-2">
       <span class="text-xs text-slate-600">{{ count() }} total</span>
-      <button type="button" mat-button (click)="addItem.emit()">
-        {{ addLabel() ? addLabel() : 'Add' }}
-      </button>
+      @if (canAdd()) {
+        <button type="button" mat-button (click)="addItem.emit()">
+          {{ addLabel() ? addLabel() : 'Add' }}
+        </button>
+      }
     </div>
   </div>
 

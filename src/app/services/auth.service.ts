@@ -19,7 +19,8 @@ export class AuthService {
 
   /**
    * Permissions of the signed-in user ("permissions" claim of the ID token).
-   * Only used to adapt the interface: the APIs enforce them.
+   * Only used to adapt the interface: hiding a control does not protect
+   * anything, the APIs must check them (the club API does not do it yet).
    */
   readonly permissions = computed(() => this.stringList(this.claims()?.['permissions']));
 

@@ -45,7 +45,10 @@
 						No setting key found on this campaign.
 					</p>
 				}
-				<formly-form [form]="form" [fields]="store.fields()" [model]="store.model()"></formly-form>
+				<!-- Read only without the edit permission -->
+				<fieldset [disabled]="!canEdit">
+					<formly-form [form]="form" [fields]="store.fields()" [model]="store.model()"></formly-form>
+				</fieldset>
 			</form>
 		}
 	}

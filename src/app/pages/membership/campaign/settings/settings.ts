@@ -11,6 +11,7 @@ import {
 } from '../../../../stores/membership/campaign/settings';
 import { Details } from "../../../../components/ui/details/details";
 import { DetailItem } from '../../../../components/ui/details/detail-item';
+import { AuthService } from '../../../../services/auth.service';
 
 @Component({
   selector: 'app-pages-membership-campaign-settings',
@@ -23,9 +24,10 @@ import { DetailItem } from '../../../../components/ui/details/detail-item';
 export class Settings {
   private readonly route = inject(ActivatedRoute);
   private readonly dispatcher = inject(Dispatcher);
+  readonly canEdit = inject(AuthService).hasPermission('membership.campaign.edit');
 
   readonly store = inject(membershipCampaignSettings);
-  readonly actions = computed<PageAction[]>(() => [
+  readonly actions = computed<PageAction[]>(() => !this.canEdit ? [] : [
     {
       label: this.store.saving() ? 'Saving...' : 'Save settings',
       primary: true,
@@ -50,6 +52,9 @@ export class Settings {
   }
 
   onSubmit(): void {
+    if (!this.canEdit) {
+      return;
+    }
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       return;

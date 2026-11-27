@@ -7,7 +7,8 @@
   i18n-addLabel="@@membership.subscriptions.contacts.add"
   [items]="contacts()"
   [itemTpl]="contactItemTpl"
-  [itemActions]="itemActions()"
+  [itemActions]="canEdit() ? itemActions() : []"
+  [canAdd]="canEdit()"
   (addItem)="onAddItem()"
 ></app-ui-collection>
 

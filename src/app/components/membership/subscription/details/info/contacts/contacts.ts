@@ -34,6 +34,8 @@ export class ContactsSection {
 
   contacts = input<Contact[]>([]);
   busy = input<boolean>(false);
+  /** False hides the edit controls (no membership.subscription.edit permission). */
+  canEdit = input<boolean>(true);
   contactsChange = output<Contact[]>();
 
   formMode: 'add' | 'edit' = 'add';

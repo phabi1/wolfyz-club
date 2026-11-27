@@ -7,6 +7,7 @@ import type { Period } from '../../../../../models/membership/period';
 import { membershipPeriodList, membershipPeriodListEvents } from '../../../../../stores/membership/periods/list';
 import { Page } from '../../../../../components/ui/page/page';
 import type { PageAction } from '../../../../../components/ui/page/action';
+import { AuthService } from '../../../../../services/auth.service';
 
 @Component({
   selector: 'app-pages-membership-campaign-periods-list',
@@ -20,8 +21,9 @@ export class List {
   readonly router = inject(Router);
   readonly route = inject(ActivatedRoute);
   readonly dispatcher = inject(Dispatcher);
+  readonly canEdit = inject(AuthService).hasPermission('membership.campaign.edit');
 
-  actions: PageAction[] = [
+  actions: PageAction[] = !this.canEdit ? [] : [
     {
       label: $localize`:@@common.button.new:New`,
       primary: true,
@@ -43,7 +45,7 @@ export class List {
         ]);
       },
     },
-    {
+    ...(!this.canEdit ? [] : [{
       label: $localize`:@@common.button.edit:Edit`,
       handler: (row: Period) => {
         this.router.navigate([
@@ -54,7 +56,7 @@ export class List {
           'edit',
         ]);
       },
-    }
+    }]),
   ];
 
   onPaginationChange({ page, size }: { page: number; size: number }) {

@@ -28,6 +28,7 @@
         [itemTpl]="lessonItemTpl"
         layout="list"
         [sectionId]="'lessons-day-' + group.day"
+        [canAdd]="canEdit"
         (addItem)="onAdd()"
         (itemClick)="onLessonClick($event.item, $event.index)"
       ></app-ui-collection>

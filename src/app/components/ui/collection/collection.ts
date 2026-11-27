@@ -28,6 +28,8 @@ export class Collection {
   readonly sectionId = input('');
   readonly itemActions = input<CollectionItemAction[]>([]);
   
+  /** Shows the add button (hidden e.g. without the edit permission). */
+  readonly canAdd = input(true);
   readonly addLabel = input('Ajouter');
   readonly removeLabel = input('Supprimer');
 

@@ -14,14 +14,16 @@
         </div>
       </div>
       <div class="flex items-center gap-2">
-        <button
-          mat-icon-button
-          i18n="@@membership.subscriptions.member.edit"
-          [disabled]="busy()"
-          (click)="showForm()"
-        >
-          <mat-icon>edit</mat-icon>
-        </button>
+        @if (canEdit()) {
+          <button
+            mat-icon-button
+            i18n="@@membership.subscriptions.member.edit"
+            [disabled]="busy()"
+            (click)="showForm()"
+          >
+            <mat-icon>edit</mat-icon>
+          </button>
+        }
       </div>
     </div>
     <app-ui-details>

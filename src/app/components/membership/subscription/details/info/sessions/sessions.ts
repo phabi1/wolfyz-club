@@ -37,6 +37,8 @@ export class SessionsSection {
   lessons = input<Lesson[]>([]);
   sessions = input<Session[]>([]);
   busy = input<boolean>(false);
+  /** False hides the edit controls (no membership.subscription.edit permission). */
+  canEdit = input<boolean>(true);
   sessionsChange = output<Pick<Session, 'id' | 'lesson_id'>[]>();
 
   form = new FormGroup({});

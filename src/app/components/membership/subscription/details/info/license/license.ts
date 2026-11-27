@@ -28,6 +28,8 @@ export class License {
   disciplines = input<Discipline[]>([]);
 
   busy = input<boolean>(false);
+  /** False hides the edit controls (no membership.subscription.edit permission). */
+  canEdit = input<boolean>(true);
 
   /** Date the member age is computed at (campaign start), today when null */
   referenceDate = input<Date | null>(null);

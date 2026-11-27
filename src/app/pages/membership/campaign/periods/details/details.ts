@@ -5,6 +5,7 @@ import { membershipPeriodDetails } from '../../../../../stores/membership/period
 import type { PageAction } from '../../../../../components/ui/page/action';
 import { PeriodService } from '../../../../../services/membership/period.service';
 import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
+import { AuthService } from '../../../../../services/auth.service';
 
 @Component({
   selector: 'app-pages-membership-campaign-periods-details',
@@ -18,6 +19,7 @@ export class Details {
   readonly periodSerivce = inject(PeriodService);
   readonly router = inject(Router);
   readonly route = inject(ActivatedRoute);
+  readonly canEdit = inject(AuthService).hasPermission('membership.campaign.edit');
   readonly untitledPeriodLabel = $localize`:@@membership.periods.details.untitled:Untitled period`;
   readonly notProvidedLabel = $localize`:@@membership.periods.notProvided:Not provided`;
 
@@ -29,19 +31,20 @@ export class Details {
         this.print();
       },
     },
-    {
-      label: $localize`:@@common.button.edit:Edit`,
-      handler: () => {
-        this.router.navigate(['edit'], { relativeTo: this.route });
+    ...(!this.canEdit ? [] : [
+      {
+        label: $localize`:@@common.button.edit:Edit`,
+        handler: () => {
+          this.router.navigate(['edit'], { relativeTo: this.route });
+        },
       },
-    },
-    
-    {
-      label: $localize`:@@membership.periods.delete:Delete`,
-      handler: () => {
-        this.router.navigate([this.store.id(), 'delete']);
+      {
+        label: $localize`:@@membership.periods.delete:Delete`,
+        handler: () => {
+          this.router.navigate([this.store.id(), 'delete']);
+        },
       },
-    },
+    ]),
   ];
 
   private print(): void {

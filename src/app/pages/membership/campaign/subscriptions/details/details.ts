@@ -1,5 +1,6 @@
 import { Component, computed, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { AuthService } from '../../../../../services/auth.service';
 import { Dispatcher } from '@ngrx/signals/events';
 import { ContactsSection } from '../../../../../components/membership/subscription/details/info/contacts/contacts';
 import { License } from '../../../../../components/membership/subscription/details/info/license/license';
@@ -25,6 +26,7 @@ export class Details {
   private readonly route = inject(ActivatedRoute);
   readonly store = inject(membershipSubscriptionDetails);
   readonly dispatcher = inject(Dispatcher);
+  readonly canEdit = inject(AuthService).hasPermission('membership.subscription.edit');
 
   readonly isLicenseUpdating = computed(() => {
     return this.store.updating().includes('license');
