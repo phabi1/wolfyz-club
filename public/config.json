@@ -1,4 +1,5 @@
 {
+    "debug": true,
     "api": {
         "endpoint": "http://api-wolfzy.docker.localhost",
         "apiKey": "secret"
@@ -7,7 +8,12 @@
         "issuer": "https://auth-wolfzy.docker.localhost",
         "clientId": "club",
         "responseType": "code",
-        "scope": "openid offline_access profile email api",
-        "redirectUri": "http://localhost:4200"
+        "scope": "openid profile email api users roles",
+        "redirectUri": "http://localhost:4200",
+        "postLogoutRedirectUri": "http://localhost:4200",
+        "logoutUrl": "https://auth-wolfzy.docker.localhost/signout",
+        "timeoutFactor": 0.75,
+        "disableNonceCheck": false,
+        "preventClearHashAfterLogin": false
     }
 }

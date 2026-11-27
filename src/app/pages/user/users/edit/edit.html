@@ -1,0 +1,33 @@
+<ng-template #formTpl>
+  <h1 mat-dialog-title i18n="@@user.users.edit.title">Edit user</h1>
+  <div mat-dialog-content>
+    @if (error(); as message) {
+      <p class="mb-3 rounded-lg border border-red-200 bg-red-50 px-2.5 py-2 text-[0.8rem] text-red-700" role="alert">
+        {{ message }}
+      </p>
+    }
+    @if (loading()) {
+      <mat-progress-spinner mode="indeterminate" diameter="32"></mat-progress-spinner>
+    } @else {
+      <form [formGroup]="form" (ngSubmit)="onSubmit()" id="user-edit-form">
+        <formly-form [form]="form" [fields]="fields" [model]="model"></formly-form>
+      </form>
+    }
+  </div>
+  <div mat-dialog-actions>
+    @if (processing()) {
+      <mat-progress-spinner mode="indeterminate" diameter="32"></mat-progress-spinner>
+    } @else {
+      <button type="button" mat-button (click)="onCancel()" i18n="@@common.button.cancel">Cancel</button>
+      <button
+        type="submit"
+        form="user-edit-form"
+        mat-button
+        [disabled]="loading() || form.invalid"
+        i18n="@@common.button.save"
+      >
+        Save
+      </button>
+    }
+  </div>
+</ng-template>

@@ -1,0 +1,21 @@
+<app-ui-page title="Users" i18n-title="@@user.users.pageTitle" [actions]="pageActions">
+  @if (store.error(); as error) {
+    <p class="mb-3 rounded-lg border border-red-200 bg-red-50 px-2.5 py-2 text-[0.8rem] text-red-700" role="alert">
+      {{ error }}
+    </p>
+  }
+  <app-ui-datagrid
+    [columns]="store.columns()"
+    [rows]="store.items()"
+    [total]="store.total()"
+    [fetching]="store.loading()"
+    [rowActions]="rowActions"
+    [currentPage]="store.page()"
+    [quickSearch]="true"
+    [search]="store.search()"
+    (rowClick)="open($event.row)"
+    (searchChange)="onSearchChange($event)"
+    (paginationChange)="onPaginationChange($event)"
+  ></app-ui-datagrid>
+</app-ui-page>
+<router-outlet></router-outlet>

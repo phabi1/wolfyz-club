@@ -1791,6 +1791,474 @@
         <source/>
         <target>Numéro de membre</target>
       </trans-unit>
+      <trans-unit id="common.error.network" datatype="html">
+        <source>The server cannot be reached.</source>
+        <target>Le serveur est injoignable.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/utils/api-error.ts</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="common.label.yes" datatype="html">
+        <source>Yes</source>
+        <target>Oui</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/ui/datagrid/table/cell/yes-no/yes-no.ts</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="nav.default.users" datatype="html">
+        <source>Users</source>
+        <target>Utilisateurs</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/layouts/sidebars/default/default.ts</context>
+          <context context-type="linenumber">37</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="user.users.pageTitle" datatype="html">
+        <source>Users</source>
+        <target>Utilisateurs</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/user/users/list/list.html</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="user.users.column.lastname" datatype="html">
+        <source>Last name</source>
+        <target>Nom</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/stores/user/users/list.ts</context>
+          <context context-type="linenumber">35</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="user.users.column.firstname" datatype="html">
+        <source>First name</source>
+        <target>Prénom</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/stores/user/users/list.ts</context>
+          <context context-type="linenumber">36</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="user.users.column.emailVerified" datatype="html">
+        <source>Email verified</source>
+        <target>E-mail vérifié</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/stores/user/users/list.ts</context>
+          <context context-type="linenumber">41</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="user.users.column.createdAt" datatype="html">
+        <source>Created</source>
+        <target>Créé le</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/user/users/details/details.html</context>
+          <context context-type="linenumber">43</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/stores/user/users/list.ts</context>
+          <context context-type="linenumber">44</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="user.users.form.firstname" datatype="html">
+        <source>First name</source>
+        <target>Prénom</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/user/users/details/details.html</context>
+          <context context-type="linenumber">31</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/user/users/form.ts</context>
+          <context context-type="linenumber">38</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="user.users.form.lastname" datatype="html">
+        <source>Last name</source>
+        <target>Nom</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/user/users/details/details.html</context>
+          <context context-type="linenumber">34</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/user/users/form.ts</context>
+          <context context-type="linenumber">47</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="user.users.form.password" datatype="html">
+        <source>Password</source>
+        <target>Mot de passe</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/user/users/form.ts</context>
+          <context context-type="linenumber">69</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="user.users.form.passwordCreateHint" datatype="html">
+        <source>Optional. Without a password, the user sets one with &quot;Forgot password&quot;.</source>
+        <target>Facultatif. Sans mot de passe, l’utilisateur en définit un via « Mot de passe oublié ».</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/user/users/form.ts</context>
+          <context context-type="linenumber">76</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="user.users.form.passwordEditHint" datatype="html">
+        <source>Leave empty to keep the current password.</source>
+        <target>Laisser vide pour conserver le mot de passe actuel.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/user/users/form.ts</context>
+          <context context-type="linenumber">77</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="user.users.form.emailVerified" datatype="html">
+        <source>Email verified</source>
+        <target>E-mail vérifié</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/user/users/details/details.html</context>
+          <context context-type="linenumber">40</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/user/users/form.ts</context>
+          <context context-type="linenumber">83</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="user.users.new.title" datatype="html">
+        <source>New user</source>
+        <target>Nouvel utilisateur</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/user/users/new/new.html</context>
+          <context context-type="linenumber">2,4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="user.users.edit.title" datatype="html">
+        <source>Edit user</source>
+        <target>Modifier l’utilisateur</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/user/users/edit/edit.html</context>
+          <context context-type="linenumber">2,4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="user.users.details.subtitle" datatype="html">
+        <source>User</source>
+        <target>Utilisateur</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/user/users/details/details.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="user.users.details.you" datatype="html">
+        <source>You</source>
+        <target>Vous</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/user/users/details/details.html</context>
+          <context context-type="linenumber">27</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="user.users.details.id" datatype="html">
+        <source>Identifier</source>
+        <target>Identifiant</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/user/users/details/details.html</context>
+          <context context-type="linenumber">50</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="user.users.delete.title" datatype="html">
+        <source>Delete user</source>
+        <target>Supprimer l’utilisateur</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/user/users/details/details.ts</context>
+          <context context-type="linenumber">68</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="user.users.delete.message" datatype="html">
+        <source>Delete the account of <x id="name" equiv-text="user.name"/> (<x id="email" equiv-text="user.email"/>)? The user will be signed out of every application. This cannot be undone.</source>
+        <target>Supprimer le compte de <x id="name" equiv-text="user.name"/> (<x id="email" equiv-text="user.email"/>) ? L’utilisateur sera déconnecté de toutes les applications. Cette action est irréversible.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/user/users/details/details.ts</context>
+          <context context-type="linenumber">69</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="common.label.no" datatype="html">
+        <source>No</source>
+        <target>Non</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/ui/datagrid/table/cell/yes-no/yes-no.ts</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="user.role.none" datatype="html">
+        <source>No role</source>
+        <target>Aucun rôle</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/user/datagrid/table/cell/user-role/user-role.ts</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/user/users/details/details.ts</context>
+          <context context-type="linenumber">34</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="nav.default.roles" datatype="html">
+        <source>Roles</source>
+        <target>Rôles</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/layouts/sidebars/default/default.ts</context>
+          <context context-type="linenumber">64</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="permission.users.manage" datatype="html">
+        <source>Manage users</source>
+        <target>Gérer les utilisateurs</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/models/user/permission.ts</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="permission.roles.manage" datatype="html">
+        <source>Manage roles</source>
+        <target>Gérer les rôles</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/models/user/permission.ts</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="permission.billing.view" datatype="html">
+        <source>View billing</source>
+        <target>Voir la facturation</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/models/user/permission.ts</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="permission.billing.edit" datatype="html">
+        <source>Edit billing</source>
+        <target>Modifier la facturation</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/models/user/permission.ts</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="permission.membership.view" datatype="html">
+        <source>View memberships</source>
+        <target>Voir les adhésions</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/models/user/permission.ts</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="permission.membership.edit" datatype="html">
+        <source>Edit memberships</source>
+        <target>Modifier les adhésions</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/models/user/permission.ts</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="permission.event.view" datatype="html">
+        <source>View events</source>
+        <target>Voir les événements</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/models/user/permission.ts</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="permission.event.edit" datatype="html">
+        <source>Edit events</source>
+        <target>Modifier les événements</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/models/user/permission.ts</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="forbidden.title" datatype="html">
+        <source>Access denied</source>
+        <target>Accès refusé</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/forbidden/forbidden.html</context>
+          <context context-type="linenumber">2,3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="forbidden.message" datatype="html">
+        <source> Your roles do not give access to this page. Contact an administrator if you need it. </source>
+        <target>Vos rôles ne donnent pas accès à cette page. Contactez un administrateur si vous en avez besoin.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/forbidden/forbidden.html</context>
+          <context context-type="linenumber">4,6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="forbidden.back" datatype="html">
+        <source>Go back to home</source>
+        <target>Retour à l’accueil</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/forbidden/forbidden.html</context>
+          <context context-type="linenumber">6,8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="user.roles.edit.title" datatype="html">
+        <source>Edit role</source>
+        <target>Modifier le rôle</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/user/roles/edit/edit.html</context>
+          <context context-type="linenumber">4,6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="user.roles.new.title" datatype="html">
+        <source>New role</source>
+        <target>Nouveau rôle</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/user/roles/edit/edit.html</context>
+          <context context-type="linenumber">6,9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="user.roles.form.label" datatype="html">
+        <source>Name</source>
+        <target>Nom</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/user/roles/edit/edit.html</context>
+          <context context-type="linenumber">20,21</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="user.roles.form.description" datatype="html">
+        <source>Description</source>
+        <target>Description</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/user/roles/edit/edit.html</context>
+          <context context-type="linenumber">24,25</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="user.roles.permissions" datatype="html">
+        <source>Permissions</source>
+        <target>Permissions</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/user/roles/edit/edit.html</context>
+          <context context-type="linenumber">29,30</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/user/roles/list/list.ts</context>
+          <context context-type="linenumber">35</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="user.roles.form.grantHint" datatype="html">
+        <source> Permissions you do not have yourself cannot be granted. </source>
+        <target>Vous ne pouvez pas accorder des permissions que vous n’avez pas vous-même.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/user/roles/edit/edit.html</context>
+          <context context-type="linenumber">48,50</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="user.roles.group.administration" datatype="html">
+        <source>Administration</source>
+        <target>Administration</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/user/roles/edit/edit.ts</context>
+          <context context-type="linenumber">31</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/user/roles/edit/edit.ts</context>
+          <context context-type="linenumber">32</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="user.roles.pageTitle" datatype="html">
+        <source>Roles</source>
+        <target>Rôles</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/user/roles/list/list.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="user.roles.pageSubtitle" datatype="html">
+        <source>A user receives the permissions of all their roles.</source>
+        <target>Un utilisateur reçoit les permissions de tous ses rôles.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/user/roles/list/list.html</context>
+          <context context-type="linenumber">4,5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="user.roles.system" datatype="html">
+        <source>System</source>
+        <target>Système</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/user/roles/list/list.html</context>
+          <context context-type="linenumber">32</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="user.roles.noPermission" datatype="html">
+        <source>No permission</source>
+        <target>Aucune permission</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/user/roles/list/list.html</context>
+          <context context-type="linenumber">46,50</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="user.roles.userSingular" datatype="html">
+        <source>user</source>
+        <target>utilisateur</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/user/roles/list/list.ts</context>
+          <context context-type="linenumber">37</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="user.roles.userPlural" datatype="html">
+        <source>users</source>
+        <target>utilisateurs</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/user/roles/list/list.ts</context>
+          <context context-type="linenumber">38</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="user.roles.delete.title" datatype="html">
+        <source>Delete role</source>
+        <target>Supprimer le rôle</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/user/roles/list/list.ts</context>
+          <context context-type="linenumber">68</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="user.roles.delete.message" datatype="html">
+        <source>Delete the role <x id="label" equiv-text="role.label"/>?</source>
+        <target>Supprimer le rôle <x id="label" equiv-text="role.label"/> ?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/user/roles/list/list.ts</context>
+          <context context-type="linenumber">65</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="user.roles.delete.messageUsers" datatype="html">
+        <source>Delete the role <x id="label" equiv-text="role.label"/>? <x id="count" equiv-text="role.user_count"/> user(s) will lose it.</source>
+        <target>Supprimer le rôle <x id="label" equiv-text="role.label"/> ? <x id="count" equiv-text="role.user_count"/> utilisateur(s) le perdront.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/user/roles/list/list.ts</context>
+          <context context-type="linenumber">64</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="user.users.form.roles" datatype="html">
+        <source>Roles</source>
+        <target>Rôles</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/user/users/form.ts</context>
+          <context context-type="linenumber">98</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="user.users.form.rolesSelfHint" datatype="html">
+        <source>You cannot change your own roles.</source>
+        <target>Vous ne pouvez pas modifier vos propres rôles.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/user/users/form.ts</context>
+          <context context-type="linenumber">105</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="user.users.form.rolesHint" datatype="html">
+        <source>You can only grant roles whose permissions you have yourself.</source>
+        <target>Vous ne pouvez attribuer que des rôles dont vous avez vous-même les permissions.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/user/users/form.ts</context>
+          <context context-type="linenumber">106</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="user.users.column.roles" datatype="html">
+        <source>Roles</source>
+        <target>Rôles</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/stores/user/users/list.ts</context>
+          <context context-type="linenumber">38</context>
+        </context-group>
+      </trans-unit>
     </body>
   </file>
 </xliff>

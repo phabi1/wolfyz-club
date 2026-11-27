@@ -1,6 +1,8 @@
 import { Component, inject, signal, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { AuthService } from './services/auth.service';
+import { OAuthService } from 'angular-oauth2-oidc';
+import { filter, tap } from 'rxjs';
+import { ConfigService } from './services/config.service';
 
 @Component({
   selector: 'app-root',
@@ -9,12 +11,20 @@ import { AuthService } from './services/auth.service';
   styleUrls: ['./app.css'],
 })
 export class App implements OnInit {
-  private authService = inject(AuthService);
   protected readonly title = signal('club');
 
+  private readonly oauthService = inject(OAuthService);
+  private readonly configService = inject(ConfigService);
+
   ngOnInit() {
-    // Initialize authentication status from OAuth2 token
-    this.authService.authenticate();
+    const debug = this.configService.get('debug', false) === true;
+
+    // OIDC initialization and login are handled by isLoggedGuard (AuthService.init).
+    this.oauthService.events
+      .pipe(
+        tap((e) => debug && console.debug('[oauth]', e.type)),
+        filter((e) => e.type === 'token_received'))
+      .subscribe((_) => this.oauthService.loadUserProfile());
 
     // Hide splash screen
     const splashscreen = document.getElementById('splashscreen');

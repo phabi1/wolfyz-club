@@ -1,0 +1,58 @@
+<app-ui-page
+  [title]="store.item()?.name || ''"
+  subtitle="User"
+  i18n-subtitle="@@user.users.details.subtitle"
+  [actions]="pageActions()"
+>
+  @if (store.loading() && !store.item()) {
+    <p i18n="@@common.label.loading">Loading...</p>
+  }
+
+  @for (message of [store.error(), deleteError()]; track $index) {
+    @if (message) {
+      <p class="mb-3 rounded-lg border border-red-200 bg-red-50 px-2.5 py-2 text-[0.8rem] text-red-700" role="alert">
+        {{ message }}
+      </p>
+    }
+  }
+
+  @if (store.item(); as user) {
+    <section class="paper">
+      <div class="mb-4 flex flex-wrap items-center gap-2">
+        @for (role of user.roles; track role.id) {
+          <app-ui-badge [label]="role.label" [tone]="role.id === 'admin' ? 'warning' : 'neutral'"></app-ui-badge>
+        } @empty {
+          <app-ui-badge [label]="noRoleLabel"></app-ui-badge>
+        }
+        @if (isSelf()) {
+          <app-ui-badge label="You" i18n-label="@@user.users.details.you" tone="success"></app-ui-badge>
+        }
+      </div>
+      <app-ui-details>
+        <ng-template appUiDetailItem label="First name" i18n-label="@@user.users.form.firstname">
+          {{ user.firstname | notProvided }}
+        </ng-template>
+        <ng-template appUiDetailItem label="Last name" i18n-label="@@user.users.form.lastname">
+          {{ user.lastname | notProvided }}
+        </ng-template>
+        <ng-template appUiDetailItem label="Email" i18n-label="@@common.label.email">
+          <span class="break-all">{{ user.email }}</span>
+        </ng-template>
+        <ng-template appUiDetailItem label="Email verified" i18n-label="@@user.users.form.emailVerified">
+          <app-ui-yes-no [value]="user.email_verified"></app-ui-yes-no>
+        </ng-template>
+        <ng-template appUiDetailItem label="Created" i18n-label="@@user.users.column.createdAt">
+          @if (user.created_at) {
+            {{ user.created_at | date }}
+          } @else {
+            -
+          }
+        </ng-template>
+        <ng-template appUiDetailItem label="Identifier" i18n-label="@@user.users.details.id">
+          <code class="text-xs break-all">{{ user.id }}</code>
+        </ng-template>
+      </app-ui-details>
+    </section>
+  }
+</app-ui-page>
+<router-outlet></router-outlet>

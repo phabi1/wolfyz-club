@@ -1,0 +1,60 @@
+<app-ui-page
+  title="Roles"
+  i18n-title="@@user.roles.pageTitle"
+  subtitle="A user receives the permissions of all their roles."
+  i18n-subtitle="@@user.roles.pageSubtitle"
+  [actions]="pageActions"
+>
+  @if (store.loading() && store.items().length === 0) {
+    <p i18n="@@common.label.loading">Loading...</p>
+  }
+
+  @for (message of [store.error(), actionError()]; track $index) {
+    @if (message) {
+      <p class="mb-3 rounded-lg border border-red-200 bg-red-50 px-2.5 py-2 text-[0.8rem] text-red-700" role="alert">
+        {{ message }}
+      </p>
+    }
+  }
+
+  <div class="grid grid-cols-1 gap-4 lg:grid-cols-2">
+    @for (role of store.items(); track role.id) {
+      <section class="paper flex flex-col gap-3" [attr.aria-labelledby]="'role-' + role.id">
+        <header class="flex flex-wrap items-start justify-between gap-2">
+          <div class="min-w-0">
+            <h2 [id]="'role-' + role.id" class="m-0 text-base font-bold text-slate-900">{{ role.label }}</h2>
+            @if (role.description) {
+              <p class="mt-1 text-sm text-slate-600">{{ role.description }}</p>
+            }
+          </div>
+          <div class="flex flex-wrap items-center gap-1">
+            @if (role.is_system) {
+              <app-ui-badge label="System" i18n-label="@@user.roles.system" tone="warning"></app-ui-badge>
+            }
+            <app-ui-badge
+              [label]="role.user_count + ' ' + (role.user_count > 1 ? usersLabel.plural : usersLabel.singular)"
+            ></app-ui-badge>
+          </div>
+        </header>
+
+        <ul class="m-0 flex list-none flex-wrap gap-1.5 p-0" [attr.aria-label]="permissionsAria">
+          @for (permission of role.permissions; track permission) {
+            <li class="rounded-full bg-slate-100 px-2.5 py-0.5 text-xs text-slate-700">
+              {{ permissionLabel(permission) }}
+            </li>
+          } @empty {
+            <li class="text-sm text-slate-400" i18n="@@user.roles.noPermission">No permission</li>
+          }
+        </ul>
+
+        @if (canEdit(role)) {
+          <footer class="mt-auto flex justify-end gap-2">
+            <button type="button" mat-button (click)="onDelete(role)" i18n="@@common.button.delete">Delete</button>
+            <button type="button" mat-button (click)="onEdit(role)" i18n="@@common.button.edit">Edit</button>
+          </footer>
+        }
+      </section>
+    }
+  </div>
+</app-ui-page>
+<router-outlet></router-outlet>
