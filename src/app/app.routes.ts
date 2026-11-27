@@ -6,6 +6,11 @@ import { selectCampaignGuard } from './guards/select-campaign-guard';
 
 export const routes: Routes = [
   {
+    // Outside the default layout and isLoggedGuard: see Logout.
+    path: 'logout',
+    loadComponent: () => import('./pages/logout/logout').then((m) => m.Logout),
+  },
+  {
     path: '',
     canActivate: [isLoggedGuard],
     loadComponent: () => import('./layouts/default/default').then((m) => m.DefaultLayout),

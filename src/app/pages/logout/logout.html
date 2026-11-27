@@ -1,0 +1,9 @@
+<div class="flex h-full flex-col items-center justify-center gap-4 p-4 text-center">
+  @if (loggedOut()) {
+    <p class="text-xl text-gray-500 dark:text-gray-400" i18n="@@logout.done">You are logged out.</p>
+    <button mat-flat-button type="button" (click)="login()" i18n="@@logout.login">Log in again</button>
+  } @else {
+    <mat-spinner diameter="40"></mat-spinner>
+    <p class="text-xl text-gray-500 dark:text-gray-400" i18n="@@logout.progress">Logging out…</p>
+  }
+</div>

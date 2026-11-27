@@ -123,8 +123,12 @@ export class AuthService {
 
   /**
    * Clears the local tokens and ends the session on the identity provider.
+   * Returns false when no logout URL is known: the browser then stays on the
+   * current page with only the local session cleared.
    */
-  logout() {
+  logout(): boolean {
+    const redirects = !!this.oauthService.logoutUrl;
     this.oauthService.logOut();
+    return redirects;
   }
 }
