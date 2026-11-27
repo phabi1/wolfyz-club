@@ -18,6 +18,7 @@ import { provideDatagrid } from '../../../../../components/ui/datagrid/provider'
 import { SelectedRows } from '../../../../../components/ui/datagrid/selected-rows';
 import { LicenseTaken } from '../../../../../components/membership/subscription/list/actions/license-taken/license-taken';
 import { Export } from '../../../../../components/membership/subscription/list/actions/export/export';
+import { AuthService } from '../../../../../services/auth.service';
 
 @Component({
   selector: 'app-pages-membership-campaign-subscriptions-list',
@@ -48,8 +49,9 @@ export class List {
   readonly route = inject(ActivatedRoute);
   readonly dispatcher = inject(Dispatcher);
   readonly dialog = inject(MatDialog);
+  readonly canEdit = inject(AuthService).hasPermission('membership.subscription.edit');
 
-  pageActions: PageAction[] = [
+  pageActions: PageAction[] = !this.canEdit ? [] : [
     {
       label: $localize`:@@common.button.new:New`,
       primary: true,
@@ -79,7 +81,7 @@ export class List {
   ];
 
   bulkActions: DatagridBulkAction[] = [
-    {
+    ...(!this.canEdit ? [] : [{
       name: 'take-license',
       label: $localize`:@@membership.subscription.list.bulkAction.takeLicense:License Taken`,
       handler: ({ ids, reverse }: SelectedRows) => {
@@ -100,7 +102,7 @@ export class List {
             }
           });
       },
-    },
+    }]),
     {
       name: 'export',
       label: $localize`:@@common.button.export:Export`,

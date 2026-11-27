@@ -21,6 +21,8 @@ export class RequestPay {
   readonly calculating = input<boolean>(true);
   readonly sendingInvoiceEmail = input<boolean>(false);
   readonly invoiceEmailSent = input<boolean>(false);
+  /** False hides the discount and invoice controls (no membership.request.edit permission). */
+  readonly canEdit = input<boolean>(true);
   readonly totalAmount = computed(() => this.pay().total_amount || 0);
   readonly enterAmountLabel = $localize`:@@membership.requests.pay.enterAmount:Enter amount`;
   readonly applyLabel = $localize`:@@membership.requests.pay.apply:Apply`;

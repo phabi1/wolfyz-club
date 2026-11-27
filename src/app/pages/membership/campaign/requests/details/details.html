@@ -25,9 +25,12 @@
         aria-label="Actions and history"
         i18n-aria-label="@@membership.requests.details.actionsAndHistory"
       >
-        <app-membership-request-details-status-switcher></app-membership-request-details-status-switcher>
+        @if (canEdit) {
+          <app-membership-request-details-status-switcher></app-membership-request-details-status-switcher>
+        }
         <app-membership-request-details-request-pay
           [status]="item.status"
+          [canEdit]="canEdit"
           [pay]="store.pay()"
           [calculating]="store.calculating()"
           [sendingInvoiceEmail]="store.sendingInvoiceEmail()"

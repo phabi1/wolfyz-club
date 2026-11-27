@@ -10,6 +10,7 @@ import {
   membershipRequestDetailsEvents,
 } from '../../../../../stores/membership/request/details';
 import { ActivatedRoute } from '@angular/router';
+import { AuthService } from '../../../../../services/auth.service';
 
 @Component({
   selector: 'app-pages-membership-campaign-requests-details',
@@ -22,6 +23,7 @@ export class Details {
   private readonly route = inject(ActivatedRoute);
   readonly store = inject(membershipRequestDetails);
   readonly dispatcher = inject(Dispatcher);
+  readonly canEdit = inject(AuthService).hasPermission('membership.request.edit');
 
   backLink = computed(() => {
     if (this.route.snapshot.queryParamMap.get('redirect')) {

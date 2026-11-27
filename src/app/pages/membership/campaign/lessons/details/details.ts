@@ -8,6 +8,7 @@ import { formatDay } from '../../../../../utils/date';
 import { RouterOutlet } from '@angular/router';
 import { Datagrid } from '../../../../../components/ui/datagrid/datagrid';
 import { DatagridColumn } from '../../../../../components/ui/datagrid/column';
+import { AuthService } from '../../../../../services/auth.service';
 
 @Component({
   selector: 'app-pages-membership-campaign-lessons-details',
@@ -20,8 +21,9 @@ export class Details {
   readonly store = inject(membershipLessonDetails);
   readonly router = inject(Router);
   readonly route = inject(ActivatedRoute);
+  readonly canEdit = inject(AuthService).hasPermission('membership.campaign.edit');
 
-  readonly pageActions: PageAction[] = [
+  readonly pageActions: PageAction[] = !this.canEdit ? [] : [
     {
       label: 'Edit',
       handler: () => {

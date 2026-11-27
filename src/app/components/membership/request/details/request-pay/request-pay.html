@@ -15,7 +15,7 @@
     }
   </div>
   @if (!calculating()) {
-    @if (status() === 'pending') {
+    @if (canEdit() && status() === 'pending') {
       <div class="flex justify-between items-center mb-4">
         <mat-form-field>
           <input
@@ -38,7 +38,7 @@
       <span class="font-bold">{{ totalAmount() | amount }}</span>
     }
   </div>
-  @if (status() === 'approved' || status() === 'paid') {
+  @if (canEdit() && (status() === 'approved' || status() === 'paid')) {
     <div class="mt-4 flex items-center gap-3">
       <button
         type="button"

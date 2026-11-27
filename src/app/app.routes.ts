@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { isLoggedGuard } from './guards/is-logged-guard';
 import { permissionGuard } from './guards/permission-guard';
+import { MEMBERSHIP_VIEW } from './models/user/permission';
 import { redirectToCampaignGuard } from './guards/redirect-to-campaign-guard';
 import { selectCampaignGuard } from './guards/select-campaign-guard';
 
@@ -37,18 +38,18 @@ export const routes: Routes = [
       },
       {
         path: 'membership',
-        canActivate: [permissionGuard('membership.view'), redirectToCampaignGuard],
+        canActivate: [permissionGuard(...MEMBERSHIP_VIEW), redirectToCampaignGuard],
         loadComponent: () => import('./pages/membership/home/home').then((m) => m.Home),
       },
       {
         path: 'membership/campaigns',
-        canActivate: [permissionGuard('membership.view')],
+        canActivate: [permissionGuard(...MEMBERSHIP_VIEW)],
         loadComponent: () =>
           import('./pages/membership/campaigns/campaigns').then((m) => m.Campaigns),
       },
       {
         path: 'membership/campaign/:campaignId',
-        canActivate: [permissionGuard('membership.view'), selectCampaignGuard],
+        canActivate: [permissionGuard(...MEMBERSHIP_VIEW), selectCampaignGuard],
         data: { sidebar: 'membership-campaign' },
         children: [
           {
@@ -60,11 +61,13 @@ export const routes: Routes = [
           },
           {
             path: 'settings',
+            canActivate: [permissionGuard('membership.campaign.view')],
             loadComponent: () =>
               import('./pages/membership/campaign/settings/settings').then((m) => m.Settings),
           },
           {
             path: 'lessons',
+            canActivate: [permissionGuard('membership.campaign.view')],
             children: [
               {
                 path: '',
@@ -73,6 +76,7 @@ export const routes: Routes = [
                 children: [
                   {
                     path: 'new',
+                    canActivate: [permissionGuard('membership.campaign.edit')],
                     loadComponent: () =>
                       import('./pages/membership/campaign/lessons/new/new').then((m) => m.New),
                   },
@@ -87,6 +91,7 @@ export const routes: Routes = [
                 children: [
                   {
                     path: 'edit',
+                    canActivate: [permissionGuard('membership.campaign.edit')],
                     loadComponent: () =>
                       import('./pages/membership/campaign/lessons/edit/edit').then((m) => m.Edit),
                   },
@@ -96,6 +101,7 @@ export const routes: Routes = [
           },
           {
             path: 'periods',
+            canActivate: [permissionGuard('membership.campaign.view')],
             children: [
               {
                 path: '',
@@ -104,6 +110,7 @@ export const routes: Routes = [
                 children: [
                   {
                     path: 'new',
+                    canActivate: [permissionGuard('membership.campaign.edit')],
                     loadComponent: () =>
                       import('./pages/membership/campaign/periods/new/new').then((m) => m.New),
                   },
@@ -119,6 +126,7 @@ export const routes: Routes = [
                 children: [
                   {
                     path: 'edit',
+                    canActivate: [permissionGuard('membership.campaign.edit')],
                     loadComponent: () =>
                       import('./pages/membership/campaign/periods/edit/edit').then((m) => m.Edit),
                   },
@@ -128,6 +136,7 @@ export const routes: Routes = [
           },
           {
             path: 'subscriptions',
+            canActivate: [permissionGuard('membership.subscription.view')],
             children: [
               {
                 path: '',
@@ -136,6 +145,7 @@ export const routes: Routes = [
               },
               {
                 path: 'new',
+                canActivate: [permissionGuard('membership.subscription.edit')],
                 loadComponent: () =>
                   import('./pages/membership/campaign/subscriptions/new/new').then((m) => m.New),
               },
@@ -150,6 +160,7 @@ export const routes: Routes = [
           },
           {
             path: 'requests',
+            canActivate: [permissionGuard('membership.request.view')],
             children: [
               {
                 path: '',

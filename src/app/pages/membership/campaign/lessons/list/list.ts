@@ -6,6 +6,7 @@ import { Page } from '../../../../../components/ui/page/page';
 import { Badge } from '../../../../../components/ui/badge/badge';
 import { CollectionItemAction, Collection as UiCollection } from '../../../../../components/ui/collection/collection';
 import { formatDay } from '../../../../../utils/date';
+import { AuthService } from '../../../../../services/auth.service';
 
 type LessonGroup = {
   day: number;
@@ -25,6 +26,7 @@ export class List {
   readonly store = inject(membershipLessonList);
   readonly router = inject(Router);
   readonly route = inject(ActivatedRoute);
+  readonly canEdit = inject(AuthService).hasPermission('membership.campaign.edit');
   private readonly daysOrder = [1, 2, 3, 4, 5, 6, 0];
   readonly untitledLessonLabel = $localize`:@@membership.lessons.untitled:Untitled lesson`;
   readonly noDescriptionLabel = $localize`:@@membership.lessons.noDescription:No description`;

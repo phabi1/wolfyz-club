@@ -43,6 +43,8 @@ export class MemberSection {
 
   item = input.required<Subscription>();
   busy = input<boolean>(false);
+  /** False hides the edit controls (no membership.subscription.edit permission). */
+  canEdit = input<boolean>(true);
 
   change = output<any>();
 
