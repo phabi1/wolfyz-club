@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { isLoggedGuard } from './guards/is-logged-guard';
+import { permissionGuard } from './guards/permission-guard';
 import { redirectToCampaignGuard } from './guards/redirect-to-campaign-guard';
 import { selectCampaignGuard } from './guards/select-campaign-guard';
 
@@ -15,6 +16,7 @@ export const routes: Routes = [
       },
       {
         path: 'billing/payments',
+        canActivate: [permissionGuard('billing.view')],
         loadComponent: () => import('./pages/billing/payments/list/list').then((m) => m.List),
         children: [
           {
@@ -30,17 +32,18 @@ export const routes: Routes = [
       },
       {
         path: 'membership',
-        canActivate: [redirectToCampaignGuard],
+        canActivate: [permissionGuard('membership.view'), redirectToCampaignGuard],
         loadComponent: () => import('./pages/membership/home/home').then((m) => m.Home),
       },
       {
         path: 'membership/campaigns',
+        canActivate: [permissionGuard('membership.view')],
         loadComponent: () =>
           import('./pages/membership/campaigns/campaigns').then((m) => m.Campaigns),
       },
       {
         path: 'membership/campaign/:campaignId',
-        canActivate: [selectCampaignGuard],
+        canActivate: [permissionGuard('membership.view'), selectCampaignGuard],
         data: { sidebar: 'membership-campaign' },
         children: [
           {
@@ -160,7 +163,54 @@ export const routes: Routes = [
         ],
       },
       {
+        path: 'users',
+        canActivate: [permissionGuard('users.manage')],
+        children: [
+          {
+            path: '',
+            loadComponent: () => import('./pages/user/users/list/list').then((m) => m.List),
+            children: [
+              {
+                path: 'new',
+                loadComponent: () => import('./pages/user/users/new/new').then((m) => m.New),
+              },
+            ],
+          },
+          {
+            path: ':userId',
+            loadComponent: () =>
+              import('./pages/user/users/details/details').then((m) => m.Details),
+            children: [
+              {
+                path: 'edit',
+                loadComponent: () => import('./pages/user/users/edit/edit').then((m) => m.Edit),
+              },
+            ],
+          },
+        ],
+      },
+      {
+        path: 'roles',
+        canActivate: [permissionGuard('roles.manage')],
+        loadComponent: () => import('./pages/user/roles/list/list').then((m) => m.List),
+        children: [
+          {
+            path: 'new',
+            loadComponent: () => import('./pages/user/roles/edit/edit').then((m) => m.Edit),
+          },
+          {
+            path: ':roleId/edit',
+            loadComponent: () => import('./pages/user/roles/edit/edit').then((m) => m.Edit),
+          },
+        ],
+      },
+      {
+        path: 'forbidden',
+        loadComponent: () => import('./pages/forbidden/forbidden').then((m) => m.Forbidden),
+      },
+      {
         path: 'event/events',
+        canActivate: [permissionGuard('event.view')],
         children: [
           {
             path: '',

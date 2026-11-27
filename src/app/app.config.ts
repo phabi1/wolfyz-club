@@ -26,7 +26,8 @@ export function setup(config: any): ApplicationConfig {
       provideHttpClient(withInterceptorsFromDi()),
       provideOAuthClient({
         resourceServer: {
-          allowedUrls: [config.api.endpoint],
+          // The auth server's user API (/api/users) also requires the access token.
+          allowedUrls: [config.api.endpoint, `${config.auth.issuer}/api/`],
           sendAccessToken: true,
         },
       }),

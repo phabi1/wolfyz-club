@@ -1,0 +1,64 @@
+<ng-template #formTpl>
+  <h1 mat-dialog-title>
+    @if (roleId) {
+      <ng-container i18n="@@user.roles.edit.title">Edit role</ng-container>
+    } @else {
+      <ng-container i18n="@@user.roles.new.title">New role</ng-container>
+    }
+  </h1>
+  <div mat-dialog-content>
+    @if (error(); as message) {
+      <p class="mb-3 rounded-lg border border-red-200 bg-red-50 px-2.5 py-2 text-[0.8rem] text-red-700" role="alert">
+        {{ message }}
+      </p>
+    }
+    @if (loading()) {
+      <mat-progress-spinner mode="indeterminate" diameter="32"></mat-progress-spinner>
+    } @else {
+      <form [formGroup]="form" (ngSubmit)="onSubmit()" id="role-edit-form" class="flex flex-col gap-1">
+        <mat-form-field>
+          <mat-label i18n="@@user.roles.form.label">Name</mat-label>
+          <input matInput formControlName="label" required maxlength="190" />
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label i18n="@@user.roles.form.description">Description</mat-label>
+          <textarea matInput formControlName="description" rows="2" maxlength="255"></textarea>
+        </mat-form-field>
+
+        <fieldset class="m-0 border-0 p-0">
+          <legend class="mb-2 text-sm font-semibold text-slate-900" i18n="@@user.roles.permissions">Permissions</legend>
+          <div class="grid grid-cols-1 gap-x-6 gap-y-3 sm:grid-cols-2">
+            @for (group of groups(); track group.label) {
+              <div role="group" [attr.aria-label]="group.label">
+                <p class="m-0 text-xs uppercase tracking-[0.04em] text-slate-500">{{ group.label }}</p>
+                @for (option of group.options; track option.id) {
+                  <mat-checkbox
+                    class="block"
+                    [checked]="isSelected(option.id)"
+                    [disabled]="!option.grantable"
+                    (change)="toggle(option.id, $event.checked)"
+                  >
+                    {{ option.label }}
+                  </mat-checkbox>
+                }
+              </div>
+            }
+          </div>
+          <p class="mt-2 text-xs text-slate-500" i18n="@@user.roles.form.grantHint">
+            Permissions you do not have yourself cannot be granted.
+          </p>
+        </fieldset>
+      </form>
+    }
+  </div>
+  <div mat-dialog-actions>
+    @if (processing()) {
+      <mat-progress-spinner mode="indeterminate" diameter="32"></mat-progress-spinner>
+    } @else {
+      <button type="button" mat-button (click)="onCancel()" i18n="@@common.button.cancel">Cancel</button>
+      <button type="submit" form="role-edit-form" mat-button [disabled]="loading() || form.invalid" i18n="@@common.button.save">
+        Save
+      </button>
+    }
+  </div>
+</ng-template>

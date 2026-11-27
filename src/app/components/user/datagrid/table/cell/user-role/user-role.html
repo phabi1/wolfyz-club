@@ -1,0 +1,7 @@
+<span class="inline-flex flex-wrap gap-1">
+  @for (role of roles(); track role.id) {
+    <app-ui-badge [label]="role.label" [tone]="role.id === 'admin' ? 'warning' : 'neutral'"></app-ui-badge>
+  } @empty {
+    <span class="text-slate-400">{{ noRoleLabel }}</span>
+  }
+</span>

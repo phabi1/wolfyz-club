@@ -1,5 +1,6 @@
-import { Injectable, inject } from '@angular/core';
+import { Injectable, computed, inject, signal } from '@angular/core';
 import { OAuthService } from 'angular-oauth2-oidc';
+import type { Permission } from '../models/user/permission';
 import { ConfigService } from './config.service';
 
 @Injectable({
@@ -10,6 +11,29 @@ export class AuthService {
   private readonly configService = inject(ConfigService);
 
   private initialization?: Promise<void>;
+
+  private readonly claims = signal<Record<string, unknown> | null>(null);
+
+  /** Roles of the signed-in user ("roles" claim of the ID token). */
+  readonly roles = computed(() => this.stringList(this.claims()?.['roles']));
+
+  /**
+   * Permissions of the signed-in user ("permissions" claim of the ID token).
+   * Only used to adapt the interface: the APIs enforce them.
+   */
+  readonly permissions = computed(() => this.stringList(this.claims()?.['permissions']));
+
+  constructor() {
+    // The ID token, and so the roles, is renewed with every token refresh.
+    this.oauthService.events.subscribe(() => this.refreshClaims());
+    this.refreshClaims();
+  }
+
+  /** True when the user has at least one of the given permissions. */
+  hasPermission(...anyOf: Permission[]): boolean {
+    const permissions = this.permissions();
+    return anyOf.some((permission) => permissions.includes(permission));
+  }
 
   /**
    * Configures the OIDC client, loads the discovery document and processes the
@@ -36,6 +60,22 @@ export class AuthService {
         });
     }
     return this.initialization;
+  }
+
+  /**
+   * Identifier ("sub" claim) of the signed-in user, or null.
+   */
+  currentUserId(): string | null {
+    const sub = this.claims()?.['sub'];
+    return typeof sub === 'string' ? sub : null;
+  }
+
+  private refreshClaims(): void {
+    this.claims.set((this.oauthService.getIdentityClaims() as Record<string, unknown> | null) ?? null);
+  }
+
+  private stringList(value: unknown): string[] {
+    return Array.isArray(value) ? value.filter((item): item is string => typeof item === 'string') : [];
   }
 
   isLoggedIn(): boolean {
