@@ -1906,6 +1906,20 @@
           <context context-type="linenumber">23</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="permission.membership.registration" datatype="html">
+        <source>Use the membership registration form (website)</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/models/user/permission.ts</context>
+          <context context-type="linenumber">24</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="permission.event.registration" datatype="html">
+        <source>Use the event registration form (website)</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/models/user/permission.ts</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="permission.event.view" datatype="html">
         <source>View events</source>
         <context-group purpose="location">

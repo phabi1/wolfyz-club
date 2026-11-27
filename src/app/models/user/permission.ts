@@ -10,6 +10,8 @@ export type Permission =
   | 'membership.request.edit'
   | 'membership.subscription.view'
   | 'membership.subscription.edit'
+  | 'membership.registration'
+  | 'event.registration'
   | 'event.view'
   | 'event.edit';
 
@@ -25,6 +27,8 @@ export const PERMISSION_LABELS: Record<Permission, string> = {
   'membership.request.edit': $localize`:@@permission.membership.request.edit:Process membership requests`,
   'membership.subscription.view': $localize`:@@permission.membership.subscription.view:View members`,
   'membership.subscription.edit': $localize`:@@permission.membership.subscription.edit:Edit members`,
+  'membership.registration': $localize`:@@permission.membership.registration:Use the membership registration form (website)`,
+  'event.registration': $localize`:@@permission.event.registration:Use the event registration form (website)`,
   'event.view': $localize`:@@permission.event.view:View events`,
   'event.edit': $localize`:@@permission.event.edit:Edit events`,
 };
