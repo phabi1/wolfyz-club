@@ -1,0 +1,15 @@
+<div class="range-filter">
+  <p class="range-filter-label">{{ label() }}</p>
+
+  <mat-form-field class="w-full compact-field">
+    <mat-select
+      id="datagrid-filter-{{ name() }}"
+      [value]="value()"
+      (selectionChange)="onChange($event.value)"
+    >
+      @for (option of values(); track option.value) {
+        <mat-option [value]="option.value">{{ option.label }}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+</div>

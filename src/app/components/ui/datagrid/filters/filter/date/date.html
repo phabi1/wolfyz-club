@@ -1,0 +1,31 @@
+<div class="range-filter">
+  <p class="range-filter-label">{{ label() }}</p>
+
+  <div class="date-range-fields">
+    <mat-form-field class="w-full compact-field">
+      <mat-label>Du</mat-label>
+      <input
+        matInput
+        id="datagrid-filter-{{ name() }}-from"
+        [matDatepicker]="pickerFrom"
+        [value]="parsedFrom()"
+        (dateChange)="onFromChange($event.value)"
+      />
+      <mat-datepicker-toggle matIconSuffix [for]="pickerFrom"></mat-datepicker-toggle>
+      <mat-datepicker #pickerFrom></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field class="w-full compact-field">
+      <mat-label>Au</mat-label>
+      <input
+        matInput
+        id="datagrid-filter-{{ name() }}-to"
+        [matDatepicker]="pickerTo"
+        [value]="parsedTo()"
+        (dateChange)="onToChange($event.value)"
+      />
+      <mat-datepicker-toggle matIconSuffix [for]="pickerTo"></mat-datepicker-toggle>
+      <mat-datepicker #pickerTo></mat-datepicker>
+    </mat-form-field>
+  </div>
+</div>

@@ -1,0 +1,156 @@
+<details
+  class="group mb-2 overflow-hidden rounded-2xl border border-slate-200 bg-slate-50 last:mb-0"
+  [attr.aria-label]="'Participant ' + (index() + 1)"
+>
+  <summary
+    class="flex cursor-pointer list-none items-center justify-between gap-3 p-4 hover:bg-slate-100 [&::-webkit-details-marker]:hidden"
+  >
+    <div class="min-w-0">
+      <h3 class="m-0 text-base font-bold text-slate-900">
+        {{ participant().firstname }} {{ participant().lastname }}
+      </h3>
+      <p class="mt-1 text-[0.82rem] text-slate-500">
+        {{ participant().birthdate || '' | date: 'dd/MM/yyyy' }}
+      </p>
+      <p class="mt-1 text-[0.82rem] text-slate-500">
+        {{ lesson() | lessonTime | notProvided }}
+      </p>
+    </div>
+
+    <div class="hidden items-center gap-2 md:flex">
+      @if (lesson(); as lesson) {
+        <app-membership-request-lesson-capacity
+          [lesson]="lesson"
+        ></app-membership-request-lesson-capacity>
+      } @else {
+        <span i18n="@@membership.requests.participants.noLesson">No lesson assigned</span>
+      }
+      <ng-container *ngIf="participant().member?.status === 'loading'; else memberStatusTpl">
+        <app-ui-ghosting-line [width]="'4.5rem'" [height]="'0.65rem'"></app-ui-ghosting-line>
+      </ng-container>
+      <ng-template #memberStatusTpl>
+        <span
+          class="rounded-full bg-white px-2 py-0.5 text-xs text-slate-700 ring-1 ring-slate-200"
+        >
+          {{ participant().member?.status | notProvided }}
+        </span>
+      </ng-template>
+    </div>
+
+    <span class="whitespace-nowrap text-xs font-semibold text-slate-700" aria-hidden="true">
+      <span class="group-open:hidden" i18n="@@membership.requests.participants.showDetails"
+        >Show details</span
+      >
+      <span class="hidden group-open:inline" i18n="@@membership.requests.participants.hideDetails"
+        >Hide details</span
+      >
+    </span>
+  </summary>
+
+  <div class="border-t border-slate-200 px-4 pb-4">
+    <div class="mt-4">
+      <div class="rounded-xl border border-slate-200 bg-white p-3">
+        <app-ui-details>
+          <ng-template
+            appUiDetailItem
+            label="Birth date"
+            i18n-label="@@membership.requests.participants.birthdate"
+          >
+            {{ participant().birthdate || '' | date: 'dd/MM/yyyy' }}
+          </ng-template>
+          <ng-template
+            appUiDetailItem
+            label="Lesson"
+            i18n-label="@@membership.requests.participants.lesson"
+          >
+            {{ lesson()?.title | notProvided }}
+          </ng-template>
+          <ng-template
+            appUiDetailItem
+            label="License type"
+            i18n-label="@@membership.requests.participants.licenseType"
+          >
+            {{ participant().license_type | notProvided }}
+          </ng-template>
+          <ng-template
+            appUiDetailItem
+            label="Address"
+            i18n-label="@@membership.requests.participants.addressLine1"
+          >
+            @if (participant().address) {
+              <app-ui-address [address]="participant().address"></app-ui-address>
+            } @else {
+              {{ '' | notProvided }}
+            }
+          </ng-template>
+          <ng-template
+            appUiDetailItem
+            label="Health questionnaire"
+            i18n-label="@@membership.requests.participants.healthQuestionnaire"
+          >
+            {{ participant().health_questionnaire | notProvided }}
+          </ng-template>
+          <ng-template
+            appUiDetailItem
+            label="Medical certificate"
+            i18n-label="@@membership.requests.participants.medicalCertificate"
+          >
+            {{ participant().medical_certificate | notProvided }}
+          </ng-template>
+          <ng-template
+            appUiDetailItem
+            label="Identity photo"
+            i18n-label="@@membership.requests.participants.identityPhoto"
+          >
+            {{ participant().identity_photo | notProvided }}
+          </ng-template>
+          <ng-template
+            appUiDetailItem
+            label="Exit authorization"
+            i18n-label="@@membership.requests.participants.exitAuthorization"
+          >
+            <app-ui-yes-no [value]="participant().agree_exit"></app-ui-yes-no>
+          </ng-template>
+          <ng-template
+            appUiDetailItem
+            label="Image rights"
+            i18n-label="@@membership.requests.participants.photoRights"
+          >
+            <app-ui-yes-no [value]="participant().agree_photo"></app-ui-yes-no>
+          </ng-template>
+        </app-ui-details>
+      </div>
+    </div>
+
+    <div class="mt-4">
+      <h4
+        class="mb-2 text-sm font-bold text-slate-700"
+        i18n="@@membership.requests.participants.contactsTitle"
+      >
+        Participant contacts
+      </h4>
+      <ng-container *ngIf="(participant().contacts?.length ?? 0) > 0; else emptyContactsTpl">
+        <div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
+          <article
+            *ngFor="let contact of participant().contacts || []"
+            class="rounded-xl border border-slate-200 bg-white p-3"
+          >
+            <h5 class="mb-1 text-sm font-bold text-slate-900">
+              {{ contact.firstname }} {{ contact.lastname }}
+            </h5>
+            <p class="my-0.5 text-sm text-slate-600">{{ contact.email | notProvided }}</p>
+            <p class="my-0.5 text-sm text-slate-600">{{ contact.phone | notProvided }}</p>
+          </article>
+        </div>
+      </ng-container>
+      <ng-template #emptyContactsTpl>
+        <p
+          class="m-0 text-sm text-slate-500"
+          i18n="@@membership.requests.participants.emptyContacts"
+        >
+          No contact provided.
+        </p>
+      </ng-template>
+    </div>
+  </div>
+</details>

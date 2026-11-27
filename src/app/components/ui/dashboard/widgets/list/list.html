@@ -1,0 +1,9 @@
+<app-ui-dashboard-widget-card [title]="title()" [heading]="heading()" [description]="description()">
+  @if (!isEmpty()) {
+    <div class="space-y-2">
+      <ng-content select="[app-ui-dashboard-widget-list-item]"></ng-content>
+    </div>
+  } @else {
+    <p>No items available.</p>
+  }
+</app-ui-dashboard-widget-card>

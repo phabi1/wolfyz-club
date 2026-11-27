@@ -1,0 +1,25 @@
+.cdk-drag-preview {
+	box-sizing: border-box;
+	border-radius: 0.5rem;
+	box-shadow: 0 8px 20px rgba(15, 23, 42, 0.18);
+	background: #ffffff;
+}
+
+.cdk-drag-placeholder {
+	opacity: 0.2;
+}
+
+.cdk-drop-list-dragging .cdk-drag {
+	transition: transform 200ms ease;
+}
+
+.reorder-handle {
+	cursor: grab;
+	display: inline-flex;
+	align-items: center;
+	gap: 0.25rem;
+}
+
+.reorder-handle:active {
+	cursor: grabbing;
+}

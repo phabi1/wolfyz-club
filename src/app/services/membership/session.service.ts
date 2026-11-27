@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ConfigService } from '../config.service';
 import { Observable } from 'rxjs';
+import type { EntityServiceWithCampaign } from './entity-service-with-campaign.interface';
 import type { Session } from '../../models/membership/session';
 
 type SessionData = Omit<Session, 'id' | 'lesson'>;
@@ -9,7 +10,7 @@ type SessionData = Omit<Session, 'id' | 'lesson'>;
 @Injectable({
   providedIn: 'root',
 })
-export class SessionService {
+export class SessionService implements EntityServiceWithCampaign<Session> {
   private readonly endpoint: string = '';
 
   constructor(

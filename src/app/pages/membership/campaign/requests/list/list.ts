@@ -1,15 +1,28 @@
 import { Component, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Page } from '../../../../../components/ui/page/page';
-import { membershipRequestList } from '../../../../../stores/membership/request/list';
+import {
+  membershipRequestList,
+  membershipRequestListEvents,
+} from '../../../../../stores/membership/request/list';
 import { Datagrid } from '../../../../../components/ui/datagrid/datagrid';
 import type { DatagridAction } from '../../../../../components/ui/datagrid/action';
 import { Payment } from '../../../../../models/billing/payment';
+import { Dispatcher } from '@ngrx/signals/events';
+import { provideDatagrid } from '../../../../../components/ui/datagrid/provider';
 
 @Component({
   selector: 'app-pages-membership-campaign-requests-list',
   imports: [Page, Datagrid],
-  providers: [membershipRequestList],
+  providers: [
+    membershipRequestList,
+    provideDatagrid({
+      'request-status': () =>
+        import('../../../../../components/membership/request/list/columns/request-status/request-status').then(
+          (m) => m.RequestStatus,
+        ),
+    }),
+  ],
   templateUrl: './list.html',
   styleUrl: './list.css',
 })
@@ -17,18 +30,28 @@ export class List {
   readonly store = inject(membershipRequestList);
   readonly router = inject(Router);
   readonly route = inject(ActivatedRoute);
+  readonly dispatcher = inject(Dispatcher);
 
-  rowActions: DatagridAction<Payment>[] = [
-    {
-      label: $localize`:@@membership.requests.view:View`,
-      handler: (row: Payment) => {
-        this.router.navigate([
-          '/membership/campaign',
-          this.route.snapshot.paramMap.get('campaignId'),
-          'requests',
-          row.id,
-        ]);
-      },
-    },
-  ];
+  rowActions: DatagridAction<Payment>[] = [];
+
+  onRowClick({ row }: { row: Payment }) {
+    this.router.navigate([
+      '/membership/campaign',
+      this.route.snapshot.paramMap.get('campaignId'),
+      'requests',
+      row.id,
+    ]);
+  }
+
+  onPaginationChange({ page, size }: { page: number; size: number }) {
+    this.dispatcher.dispatch(membershipRequestListEvents.setPagination({ page, size }));
+  }
+
+  onSearchChange(search: string) {
+    this.dispatcher.dispatch(membershipRequestListEvents.setSearch(search));
+  }
+
+  onFiltersChange(filters: any) {
+    this.dispatcher.dispatch(membershipRequestListEvents.setFilters(filters));
+  }
 }

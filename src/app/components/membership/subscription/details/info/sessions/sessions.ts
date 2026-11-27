@@ -37,7 +37,7 @@ export class SessionsSection {
   lessons = input<Lesson[]>([]);
   sessions = input<Session[]>([]);
   busy = input<boolean>(false);
-  sessionsChange = output<Pick<Session, 'id' | 'lesson_id' | 'subscription_id'>[]>();
+  sessionsChange = output<Pick<Session, 'id' | 'lesson_id'>[]>();
 
   form = new FormGroup({});
   fields = signal<FormlyFieldConfig[]>([
@@ -112,10 +112,9 @@ export class SessionsSection {
           return;
         }
 
-        const next: Pick<Session, 'id' | 'lesson_id' | 'subscription_id'> = {
+        const next: Pick<Session, 'id' | 'lesson_id'> = {
           id: 0,
           lesson_id: result.lesson_id,
-          subscription_id: this.sessions()[0]?.subscription_id || 0,
         };
 
         this.sessionsChange.emit([...this.sessions(), next]);
@@ -146,16 +145,13 @@ export class SessionsSection {
     if (!confirmed) {
       return;
     }
-
-    this.sessionsChange.emit(this.sessions().filter((_, index) => index !== event.index));
+    this.sessionsChange.emit(this.sessions().filter((item, index) => item.id !== event.item.id));
   }
 
   private emptyModel(): EditableSession {
     return {
-      key: '',
-      id: null,
-      lesson_id: null,
-      subscription_id: null,
+      id: 0,
+      lesson_id: 0,
     };
   }
 }

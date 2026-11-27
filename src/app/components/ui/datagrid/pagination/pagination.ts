@@ -1,8 +1,9 @@
 import { Component, computed, input, output } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-ui-datagrid-pagination',
-  imports: [],
+  imports: [MatButtonModule],
   templateUrl: './pagination.html',
   styleUrls: ['./pagination.css'],
 })
@@ -26,26 +27,26 @@ export class Pagination {
     return pages;
   });
 
-  pagignationChange = output<{page: number, size: number}>();
+  paginationChange = output<{page: number, size: number}>();
 
   onFirstPage() {
-    this.pagignationChange.emit({ page: 1, size: this.size() });
+    this.paginationChange.emit({ page: 1, size: this.size() });
   }
   
   onPreviousPage() {
-    this.pagignationChange.emit({ page: Math.max(1, this.currentPage() - 1), size: this.size() });
+    this.paginationChange.emit({ page: Math.max(1, this.currentPage() - 1), size: this.size() });
   }
 
   onNextPage() {
-    this.pagignationChange.emit({ page: this.currentPage() + 1, size: this.size() });
+    this.paginationChange.emit({ page: this.currentPage() + 1, size: this.size() });
   }
 
   onLastPage() {
     const totalPages = Math.ceil(this.total() / this.size());
-    this.pagignationChange.emit({ page: totalPages, size: this.size() });
+    this.paginationChange.emit({ page: totalPages, size: this.size() });
   }
 
   onPage(page: number) {
-    this.pagignationChange.emit({ page, size: this.size() });
+    this.paginationChange.emit({ page, size: this.size() });
   }
 }

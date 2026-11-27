@@ -1,9 +1,12 @@
+import { SelectedRows } from "./selected-rows";
+
 export type DatagridAction<T = any> = {
   label: string;
   handler: (row: T) => void;
 };
 
-export type DatagridBulkAction<T = any> = {
+export type DatagridBulkAction = {
+  name: string;
   label: string;
-  handler: (rows: T[]) => void;
+  handler: (payload: SelectedRows) => void;
 };

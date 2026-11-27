@@ -14,6 +14,7 @@ import { combineLatest, of, switchMap, tap } from 'rxjs';
 import type { DatagridColumn } from '../../../components/ui/datagrid/column';
 import type { Subscription } from '../../../models/membership/subscription';
 import { SubscriptionService } from '../../../services/membership/subscription.service';
+import { campaignId$ } from '../../../utils/route';
 
 type State = {
   campaign_id: number;
@@ -43,8 +44,20 @@ const initialState: State = {
       cell: { type: 'text', options: { featured: true } },
     },
     { name: 'lastname', header: 'Last Name', data: 'member.lastname' },
-    { name: 'license', header: 'License', data: 'license_type', cell: 'license-type' },
     { name: 'birthdate', header: 'Birth Date', data: 'member.birthdate', type: 'date' },
+    { name: 'license', header: 'License', data: 'license_type', cell: 'license-type', filterable: { type: 'select', options: {
+      values: [
+        { label: 'Loisir', value: 'hobby' },
+        { label: 'Compétition', value: 'competition' },
+      ]
+    } } },
+    {
+      name: 'license_taken',
+      header: 'License Taken',
+      data: 'license_taken_at',
+      type: 'license-taken',
+      filterable: { type: 'boolean', options: {} },
+    },
   ],
   items: [],
   page: 1,
@@ -124,7 +137,7 @@ export const membershipSubscriptionList = signalStore(
               sort: store.sort(),
               order: store.order(),
               search: store.search(),
-              fields: ['id', 'member', 'license_type'],
+              fields: ['id', 'member', 'license_type', 'license_taken_at'],
             })
             .pipe(
               mapResponse({
@@ -172,7 +185,7 @@ export const membershipSubscriptionList = signalStore(
   ),
   withHooks({
     onInit: (store, dispatcher = inject(Dispatcher), route = inject(ActivatedRoute)) => {
-      const subscription = combineLatest([of(2), route.queryParamMap]).subscribe(
+      const subscription = combineLatest([campaignId$(route), route.queryParamMap]).subscribe(
         ([campaignId, params]) => {
           const payload: any = {};
 

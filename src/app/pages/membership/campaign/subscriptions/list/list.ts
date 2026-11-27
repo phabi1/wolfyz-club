@@ -1,7 +1,11 @@
 import { Component, inject } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Dispatcher } from '@ngrx/signals/events';
-import type { DatagridAction } from '../../../../../components/ui/datagrid/action';
+import type {
+  DatagridAction,
+  DatagridBulkAction,
+} from '../../../../../components/ui/datagrid/action';
 import { Datagrid } from '../../../../../components/ui/datagrid/datagrid';
 import { PageAction } from '../../../../../components/ui/page/action';
 import { Page } from '../../../../../components/ui/page/page';
@@ -11,14 +15,30 @@ import {
   membershipSubscriptionListEvents,
 } from '../../../../../stores/membership/subscriptions/list';
 import { provideDatagrid } from '../../../../../components/ui/datagrid/provider';
+import { SelectedRows } from '../../../../../components/ui/datagrid/selected-rows';
+import { LicenseTaken } from '../../../../../components/membership/subscription/list/actions/license-taken/license-taken';
+import { Export } from '../../../../../components/membership/subscription/list/actions/export/export';
 
 @Component({
   selector: 'app-pages-membership-campaign-subscriptions-list',
   imports: [Page, Datagrid],
-  providers: [membershipSubscriptionList, provideDatagrid({
-    'avatar': () => import('../../../../../components/membership/subscription/list/columns/avatar/avatar').then(m => m.Avatar),
-    'license-type': () => import('../../../../../components/membership/subscription/list/columns/license-type/license-type').then(m => m.LicenseType)
-  })],
+  providers: [
+    membershipSubscriptionList,
+    provideDatagrid({
+      avatar: () =>
+        import('../../../../../components/membership/subscription/list/columns/avatar/avatar').then(
+          (m) => m.Avatar,
+        ),
+      'license-type': () =>
+        import('../../../../../components/membership/subscription/list/columns/license-type/license-type').then(
+          (m) => m.LicenseType,
+        ),
+      'license-taken': () =>
+        import('../../../../../components/membership/subscription/list/columns/license-taken/license-taken').then(
+          (m) => m.LicenseTaken,
+        ),
+    }),
+  ],
   templateUrl: './list.html',
   styleUrl: './list.css',
 })
@@ -27,6 +47,7 @@ export class List {
   readonly router = inject(Router);
   readonly route = inject(ActivatedRoute);
   readonly dispatcher = inject(Dispatcher);
+  readonly dialog = inject(MatDialog);
 
   pageActions: PageAction[] = [
     {
@@ -40,7 +61,7 @@ export class List {
           'new',
         ]);
       },
-    }
+    },
   ];
 
   rowActions: DatagridAction<Subscription>[] = [
@@ -53,6 +74,44 @@ export class List {
           'subscriptions',
           row.id,
         ]);
+      },
+    },
+  ];
+
+  bulkActions: DatagridBulkAction[] = [
+    {
+      name: 'take-license',
+      label: $localize`:@@membership.subscription.list.bulkAction.takeLicense:License Taken`,
+      handler: ({ ids, reverse }: SelectedRows) => {
+        this.dialog
+          .open(LicenseTaken, {
+            data: {
+              campaignId: this.route.snapshot.paramMap.get('campaignId'),
+              ids,
+              reverse,
+            },
+          })
+          .afterClosed()
+          .subscribe((result) => {
+            if (result) {
+              this.dispatcher.dispatch(
+                membershipSubscriptionListEvents.load({ campaign_id: this.store.campaign_id() }),
+              );
+            }
+          });
+      },
+    },
+    {
+      name: 'export',
+      label: $localize`:@@common.button.export:Export`,
+      handler: ({ ids, reverse }: SelectedRows) => {
+        this.dialog.open(Export, {
+          data: {
+            campaignId: this.route.snapshot.paramMap.get('campaignId'),
+            ids,
+            reverse,
+          },
+        });
       },
     },
   ];

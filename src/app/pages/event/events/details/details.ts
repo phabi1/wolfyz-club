@@ -1,15 +1,18 @@
 import { Component, inject } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
 import { DetailItem } from '../../../../components/ui/details/detail-item';
 import { Details as UiDetails } from '../../../../components/ui/details/details';
 import { PageAction } from '../../../../components/ui/page/action';
 import { Page } from '../../../../components/ui/page/page';
 import { DatePipe } from '../../../../pipes/date-pipe';
 import { eventEventDetailsStore } from '../../../../stores/event/events/details';
+import { DatagridColumn } from '../../../../components/ui/datagrid/column';
+import { Datagrid } from '../../../../components/ui/datagrid/datagrid';
+import { NotProvidedPipe } from '../../../../pipes/not-provided-pipe';
 
 @Component({
   selector: 'app-details',
-  imports: [Page, UiDetails, DetailItem, DatePipe],
+  imports: [Page, UiDetails, DetailItem, DatePipe, Datagrid, NotProvidedPipe, RouterOutlet],
   providers: [eventEventDetailsStore],
   templateUrl: './details.html',
   styleUrl: './details.css',
@@ -25,5 +28,42 @@ export class Details {
         this.router.navigate(['configure'], { relativeTo: this.route });
       },
     },
+    {
+      label: 'Copy',
+      handler: () => {
+        this.router.navigate(['copy'], { relativeTo: this.route });
+      },
+    },
   ];
+
+  public participantColums: DatagridColumn[] = [
+    {
+      header: 'Firstname',
+      name: 'firstname',
+    },
+    {
+      header: 'Lastname',
+      name: 'lastname',
+    },
+    {
+      header: 'Ticket',
+      name: 'ticket',
+      data: 'ticket.title',
+    },
+    {
+      header: 'Status',
+      name: 'status',
+      data: 'checkout.status',
+    },
+    {
+      header: 'Registered At',
+      name: 'registered_at',
+      data: 'checkout.created_at',
+    },
+  ];
+
+  public onRowClick(event: any): void {
+    console.log(event);
+    this.router.navigate(['participant', event.row.id], { relativeTo: this.route });
+  }
 }

@@ -1,57 +1,76 @@
-<app-ui-page title="Lessons" i18n-title="@@membership.lessons.pageTitle">
-	@if (store.loading()) {
-		<p i18n="@@common.label.loading">Loading...</p>
-	}
+<app-ui-page
+  headingTitle="Lessons"
+  headingSubtitle="Lessons Overview"
+  i18n-headingTitle="@@membership.lessons.pageTitle"
+  i18n-headingSubtitle="@@membership.lessons.pageSubtitle"
+>
+  @if (store.loading()) {
+    <p i18n="@@common.label.loading">Loading...</p>
+  }
 
-	@if (store.error(); as error) {
-		<p class="mb-3 rounded-lg border border-red-200 bg-red-50 px-2.5 py-2 text-[0.8rem] text-red-700">
-			{{ error?.message || error }}
-		</p>
-	}
+  @if (store.error(); as error) {
+    <p
+      class="mb-3 rounded-lg border border-red-200 bg-red-50 px-2.5 py-2 text-[0.8rem] text-red-700"
+    >
+      {{ error?.message || error }}
+    </p>
+  }
 
-	<div class="flex flex-col gap-4">
-		@for (group of dayGroups(); track group.day) {
-			<app-ui-collection
-				[title]="group.title"
-				emptyMessage="No lessons for this day."
-				i18n-emptyMessage="@@membership.lessons.emptyByDay"
-				addLabel="Add"
-				i18n-addLabel="@@common.button.add"
-				[items]="group.items"
-				[itemTpl]="lessonItemTpl"
-				layout="list"
-				[sectionId]="'lessons-day-' + group.day"
-				(addItem)="onAdd()"
-				(itemClick)="onLessonClick($event.item, $event.index)"
-			></app-ui-collection>
-		}
-	</div>
+  <div class="flex flex-col gap-4">
+    @for (group of dayGroups(); track group.day) {
+      <app-ui-collection
+        [title]="group.title"
+        emptyMessage="No lessons for this day."
+        i18n-emptyMessage="@@membership.lessons.emptyByDay"
+        addLabel="Add"
+        i18n-addLabel="@@common.button.add"
+        [items]="group.items"
+        [itemTpl]="lessonItemTpl"
+        layout="list"
+        [sectionId]="'lessons-day-' + group.day"
+        (addItem)="onAdd()"
+        (itemClick)="onLessonClick($event.item, $event.index)"
+      ></app-ui-collection>
+    }
+  </div>
 </app-ui-page>
 
 <ng-template #lessonItemTpl let-lesson>
-	<header class="mb-3 flex items-start justify-between gap-3">
-		<div>
-			<h4 class="m-0 text-sm font-bold text-slate-900">{{ lesson.title || untitledLessonLabel }}</h4>
-			<h5 class="text-sm font-medium text-slate-500">
-				{{ formatTime(lesson.lesson_start) }} - {{ formatTime(lesson.lesson_end) }}
-			</h5>
-		</div>
-		<app-ui-badge [label]="'#' + lesson.id"></app-ui-badge>
-	</header>
+  <header class="mb-3 flex items-start justify-between gap-3">
+    <div>
+      <h4 class="m-0 text-sm font-bold text-slate-900">
+        {{ lesson.title || untitledLessonLabel }}
+      </h4>
+      <h5 class="text-sm font-medium text-slate-500">
+        {{ formatTime(lesson.lesson_start) }} - {{ formatTime(lesson.lesson_end) }}
+      </h5>
+    </div>
+    <app-ui-badge [label]="'#' + lesson.id"></app-ui-badge>
+  </header>
 
-	<dl class="grid grid-cols-1 gap-y-3 md:grid-cols-2 md:gap-x-4">
-		<div>
-			<dt class="m-0 text-xs uppercase tracking-[0.04em] text-slate-500" i18n="@@membership.lessons.participants">Participants</dt>
-			<dd class="mt-1 text-[0.95rem] font-medium text-slate-900">
-				{{ participantsLabel(lesson.participant_nb, lesson.participant_max) }}
-			</dd>
-		</div>
-		<div>
-			<dt class="m-0 text-xs uppercase tracking-[0.04em] text-slate-500" i18n="@@membership.lessons.ageRange">Age range</dt>
-			<dd class="mt-1 text-[0.95rem] font-medium text-slate-900">
-				{{ lesson.age_min ?? notAvailableLabel }} - {{ lesson.age_max ?? notAvailableLabel }}
-			</dd>
-		</div>
-	</dl>
+  <dl class="grid grid-cols-1 gap-y-3 md:grid-cols-2 md:gap-x-4">
+    <div>
+      <dt
+        class="m-0 text-xs uppercase tracking-[0.04em] text-slate-500"
+        i18n="@@membership.lessons.participants"
+      >
+        Participants
+      </dt>
+      <dd class="mt-1 text-[0.95rem] font-medium text-slate-900">
+        {{ participantsLabel(lesson.participant_nb, lesson.participant_max) }}
+      </dd>
+    </div>
+    <div>
+      <dt
+        class="m-0 text-xs uppercase tracking-[0.04em] text-slate-500"
+        i18n="@@membership.lessons.ageRange"
+      >
+        Age range
+      </dt>
+      <dd class="mt-1 text-[0.95rem] font-medium text-slate-900">
+        {{ lesson.age_min ?? notAvailableLabel }} - {{ lesson.age_max ?? notAvailableLabel }}
+      </dd>
+    </div>
+  </dl>
 </ng-template>
 <router-outlet></router-outlet>

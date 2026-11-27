@@ -4,6 +4,8 @@ import { map, Observable } from 'rxjs';
 import type { Request } from '../../models/membership/request';
 import { ConfigService } from '../config.service';
 import type { RequestPay } from '../../models/membership/request-pay';
+import { PaginationOptions } from '../../models/pagination/options';
+import { toDate, toTimestamp } from '../../utils/date';
 
 @Injectable({
   providedIn: 'root',
@@ -18,10 +20,35 @@ export class RequestService {
     this.endpoint = this.configService.get('api.endpoint');
   }
 
-  public items(campaignId: number): Observable<{ items: Request[]; total: number }> {
+  public items(
+    campaignId: number,
+    options?: PaginationOptions,
+  ): Observable<{ items: Request[]; total: number }> {
+    const params: any = {};
+    if (options?.page !== undefined) params.page = options.page;
+    if (options?.size !== undefined) params.size = options.size;
+    if (options?.sort) params.sort = options.sort;
+    if (options?.search) params.search = options.search;
+    if (options?.filters) {
+      let filters: string[] = [];
+      Object.entries(options.filters).forEach(([key, value]) => {
+        if (typeof value === 'object' && value !== null) {
+          Object.entries(value).forEach(([operator, subValue]) => {
+            filters.push(`${key}:${operator}:${subValue}`);
+          });
+        } else if (value !== '') {
+          filters.push(`${key}:like:${value}`);
+        }
+      });
+      params.filters = filters.join(';');
+    }
+    if (options?.fields) {
+      params.fields = options.fields.join(',');
+    }
     return this.httpClient
       .get<{ items: Request[]; total: number }>(
         `${this.endpoint}/membership/campaigns/${campaignId}/requests`,
+        { params },
       )
       .pipe(
         map((response) => ({
@@ -55,6 +82,12 @@ export class RequestService {
     );
   }
 
+  public countByStatus(campaignId: number): Observable<{ [status: string]: number }> {
+    return this.httpClient.get<{ [status: string]: number }>(
+      `${this.endpoint}/membership/campaigns/${campaignId}/requests/status/count`,
+    );
+  }
+
   public history(campaignId: number, id: number): Observable<any[]> {
     return this.httpClient
       .get<{ items: any[] }>(
@@ -63,7 +96,7 @@ export class RequestService {
       .pipe(map((response) => response.items));
   }
 
-  public approve(campaignId: number, id: number): Observable<void> {
+  public markAsApprove(campaignId: number, id: number): Observable<void> {
     return this.httpClient
       .post<{ success: boolean }>(
         `${this.endpoint}/membership/campaigns/${campaignId}/requests/${id}/approve`,
@@ -72,7 +105,7 @@ export class RequestService {
       .pipe(map(() => undefined));
   }
 
-  public reject(campaignId: number, id: number, reason: string): Observable<void> {
+  public markAsReject(campaignId: number, id: number, reason: string): Observable<void> {
     return this.httpClient
       .post<{ success: boolean }>(
         `${this.endpoint}/membership/campaigns/${campaignId}/requests/${id}/reject`,
@@ -81,7 +114,7 @@ export class RequestService {
       .pipe(map(() => undefined));
   }
 
-  public cancel(campaignId: number, id: number): Observable<void> {
+  public markAsCancel(campaignId: number, id: number): Observable<void> {
     return this.httpClient
       .post<{ success: boolean }>(
         `${this.endpoint}/membership/campaigns/${campaignId}/requests/${id}/cancel`,
@@ -99,6 +132,15 @@ export class RequestService {
       .pipe(map(() => undefined));
   }
 
+  public sendInvoiceEmail(campaignId: number, id: number): Observable<void> {
+    return this.httpClient
+      .post<{ success: boolean }>(
+        `${this.endpoint}/membership/campaigns/${campaignId}/requests/${id}/invoice/send-email`,
+        {},
+      )
+      .pipe(map(() => undefined));
+  }
+
   public calculatePay(
     campaignId: number,
     data: any,
@@ -111,7 +153,7 @@ export class RequestService {
   }
 
   protected serializeItem(item: Partial<Request>): Record<string, any> {
-    return { ...item, payed_at: item.payed_at ? item.payed_at.getTime() / 1000 : null } as Record<
+    return { ...item, payed_at: item.payed_at ? toTimestamp(item.payed_at) : null } as Record<
       string,
       any
     >;
@@ -120,7 +162,9 @@ export class RequestService {
   protected unserializeItem(data: Record<string, any>): Request {
     return {
       ...data,
-      payed_at: new Date(data['payed_at']),
+      payed_at: toDate(data['payed_at']),
+      created_at: toDate(data['created_at']),
+      updated_at: toDate(data['updated_at']),
     } as Request;
   }
 }

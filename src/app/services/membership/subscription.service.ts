@@ -95,21 +95,69 @@ export class SubscriptionService {
     );
   }
 
+  public countByGender(campaignId: number): Observable<Record<string, number>> {
+    return this.httpClient.get<Record<string, number>>(
+      `${this.endpoint}/membership/campaigns/${campaignId}/subscriptions/count/gender`,
+    );
+  }
+
+  /** Number of members by age (in years) at the start of the campaign */
+  public countByAge(campaignId: number): Observable<AgeDistribution> {
+    return this.httpClient.get<AgeDistribution>(
+      `${this.endpoint}/membership/campaigns/${campaignId}/subscriptions/count/age`,
+    );
+  }
+
+  /** Marks the license as taken (or not taken when `takenAt` is null) for a selection */
+  public licenseTaken(
+    campaignId: number | string,
+    selection: { ids: (string | number)[]; reverse: boolean },
+    takenAt: Date | null,
+  ): Observable<{ updated: number }> {
+    return this.httpClient.post<{ updated: number }>(
+      `${this.endpoint}/membership/campaigns/${campaignId}/subscriptions/license-taken`,
+      {
+        ids: selection.ids.map((id) => +id),
+        reverse: selection.reverse,
+        taken_at: takenAt ? toTimestamp(takenAt) : null,
+      },
+    );
+  }
+
   private serialize(data: Partial<Subscription>): any {
-    return {
-      ...data,
-      subscribed_at: data.subscribed_at ? toTimestamp(data.subscribed_at) : undefined,
-    };
+    // Only convert keys that are present so partial updates do not clear other dates
+    const payload: any = { ...data };
+    for (const key of DATE_FIELDS) {
+      if (key in data) {
+        const value = data[key] as Date | null | undefined;
+        payload[key] = value ? toTimestamp(value) : null;
+      }
+    }
+    return payload;
   }
 
   private unserialize(data: any): Subscription {
-    return {
+    const item: any = {
       ...data,
-      subscribed_at: data.subscribed_at ? toDate(data.subscribed_at) : null,
       member: {
         ...data.member,
         birthdate: data.member?.birthdate ? toDate(data.member.birthdate) : null,
       },
     };
+    for (const key of DATE_FIELDS) {
+      item[key] = data[key] ? toDate(data[key]) : null;
+    }
+    return item;
   }
 }
+
+const DATE_FIELDS = ['license_taken_at', 'subscribed_at', 'medical_certificate_date'] as const;
+
+export type AgeDistribution = {
+  /** Date the ages are computed at (YYYY-MM-DD) */
+  reference_date: string;
+  /** age -> number of members */
+  ages: Record<string, number>;
+  /** members without a usable birthdate */
+  unknown: number;
+};

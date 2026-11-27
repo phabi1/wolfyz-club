@@ -1,17 +1,18 @@
 import { Component, computed, inject } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Dispatcher } from '@ngrx/signals/events';
+import { ContactsSection } from '../../../../../components/membership/subscription/details/info/contacts/contacts';
+import { License } from '../../../../../components/membership/subscription/details/info/license/license';
 import { MemberSection } from '../../../../../components/membership/subscription/details/info/member/member';
 import { OverviewSection } from '../../../../../components/membership/subscription/details/info/overview/overview';
 import { SessionsSection } from '../../../../../components/membership/subscription/details/info/sessions/sessions';
 import { Page } from '../../../../../components/ui/page/page';
+import type { Session } from '../../../../../models/membership/session';
+import type { Subscription } from '../../../../../models/membership/subscription';
 import {
   membershipSubscriptionDetails,
   membershipSubscriptionDetailsEvents,
 } from '../../../../../stores/membership/subscriptions/details';
-import { ContactsSection } from '../../../../../components/membership/subscription/details/info/contacts/contacts';
-import type { Session } from '../../../../../models/membership/session';
-import type { Subscription } from '../../../../../models/membership/subscription';
-import { License } from '../../../../../components/membership/subscription/details/info/license/license';
 
 @Component({
   selector: 'app-pages-membership-campaign-subscriptions-details',
@@ -21,6 +22,7 @@ import { License } from '../../../../../components/membership/subscription/detai
   styleUrls: ['./details.css'],
 })
 export class Details {
+  private readonly route = inject(ActivatedRoute);
   readonly store = inject(membershipSubscriptionDetails);
   readonly dispatcher = inject(Dispatcher);
 
@@ -37,6 +39,14 @@ export class Details {
     return this.store.updating().includes('sessions');
   });
 
+  backLink = computed(() => {
+    const campaignId = this.route.snapshot.paramMap.get('campaignId');
+    if (!campaignId) {
+      return '';
+    }
+    return '/membership/campaign/' + campaignId + '/subscriptions';
+  });
+
   onMemberChange(member: any): void {
     const campaignId = this.store.campaignId();
     const id = this.store.id();
@@ -50,15 +60,17 @@ export class Details {
     );
   }
 
-  onLicenseChange(license: any): void {
+  onLicenseChange(result: any): void {
     const campaignId = this.store.campaignId();
     const id = this.store.id();
     if (!campaignId || !id) {
       return;
     }
+    const { disciplines, ...license } = result;
     this.dispatcher.dispatch(
       membershipSubscriptionDetailsEvents.update({
         license,
+        disciplines,
       }),
     );
   }
@@ -77,13 +89,7 @@ export class Details {
     );
   }
 
-  onSessionsChange(sessions: Pick<Session, 'id' | 'lesson_id' | 'subscription_id'>[]): void {
-    const campaignId = this.store.campaignId();
-    const id = this.store.id();
-    if (!campaignId || !id) {
-      return;
-    }
-
+  onSessionsChange(sessions: Pick<Session, 'id' | 'lesson_id'>[]): void {
     this.dispatcher.dispatch(
       membershipSubscriptionDetailsEvents.update({
         sessions,

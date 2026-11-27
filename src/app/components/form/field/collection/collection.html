@@ -1,9 +1,99 @@
-<div class="mb-3">
-  @for (child of field.fieldGroup; track $index) {
-    <div class="mb-2">
-      <formly-field [field]="child"></formly-field>
-      <button mat-button (click)="remove($index)" i18n=":@@common.button.remove">Remove</button>
+<div class="flex items-center justify-between mb-3">
+  <div>
+    <div>{{ props.label }}</div>
+    <div class="text-sm text-slate-500">{{ props.description ?? '' }}</div>
+  </div>
+  <div>
+    <button type="button" mat-button (click)="addItem()" aria-label="Add item">
+      {{ props.addText ?? 'Add' }}
+    </button>
+  </div>
+</div>
+<div
+  class="mb-3"
+  cdkDropList
+  cdkDropListOrientation="vertical"
+  (cdkDropListDropped)="onDrop($event)"
+>
+  @if ((field.fieldGroup?.length ?? 0) === 0) {
+    <div class="border border-dashed border-slate-300 p-3 text-center">
+      {{ props.emptyText ?? 'No item' }}
+    </div>
+  }
+
+  @for (child of field.fieldGroup; track child) {
+    <div
+      class="mb-2 flex items-center gap-3 rounded border border-slate-200 p-3"
+      cdkDrag
+      cdkDragLockAxis="y"
+    >
+      <div>
+        <button
+          type="button"
+          mat-icon-button
+          cdkDragHandle
+          class="reorder-handle"
+          i18n-aria-label=":@@common.button.reorder"
+          aria-label="Reorder item"
+        >
+          <mat-icon aria-hidden="true">drag_indicator</mat-icon>
+        </button>
+      </div>
+      <div class="flex-1">
+        @if (itemTemplate) {
+          <ng-container
+            *ngTemplateOutlet="itemTemplate; context: { $implicit: model?.[$index], index: $index }"
+          ></ng-container>
+        } @else {
+          <pre class="m-0 text-sm">{{ displayItem($index) }}</pre>
+        }
+      </div>
+      <div class="flex items-center gap-2">
+        <button type="button" mat-button (click)="editItem($index)" aria-label="Edit item">
+          {{ props.editText ?? 'Edit' }}
+        </button>
+        <button
+          type="button"
+          mat-button
+          color="warn"
+          (click)="deleteItem($index)"
+          aria-label="Delete item"
+        >
+          {{ props.deleteText ?? 'Delete' }}
+        </button>
+      </div>
     </div>
   }
 </div>
-<button mat-button (click)="add()" i18n=":@@common.button.add">Add</button>
+
+<ng-template #dialogTpl>
+  <h2 mat-dialog-title>
+    @if (dialogMode() === 'add') {
+      <span i18n=":@@common.collection.dialog.addTitle">Add item</span>
+    } @else {
+      <span i18n=":@@common.collection.dialog.editTitle">Edit item</span>
+    }
+  </h2>
+
+  <div mat-dialog-content>
+    @if (dialogItem(); as itemField) {
+      <formly-field [field]="itemField"></formly-field>
+    }
+  </div>
+
+  <div mat-dialog-actions>
+    <button type="button" mat-button [mat-dialog-close]="false" i18n=":@@common.button.cancel">
+      Cancel
+    </button>
+    <button
+      type="button"
+      mat-button
+      cdkFocusInitial
+      [disabled]="!form.valid"
+      (click)="saveDialog()"
+      i18n=":@@common.button.save"
+    >
+      Save
+    </button>
+  </div>
+</ng-template>

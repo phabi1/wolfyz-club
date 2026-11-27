@@ -160,6 +160,9 @@ export class UploadFieldType extends FieldType<FieldTypeConfig<UploadProps>> {
             })
             .pipe(
               map(() => {
+                if (typeof res?.uri === 'string' && res.uri.length > 0) {
+                  return res.uri;
+                }
                 const url = new URL(res.url);
                 const queryParams = new URLSearchParams(url.search);
                 return queryParams.get('file');

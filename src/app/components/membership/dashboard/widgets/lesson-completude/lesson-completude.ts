@@ -3,10 +3,12 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { LessonService } from '../../../../../services/membership/lesson.service';
 import type { Lesson } from '../../../../../models/membership/lesson';
 import { formatLessonTitle } from '../../../../../utils/lesson';
-
+import { List } from '../../../../ui/dashboard/widgets/list/list';
+import { ListItem } from '../../../../ui/dashboard/widgets/list/item';
+  
 @Component({
   selector: 'app-lesson-completude',
-  imports: [MatProgressBarModule],
+  imports: [List, ListItem, MatProgressBarModule],
   templateUrl: './lesson-completude.html',
   styleUrls: ['./lesson-completude.css'],
 })

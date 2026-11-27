@@ -1,0 +1,7 @@
+@if (taken()) {
+  <div [matTooltip]="takenAt() | date: 'shortDate'">
+    <app-ui-yes-no [value]="taken()"></app-ui-yes-no>
+  </div>
+} @else {
+  <app-ui-yes-no [value]="taken()"></app-ui-yes-no>
+}

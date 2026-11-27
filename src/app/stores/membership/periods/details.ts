@@ -13,6 +13,7 @@ import {
 import { combineLatest, of, switchMap } from 'rxjs';
 import type { Period } from '../../../models/membership/period';
 import { PeriodService } from '../../../services/membership/period.service';
+import { campaignId$, campaignIdSnapshot } from '../../../utils/route';
 
 type State = {
   campaignId: number | null;
@@ -80,11 +81,11 @@ export const membershipPeriodDetails = signalStore(
     onInit(store, dispatcher = inject(Dispatcher), route = inject(ActivatedRoute)) {
       dispatcher.dispatch(
         membershipPeriodDetailsEvents.init({
-          campaignId: 2,
+          campaignId: campaignIdSnapshot(route),
         }),
       );
 
-      const subscription = combineLatest([of(2), route.params]).subscribe(([, params]) => {
+      const subscription = combineLatest([campaignId$(route), route.params]).subscribe(([, params]) => {
         dispatcher.dispatch(
           membershipPeriodDetailsEvents.load({
             id: +(params['periodId'] || 0),

@@ -1,4 +1,8 @@
-<app-ui-page title="Events" i18n-title="@@event.events.pageTitle" [actions]="pageActions">
+<app-ui-page
+  headingTitle="Events"
+  i18n-headingTitle="@@event.events.pageTitle"
+  [actions]="pageActions"
+>
   <app-ui-datagrid
     [columns]="store.columns()"
     [rows]="store.items()"

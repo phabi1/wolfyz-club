@@ -25,27 +25,35 @@
       </div>
     </div>
     <app-ui-details>
-    @if (item().fields) {
-        @for (field of fields; track field.name) {
-          @let fieldValue = item().fields[field.name];
-          <ng-template appUiDetailItem [label]="field.label">
-            @if (fieldValue !== undefined && fieldValue !== null) {
-              @switch (field.type) {
-                @case ('file') {
-                  <app-ui-file-preview [file]="fieldValue"></app-ui-file-preview>
-                }
-                @case ('bool') {
-                  <app-ui-yes-no [value]="fieldValue"></app-ui-yes-no>
-                }
-                @default {
-                  <span>{{ fieldValue | notProvided }}</span>
-                }
-              }
-            } @else {
-              <span>{{ '' | notProvided }}</span>
+    <ng-template appUiDetailItem label="Type" i18n.label="@@membership.subscriptions.license.type">
+      <span>{{ item().license_type | notProvided }}</span>
+    </ng-template>
+    <ng-template appUiDetailItem [label]="disciplinesLabel">
+      <span>{{ disciplineNames() | notProvided }}</span>
+    </ng-template>
+
+    @for (field of visibleFields(); track field.name) {
+      @let fieldValue = field.value(item());
+      <ng-template appUiDetailItem [label]="field.label">
+        @if (fieldValue !== undefined && fieldValue !== null && fieldValue !== '') {
+          @switch (field.type) {
+            @case ('file') {
+              <app-ui-file-preview [file]="$any(fieldValue)"></app-ui-file-preview>
             }
-          </ng-template>
+            @case ('bool') {
+              <app-ui-yes-no [value]="$any(fieldValue)"></app-ui-yes-no>
+            }
+            @case ('date') {
+              <span>{{ $any(fieldValue) | date: 'shortDate' }}</span>
+            }
+            @default {
+              <span>{{ fieldValue | notProvided }}</span>
+            }
+          }
+        } @else {
+          <span>{{ '' | notProvided }}</span>
         }
-      }
+      </ng-template>
+    }
     </app-ui-details>
 </section>

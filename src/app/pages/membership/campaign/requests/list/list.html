@@ -1,8 +1,20 @@
-<app-ui-page title="Requests" i18n-title="@@membership.requests.pageTitle">
+<app-ui-page headingTitle="Requests" i18n-headingTitle="@@membership.requests.pageTitle">
   <app-ui-datagrid
     [columns]="store.columns()"
     [rows]="store.items()"
     [total]="store.total()"
     [rowActions]="rowActions"
+    [quickSearch]="true"
+    [search]="store.search()"
+    [filters]="store.filters()"
+    (rowClick)="onRowClick($event)"
+    (searchChange)="onSearchChange($event)"
+    (filtersChange)="onFiltersChange($event)"
+    (paginationChange)="
+      onPaginationChange({
+        page: $event.page,
+        size: $event.size,
+      })
+    "
   ></app-ui-datagrid>
 </app-ui-page>

@@ -2,31 +2,36 @@
   <app-ui-datagrid-filters
     [quickSearch]="quickSearch()"
     [search]="search()"
+    [columns]="columns()"
     (searchChange)="onSearchChange($event)"
+    [filters]="filters()"
+    (filtersChange)="onFiltersChange($event)"
   ></app-ui-datagrid-filters>
 
   @if (hasBulkActions()) {
     <app-ui-datagrid-bulk-actions
-      [count]="rows().length"
+      [selectedRows]="selectedRows()"
       [total]="total()"
+      [actions]="bulkActions()"
     ></app-ui-datagrid-bulk-actions>
   }
 
-  <div class="datagrid-table-wrap">
-    <app-ui-datagrid-table
-      [columns]="columns()"
-      [rows]="rows()"
-      [actions]="rowActions()"
-      (rowClick)="onRowClick($event)"
-    ></app-ui-datagrid-table>
-  </div>
+  <app-ui-datagrid-table
+    [columns]="columns()"
+    [rows]="rows()"
+    [actions]="rowActions()"
+    [bulkActions]="bulkActions()"
+    (rowClick)="onRowClick($event)"
+    (selectedRowsChange)="onSelectedRowsChange($event)"
+  ></app-ui-datagrid-table>
 
-  @if(paginable()) {
-  <app-ui-datagrid-pagination
-    [count]="rows().length"
-    [total]="total()"
-    [currentPage]="currentPage()"
-    (pagignationChange)="onPaginationChange($event)"
-  ></app-ui-datagrid-pagination>
+  @if (paginable()) {
+    <app-ui-datagrid-pagination
+      [count]="rows().length"
+      [total]="total()"
+      [currentPage]="currentPage()"
+      [size]="pageSize()"
+      (paginationChange)="onPaginationChange($event)"
+    ></app-ui-datagrid-pagination>
   }
 </div>

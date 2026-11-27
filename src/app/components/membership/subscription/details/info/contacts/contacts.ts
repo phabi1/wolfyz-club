@@ -67,6 +67,17 @@ export class ContactsSection {
       key: 'phone',
       type: 'input',
       props: { label: $localize`:@@membership.subscriptions.contacts.phone:Phone`, maxLength: 50 },
+      validators: {
+        // Pattern for phone numbers (+33 or 0)600000000
+        validation: [Validators.pattern(/^\+?(33|0)[0-9\s\-]{0,12}$/)],
+      },
+    },
+    {
+      key: 'owner',
+      type: 'toggle',
+      props: { label: $localize`:@@membership.subscriptions.contacts.owner:Owner` },
+      wrappers: [],
+      defaultValue: false,
     },
   ];
   model: EditableContact = this.emptyModel();
@@ -116,12 +127,12 @@ export class ContactsSection {
     this.formMode = 'edit';
     this.editingIndex = event.index;
     this.model = {
-      key: String(current.id),
       id: current.id,
       firstname: current.firstname || '',
       lastname: current.lastname || '',
       email: current.email || '',
       phone: current.phone || '',
+      owner: current.owner || false,
     };
     this.openDialog(formTpl);
   }
@@ -138,6 +149,7 @@ export class ContactsSection {
       lastname: this.model.lastname.trim(),
       email: this.model.email.trim() || '',
       phone: this.model.phone.trim() || '',
+      owner: this.model.owner || false
     };
 
     if (this.formMode === 'add') {
@@ -170,7 +182,7 @@ export class ContactsSection {
       return;
     }
 
-    this.contactsChange.emit(this.contacts().filter((_, i) => i !== index));
+    this.contactsChange.emit(this.contacts().filter((contact, i) => contact.id !== item.id));
     this.activeDialogRef?.close();
   }
 
@@ -187,12 +199,12 @@ export class ContactsSection {
 
   private emptyModel(): EditableContact {
     return {
-      key: '',
-      id: null,
+      id: 0,
       firstname: '',
       lastname: '',
       email: '',
       phone: '',
+      owner: false,
     };
   }
 }

@@ -25,6 +25,7 @@ export class EventService {
     if (options?.page !== undefined) params.page = options.page;
     if (options?.size !== undefined) params.size = options.size;
     if (options?.sort) params.sort = options.sort;
+    if (options?.order) params.order = options.order;
     if (options?.search) params.search = options.search;
     if (options?.filters) {
       let filters: string[] = [];
@@ -75,6 +76,12 @@ export class EventService {
 
   public delete(id: number): Observable<void> {
     return this.httpClient.delete<void>(`${this.endpoint}/event/events/${id}`);
+  }
+
+  public copy(id: number, title: string): Observable<Event> {
+    return this.httpClient
+      .post<Event>(`${this.endpoint}/event/events/${id}/copy`, { title })
+      .pipe(map(this.unserialize));
   }
 
   private serialize(data: Partial<Event>): any {
