@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PrintPeriod } from './print-period';
+import { provideTestDefaults } from '../../../../../../testing/test-providers';
 
 describe('PrintPeriod', () => {
   let component: PrintPeriod;
@@ -9,6 +10,7 @@ describe('PrintPeriod', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [PrintPeriod],
+      providers: [provideTestDefaults()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(PrintPeriod);

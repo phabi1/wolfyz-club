@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { of } from 'rxjs';
+import { type Mock, vi } from 'vitest';
 import { SubscriptionExportService } from '../../../../../../services/membership/subscription-export.service';
 
 import { Export } from './export';
@@ -8,20 +9,17 @@ import { Export } from './export';
 describe('Export', () => {
   let component: Export;
   let fixture: ComponentFixture<Export>;
-  let exportService: jasmine.SpyObj<SubscriptionExportService>;
-  let dialogRef: jasmine.SpyObj<MatDialogRef<Export>>;
+  let exportService: { export: Mock; download: Mock };
+  let dialogRef: { close: Mock };
   let dialogData: { campaignId: string | null; ids: string[]; reverse: boolean };
 
   beforeEach(async () => {
     dialogData = { campaignId: '42', ids: ['1', '2'], reverse: false };
-    exportService = jasmine.createSpyObj<SubscriptionExportService>(
-      'SubscriptionExportService',
-      ['export', 'download'],
-    );
-    exportService.export.and.returnValue(
-      of({ blob: new Blob(['export']), fileName: 'subscriptions.csv' }),
-    );
-    dialogRef = jasmine.createSpyObj<MatDialogRef<Export>>('MatDialogRef', ['close']);
+    exportService = {
+      export: vi.fn().mockReturnValue(of({ blob: new Blob(['export']), fileName: 'subscriptions.csv' })),
+      download: vi.fn(),
+    };
+    dialogRef = { close: vi.fn() };
 
     await TestBed.configureTestingModule({
       imports: [Export],
@@ -44,16 +42,16 @@ describe('Export', () => {
   it('exports the selected subscriptions and downloads the returned file', () => {
     fixture.detectChanges();
 
-    expect(exportService.export).toHaveBeenCalledOnceWith('42', {
+    expect(exportService.export).toHaveBeenCalledExactlyOnceWith('42', {
       ids: ['1', '2'],
       reverse: false,
     });
-    expect(exportService.download).toHaveBeenCalledOnceWith({
-      blob: jasmine.any(Blob),
+    expect(exportService.download).toHaveBeenCalledExactlyOnceWith({
+      blob: expect.any(Blob),
       fileName: 'subscriptions.csv',
     });
-    expect(dialogRef.close).toHaveBeenCalledOnceWith(true);
-    expect(component.isGenerating).toBeFalse();
+    expect(dialogRef.close).toHaveBeenCalledExactlyOnceWith(true);
+    expect(component.isGenerating).toBe(false);
   });
 
   it('shows an error when no campaign is selected', () => {
@@ -62,6 +60,6 @@ describe('Export', () => {
 
     expect(exportService.export).not.toHaveBeenCalled();
     expect(component.errorMessage).toBe('Aucune campagne sélectionnée.');
-    expect(component.isGenerating).toBeFalse();
+    expect(component.isGenerating).toBe(false);
   });
 });

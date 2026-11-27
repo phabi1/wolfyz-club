@@ -1,8 +1,12 @@
+import { TemplateRef } from '@angular/core';
+import { TestBed } from '@angular/core/testing';
+
 import { DetailItem } from './detail-item';
 
-describe('DetailsItem', () => {
+describe('DetailItem', () => {
   it('should create an instance', () => {
-    const directive = new DetailItem();
+    TestBed.configureTestingModule({ providers: [{ provide: TemplateRef, useValue: {} }] });
+    const directive = TestBed.runInInjectionContext(() => new DetailItem());
     expect(directive).toBeTruthy();
   });
 });

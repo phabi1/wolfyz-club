@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TotalSubscriptions } from './total-subscriptions';
+import { provideTestDefaults } from '../../../../../../testing/test-providers';
 
 describe('TotalSubscriptions', () => {
   let component: TotalSubscriptions;
@@ -9,6 +10,7 @@ describe('TotalSubscriptions', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [TotalSubscriptions],
+      providers: [provideTestDefaults()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(TotalSubscriptions);

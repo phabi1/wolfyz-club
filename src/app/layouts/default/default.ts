@@ -14,7 +14,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSidenav, MatSidenavModule } from '@angular/material/sidenav';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { distinctUntilChanged, filter, map, shareReplay, startWith, withLatestFrom } from 'rxjs';
-import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-layouts-default',
@@ -32,7 +31,6 @@ import { AuthService } from '../../services/auth.service';
 })
 export class DefaultLayout {
   private router = inject(Router);
-  private authService = inject(AuthService);
   private breakpointObserver = inject(BreakpointObserver);
 
   private sidebars: Record<string, () => Promise<Type<any>>> = {
@@ -100,6 +98,6 @@ export class DefaultLayout {
   }
 
   logout() {
-    this.authService.logout();
+    this.router.navigateByUrl('/logout');
   }
 }

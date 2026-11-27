@@ -1,16 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { WidgetRegistry } from './widget-registry';
+import { DASHBOARD_WIDGETS, provideDashboardWidgets } from './widget-registry';
 
-describe('WidgetRegistry', () => {
-  let service: WidgetRegistry;
+describe('provideDashboardWidgets', () => {
+  it('provides the widgets under DASHBOARD_WIDGETS', () => {
+    const widgets = { stats: () => Promise.resolve(class {}) };
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(WidgetRegistry);
-  });
+    TestBed.configureTestingModule({ providers: [provideDashboardWidgets(widgets)] });
 
-  it('should be created', () => {
-    expect(service).toBeTruthy();
+    expect(TestBed.inject(DASHBOARD_WIDGETS)).toBe(widgets);
   });
 });

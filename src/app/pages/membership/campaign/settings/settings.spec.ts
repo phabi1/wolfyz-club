@@ -69,13 +69,13 @@ describe('Settings', () => {
   });
 
   it('should always expose a custom fields editor', () => {
-    expect(component.store.fieldKinds()['custom_fields']).toBe('custom');
-    expect(component.store.model()['custom_fields']).toEqual([]);
+    expect(component.store.fieldKinds()['participant_fields']).toBe('custom');
+    expect(component.store.model()['participant_fields']).toEqual([]);
   });
 
   it('should save normalized custom fields', async () => {
     const model = component.store.model() as Record<string, unknown>;
-    (model['custom_fields'] as unknown[]).push({
+    (model['participant_fields'] as unknown[]).push({
       id: 'new-123',
       label: 'Taille de maillot',
       type: 'options',
@@ -89,7 +89,7 @@ describe('Settings', () => {
     expect(campaignServiceMock.updateSettings).toHaveBeenCalledWith(
       1,
       expect.objectContaining({
-        custom_fields: [
+        participant_fields: [
           {
             name: 'taille_de_maillot',
             label: 'Taille de maillot',
