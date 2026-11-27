@@ -1,7 +1,19 @@
-import { Component, signal } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { Dashboard } from '../../../../components/ui/dashboard/dashboard';
 import { Widget } from '../../../../components/ui/dashboard/widget';
 import { provideDashboardWidgets } from '../../../../components/ui/dashboard/widget-registry';
+import type { Permission } from '../../../../models/user/permission';
+import { AuthService } from '../../../../services/auth.service';
+
+/** Widgets whose data needs a permission (the API refuses it otherwise). */
+const WIDGET_PERMISSIONS: Record<string, Permission> = {
+  'total-requests': 'membership.request.view',
+  'total-request-status': 'membership.request.view',
+  'latest-requests': 'membership.request.view',
+  'total-subscriptions': 'membership.subscription.view',
+  'gender-distribution': 'membership.subscription.view',
+  'age-distribution': 'membership.subscription.view',
+};
 
 @Component({
   selector: 'app-pages-membership-campaign-dashboard',
@@ -54,7 +66,9 @@ import { provideDashboardWidgets } from '../../../../components/ui/dashboard/wid
   styleUrls: ['./dashboard.css'],
 })
 export class CampaignDashboard {
-  widgets = signal<Widget[]>([
+  private readonly authService = inject(AuthService);
+
+  private readonly allWidgets: Widget[] = [
     { id: '6', cols: 2, rows: 1, y: 0, x: 0, type: 'total-requests', settings: {} },
     { id: '1', cols: 2, rows: 1, y: 0, x: 2, type: 'total-subscriptions', settings: {} },
     { id: '2', cols: 2, rows: 1, y: 0, x: 4, type: 'total-lessons', settings: {} },
@@ -106,5 +120,14 @@ export class CampaignDashboard {
       type: 'age-distribution',
       settings: {},
     },
-  ]);
+  ];
+
+  /** Widgets the user's permissions give access to. */
+  readonly widgets = computed(() => {
+    this.authService.permissions();
+    return this.allWidgets.filter((widget) => {
+      const permission = WIDGET_PERMISSIONS[widget.type];
+      return !permission || this.authService.hasPermission(permission);
+    });
+  });
 }

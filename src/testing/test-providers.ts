@@ -9,7 +9,7 @@ import { ConfigService } from '../app/services/config.service';
 
 /** Settings used by the services under test (no request leaves the test). */
 export const TEST_CONFIG = {
-  api: { endpoint: 'http://api.test', apiKey: 'test' },
+  api: { endpoint: 'http://api.test' },
   auth: { issuer: 'http://auth.test', clientId: 'club' },
 };
 
