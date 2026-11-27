@@ -1,8 +1,7 @@
 {
     "debug": true,
     "api": {
-        "endpoint": "http://api-wolfzy.docker.localhost",
-        "apiKey": "secret"
+        "endpoint": "http://api-wolfzy.docker.localhost"
     },
     "auth": {
         "issuer": "https://auth-wolfzy.docker.localhost",

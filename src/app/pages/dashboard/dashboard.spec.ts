@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { provideTestDefaults } from '../../../testing/test-providers';
 import { provideDashboardWidgets } from '../../components/ui/dashboard/widget-registry';
 import { RootDashboard } from './dashboard';
 
@@ -10,6 +11,7 @@ describe('RootDashboard', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [RootDashboard],
+      providers: [provideTestDefaults()],
     })
       // No widget: their lazy chunks would still be loading when the test ends.
       .overrideComponent(RootDashboard, { set: { providers: [provideDashboardWidgets({})] } })
