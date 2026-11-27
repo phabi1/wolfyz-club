@@ -101,6 +101,5 @@ export class DefaultLayout {
 
   logout() {
     this.authService.logout();
-    this.router.navigate(['/']);
   }
 }
